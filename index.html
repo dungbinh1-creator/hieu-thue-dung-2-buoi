@@ -237,6 +237,44 @@ section{ position: relative; padding: 96px 0; }
 }
 .note svg{ flex: none; margin-top: 3px; color: var(--gold); }
 
+/* ====== Gift workbook ====== */
+.gift-sec{ background: linear-gradient(180deg, #fff, var(--mist)); }
+.gift{ display: grid; grid-template-columns: .9fr 1.1fr; gap: 64px; align-items: center; max-width: 1040px; }
+.gift-text{ min-width: 0; }
+.gift-text h2{ font-size: clamp(26px, 3.4vw, 38px); margin: 12px 0 14px; text-wrap: balance; }
+.gift-text > p{ color: var(--coban-ink); margin: 0 0 20px; }
+.gift-price{ display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin: 24px 0 26px; }
+.gift-price s{ color: var(--coban-ink); font-weight: 600; text-decoration-color: var(--gold); text-decoration-thickness: 2px; }
+.gift-price b{ font: 700 26px/1.1 "Playfair Display", serif; color: var(--cta); }
+.gift-price span{ flex-basis: 100%; font-size: 14px; color: var(--coban-ink); }
+.book-wrap{ position: relative; display: grid; place-items: center; padding: 20px 0 30px; }
+.book{ position: relative; width: min(300px, 78%); aspect-ratio: 3/4; perspective: 1200px; }
+.book-cover{
+  position: absolute; inset: 0; border-radius: 6px 16px 16px 6px; padding: 30px 26px 24px 34px;
+  display: flex; flex-direction: column; gap: 14px; color: #fff; overflow: hidden;
+  background:
+    radial-gradient(260px 200px at 90% 8%, rgba(230,201,138,.28), transparent 60%),
+    linear-gradient(160deg, var(--coban-2), var(--coban) 55%, var(--night));
+  box-shadow: inset 10px 0 14px -8px rgba(0,0,0,.45), inset 0 0 0 1px rgba(230,201,138,.35), 18px 26px 50px -18px rgba(11,42,91,.65);
+  transform: rotateY(-14deg) rotateX(3deg); transform-origin: left center;
+  transition: transform .5s cubic-bezier(.2,.7,.2,1);
+}
+.book:hover .book-cover{ transform: rotateY(-4deg); }
+.book-cover::before{ content: ""; position: absolute; left: 12px; top: 0; bottom: 0; width: 2px; background: linear-gradient(var(--champagne), var(--gold)); opacity: .7; }
+.bk-eyebrow{ font-size: 11px; font-weight: 700; letter-spacing: .24em; text-transform: uppercase; color: var(--champagne); }
+.bk-title{ font: 700 clamp(22px, 2.4vw, 27px)/1.22 "Playfair Display", serif; text-wrap: balance; }
+.bk-rule{ width: 56px; height: 2px; background: linear-gradient(90deg, var(--gold), var(--champagne)); }
+.bk-sub{ font-size: 13px; color: rgba(234,241,251,.82); }
+.bk-brand{ margin-top: auto; font-size: 12px; font-weight: 700; letter-spacing: .18em; color: var(--champagne); }
+.price-tag{
+  position: absolute; right: 6%; top: 4%; width: 104px; height: 104px; border-radius: 50%;
+  display: grid; place-content: center; text-align: center; color: var(--coban);
+  background: radial-gradient(circle at 30% 30%, #fff, var(--champagne));
+  box-shadow: 0 0 0 6px rgba(200,155,60,.18), 0 12px 30px -10px rgba(200,155,60,.8);
+  rotate: 10deg;
+}
+.price-tag small{ font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.price-tag b{ font: 700 19px/1.1 "Montserrat", sans-serif; }
 /* ====== Audience ====== */
 .cards3{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .aud{ padding: 32px 28px 30px; }
@@ -248,6 +286,45 @@ section{ position: relative; padding: 96px 0; }
 .aud h3{ font-size: 22px; }
 .aud p{ margin: 10px 0 0; color: var(--coban-ink); }
 
+/* ====== Pain → Solution ====== */
+.pains{ display: grid; gap: 22px; max-width: 1000px; margin: 0 auto; }
+.pair{ display: grid; grid-template-columns: 1fr 64px 1fr; align-items: stretch; }
+.pair .pain, .pair .sol{ padding: 28px 28px 26px; }
+.pair .pain{ --card-bg: #FFF8F3; }
+.pair .k{ font-size: 12px; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; }
+.pair .pain .k{ color: var(--cta); }
+.pair .sol .k{ color: var(--gold); }
+.pair h3{ font-size: 21px; margin-top: 8px; }
+.pair p{ margin: 10px 0 0; color: var(--coban-ink); }
+.pair .sol .when{ display: inline-block; margin-top: 14px; padding: 5px 12px; border-radius: 999px; font-size: 12.5px; font-weight: 700; color: var(--coban); background: linear-gradient(110deg, rgba(200,155,60,.22), rgba(230,201,138,.35)); }
+.pair .bridge{ display: grid; place-items: center; color: var(--gold); }
+.pair .bridge span{ width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: #fff; box-shadow: 0 0 0 1px rgba(200,155,60,.4), 0 0 22px -4px rgba(200,155,60,.6); font-size: 20px; font-weight: 700; }
+/* ====== Question wall ====== */
+.qwall{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; max-width: 1100px; margin: 0 auto; }
+.q{ margin: 0; padding: 30px 26px 28px; }
+.q blockquote{ margin: 0; font-family: "Playfair Display", Georgia, serif; font-size: 18.5px; line-height: 1.5; color: var(--coban); position: relative; padding-top: 26px; }
+.q blockquote::before{ content: "“"; position: absolute; top: -14px; left: -4px; font-size: 64px; line-height: 1; color: rgba(200,155,60,.45); }
+.q figcaption{ font-size: 12.5px; font-weight: 700; letter-spacing: .04em; color: var(--gold); padding-top: 14px; border-top: 1px dashed rgba(30,79,163,.2); }
+.qwall-foot{ text-align: center; max-width: 720px; margin: 40px auto 0; color: var(--coban-ink); }
+/* ====== Signs ====== */
+.signs{ display: grid; grid-template-columns: 1fr 1fr; gap: 14px 22px; max-width: 980px; margin: 0 auto; list-style: none; padding: 0; }
+.signs li{ padding: 18px 20px 18px 58px; position: relative; font-weight: 500; color: #fff; }
+.signs li::after{ content: "✓"; z-index: 3; position: absolute; left: 18px; top: 16px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: 14px; font-weight: 700; color: var(--coban); background: radial-gradient(circle at 30% 30%, #fff, var(--champagne)); }
+.signs-foot{ text-align: center; max-width: 720px; margin: 40px auto 0; color: rgba(234,241,251,.85); }
+.signs-foot b{ color: var(--champagne); }
+.reasons{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; max-width: 1060px; margin: 52px auto 0; }
+.reason{ padding: 24px 22px; }
+.reason b{ display: block; font-family: "Playfair Display", serif; font-size: 19px; color: #fff; }
+.reason span{ display: block; margin-top: 8px; font-size: 14.5px; color: rgba(234,241,251,.78); }
+/* ====== FAQ ====== */
+.faq{ max-width: 820px; margin: 0 auto; display: grid; gap: 14px; }
+.faq details{ padding: 0; }
+.faq summary{ list-style: none; cursor: pointer; padding: 20px 56px 20px 24px; font-weight: 600; font-size: 16.5px; color: var(--coban); position: relative; }
+.faq summary::-webkit-details-marker{ display: none; }
+.faq summary::after{ content: "+"; position: absolute; right: 22px; top: 50%; translate: 0 -50%; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--mist); color: var(--gold); font-size: 20px; font-weight: 700; transition: rotate .3s ease; }
+.faq details[open] summary::after{ rotate: 45deg; }
+.faq .ans{ padding: 0 24px 22px; color: var(--coban-ink); }
+.faq .ans p{ margin: 0; }
 /* ====== Results ====== */
 .results{ background: var(--mist); }
 .cards2{ display: grid; grid-template-columns: 1fr 1fr; gap: 28px; max-width: 980px; margin: 0 auto; }
@@ -272,6 +349,13 @@ section{ position: relative; padding: 96px 0; }
 .session h3{ font-size: clamp(21px, 2.2vw, 25px); }
 .session p{ margin: 12px 0 0; color: rgba(234,241,251,.78); }
 
+/* ====== Session parts ====== */
+.parts{ display: grid; gap: 14px; margin-top: 18px; }
+.part{ padding: 16px 18px; border-radius: 16px; background: rgba(255,255,255,.05); border: 1px solid rgba(230,201,138,.22); }
+.part .who{ font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--champagne); }
+.part h4{ margin: 6px 0 8px; font: 700 18px/1.35 "Playfair Display", Georgia, serif; color: #fff; }
+.part ul{ margin: 0; padding-left: 18px; display: grid; gap: 6px; color: rgba(234,241,251,.82); font-size: 15px; }
+.part b{ color: var(--champagne); }
 /* ====== Speakers ====== */
 .speakers{ display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
 .spk{ overflow: hidden; display: grid; grid-template-rows: auto 1fr; }
@@ -308,6 +392,21 @@ section{ position: relative; padding: 96px 0; }
 .qr img{ width: 100%; height: 100%; object-fit: contain; }
 .step .mini{ margin-top: 16px; }
 
+/* ====== Chat mock (bước 2) ====== */
+.chat-mock{ margin: 22px auto 0; max-width: 330px; text-align: left; border-radius: 22px; overflow: hidden; background: var(--mist); box-shadow: 0 0 0 1px rgba(30,79,163,.14), 0 18px 40px -22px rgba(11,42,91,.5); }
+.cm-head{ display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: linear-gradient(120deg, var(--coban-2), var(--coban)); color: #fff; }
+.cm-head b{ display: block; font-size: 13.5px; line-height: 1.3; }
+.cm-head small{ display: block; font-size: 11.5px; color: var(--champagne); }
+.cm-ava{ flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font: 700 15px/1 "Playfair Display", serif; color: var(--coban); background: radial-gradient(circle at 30% 30%, #fff, var(--champagne)); }
+.cm-body{ display: grid; gap: 9px; padding: 14px; font-size: 13.5px; line-height: 1.5; color: var(--coban); }
+.cm-msg{ justify-self: start; max-width: 92%; padding: 8px 12px; border-radius: 4px 14px 14px 14px; background: #fff; box-shadow: 0 1px 2px rgba(11,42,91,.08); }
+.cm-msg small{ display: block; font-size: 11px; font-weight: 700; color: var(--gold); }
+.cm-card{ display: flex; gap: 10px; align-items: flex-start; padding: 12px; border-radius: 14px; background: #fff; border: 1px solid rgba(200,155,60,.45); }
+.cm-card b{ display: block; font-size: 13.5px; }
+.cm-card small{ display: block; font-size: 12px; color: var(--coban-ink); }
+.cm-cam{ flex: none; width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; color: #fff; background: linear-gradient(140deg, var(--coban-2), var(--coban)); }
+.cm-btn{ text-align: center; padding: 9px; border-radius: 999px; font-weight: 700; font-size: 13px; color: #fff; background: linear-gradient(110deg, #D9622B, #E58A3A); }
+.cm-me{ justify-self: end; padding: 7px 12px; border-radius: 14px 4px 14px 14px; background: #D6E6FB; }
 /* ====== Final CTA ====== */
 .final{ text-align: center; padding: 110px 0 120px; overflow: hidden; }
 .final h2{ font-size: clamp(30px, 4.6vw, 50px); max-width: 820px; margin: 14px auto 0; }
@@ -380,6 +479,14 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
   .hero-side{ max-width: 560px; width: 100%; margin: 0 auto; }
   .cards3, .steps{ grid-template-columns: 1fr; }
   .speakers, .cards2, .sessions{ grid-template-columns: 1fr; }
+  .gift{ grid-template-columns: 1fr; gap: 28px; }
+  .gift-text .cta{ width: 100%; }
+  .pair{ grid-template-columns: 1fr; }
+  .pair .bridge{ height: 52px; }
+  .pair .bridge span{ rotate: 90deg; }
+  .signs{ grid-template-columns: 1fr; }
+  .reasons{ grid-template-columns: 1fr 1fr; }
+  .qwall{ grid-template-columns: 1fr 1fr; }
   .ticket{ grid-template-columns: 1fr; }
   .ticket .left{ border-radius: var(--radius) var(--radius) 0 0; }
   .ticket .left::after{ top: auto; bottom: -9px; left: 18px; right: 18px; width: auto; height: 18px; background: radial-gradient(circle at 9px 9px, var(--white) 6px, transparent 6.5px) 0 0/22px 18px repeat-x; }
@@ -402,6 +509,12 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
   .res{ padding: 30px 24px; }
   .spk .body{ padding: 24px 22px 28px; }
   .final .cta{ width: 100%; }
+  .pair .pain, .pair .sol{ padding: 24px 20px 22px; }
+  .reasons{ grid-template-columns: 1fr; }
+  .qwall{ grid-template-columns: 1fr; }
+  .q blockquote{ font-size: 17px; }
+  .faq summary{ padding: 18px 52px 18px 18px; font-size: 15.5px; }
+  .faq .ans{ padding: 0 18px 20px; }
   .sticky{ display: block; }
   .countdown{ padding: 16px 14px 16px; }
   .cd-grid{ gap: 5px; }
@@ -411,6 +524,7 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
   *, *::before, *::after{ animation: none !important; transition: none !important; }
   .reveal{ opacity: 1; translate: 0 0; }
 }
+.reveal{opacity:1;translate:0 0}
 </style>
 </head>
 <body>
@@ -466,8 +580,8 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
           <figcaption><b>Chị Hoàng Thu Hà</b>Chủ dự án WI.FINANCE</figcaption>
         </figure>
         <figure class="portrait thanh glow">
-          <img src="assets/chi-kim-thanh.jpg" alt="Chị Dương Thị Kim Thanh" width="900" height="1200">
-          <figcaption><b>Chị Kim Thanh</b>Trưởng ban Tài chính &amp; Thuế hệ thống</figcaption>
+          <img src="assets/chi-kim-thanh.jpg" alt="Chị Dương Thị Kim Thanh" width="900" height="976">
+          <figcaption><b>Chị Kim Thanh</b>Trưởng ban Kế toán Thuế</figcaption>
         </figure>
       </div>
       <div class="countdown glow" data-cd>
@@ -519,6 +633,35 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
   </div>
 </section>
 
+<!-- ============ QUÀ TẶNG WORKBOOK ============ -->
+<section class="gift-sec" id="qua-tang">
+  <div class="wrap gift">
+    <div class="book-wrap reveal" aria-hidden="true">
+      <div class="book">
+        <div class="book-cover">
+          <span class="bk-eyebrow">Workbook</span>
+          <span class="bk-title">Hiểu thuế đúng, chuẩn hồ sơ, an tâm phát triển</span>
+          <span class="bk-rule"></span>
+          <span class="bk-sub">Workshop 2 buổi · 17–18/10/2026</span>
+          <span class="bk-brand">WI.FINANCE</span>
+        </div>
+      </div>
+      <div class="price-tag"><small>Trị giá</small><b>199.000đ</b></div>
+    </div>
+    <div class="gift-text reveal">
+      <span class="eyebrow">Quà tặng kèm</span>
+      <h2>Workbook “Hiểu thuế đúng, chuẩn hồ sơ, an tâm phát triển”</h2>
+      <p>Workbook chứa trọn nội dung của 2 buổi tối, để bạn vừa nghe vừa ghi và áp dụng ngay cho việc kinh doanh của mình.</p>
+      <ul class="ticks">
+        <li>Buổi 1: thuế, đăng ký kinh doanh, chọn hộ kinh doanh hay công ty</li>
+        <li>Buổi 2: hồ sơ, hoá đơn, sổ sách và cách lưu trữ</li>
+      </ul>
+      <div class="gift-price"><s>199.000đ</s><b>Tặng miễn phí</b><span>Trao tận tay người tham gia ngay trong buổi học</span></div>
+      <a class="cta js-zalo" href="#tham-gia">👉 Vào nhóm Zalo nhận vé tham dự <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
 <!-- ============ DÀNH CHO AI ============ -->
 <section id="danh-cho">
   <div class="wrap">
@@ -543,6 +686,128 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
         <h3>Đã có doanh thu</h3>
         <p>Muốn hồ sơ, hoá đơn, sổ sách được chuẩn hoá để phát triển bền vững.</p>
       </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3 NỖI ĐAU → 3 GIẢI PHÁP ============ -->
+<section class="results" id="noi-lo">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">3 nỗi lo lớn nhất</span>
+      <h2>Bạn đang gặp điều nào? 2 buổi tối này dành để gỡ đúng 3 điều đó</h2>
+      <p>Đây là ba điều người kinh doanh số hay hỏi nhất về thuế và hồ sơ.</p>
+    </div>
+
+    <div class="pains">
+      <div class="pair reveal">
+        <article class="pain glow">
+          <div class="k">Nỗi lo 1</div>
+          <h3>“Mình có cần đăng ký kinh doanh không? Hộ kinh doanh hay công ty?”</h3>
+          <p>Bạn bán online được một thời gian, doanh thu lúc lên lúc xuống. Hỏi năm người thì nghe năm câu trả lời khác nhau, nên cứ để đó mà trong lòng vẫn lấn cấn.</p>
+        </article>
+        <div class="bridge" aria-hidden="true"><span>→</span></div>
+        <article class="sol glow">
+          <div class="k">Bạn mang về</div>
+          <h3>Biết rõ hướng đăng ký của chính mình</h3>
+          <p>Bạn mô tả đúng hoạt động của mình để chọn mã ngành, kiểm tra mình có thuộc diện được miễn đăng ký không, rồi so sánh hộ kinh doanh với công ty để tự chọn hình thức hợp với mình. Bạn được tặng bộ mã ngành gần với mô hình của 300 DNS.</p>
+          <span class="when">Buổi 1 · 17/10</span>
+        </article>
+      </div>
+
+      <div class="pair reveal">
+        <article class="pain glow">
+          <div class="k">Nỗi lo 2</div>
+          <h3>“Tiền về từ nhiều kênh, mình không biết nghĩa vụ thuế, hoá đơn của mình là gì”</h3>
+          <p>Tiền chuyển khoản, tiền từ sàn, tiền thu hộ (COD) đổ chung vào tài khoản cá nhân, lẫn cả tiền chi tiêu gia đình. Có người trước đây vẫn nộp thuế đều, nay bán thêm online thì không biết kê khai thế nào. Mỗi lần nghe tin chính sách thuế thay đổi là lại thấp thỏm.</p>
+        </article>
+        <div class="bridge" aria-hidden="true"><span>→</span></div>
+        <article class="sol glow">
+          <div class="k">Bạn mang về</div>
+          <h3>Biết theo dõi doanh thu và hiểu nghĩa vụ của mình</h3>
+          <p>Bạn biết cách theo dõi doanh thu từ nhiều kênh và xác định nghĩa vụ thuế, hoá đơn theo đúng trường hợp thực tế của mình. Có thêm phần hỏi đáp các tình huống tiêu biểu.</p>
+          <span class="when">Buổi 1 · 17/10</span>
+        </article>
+      </div>
+
+      <div class="pair reveal">
+        <article class="pain glow">
+          <div class="k">Nỗi lo 3</div>
+          <h3>“Giấy tờ, chứng từ để lộn xộn, đến lúc cần thì không tìm thấy”</h3>
+          <p>Bạn nhập hàng mà ít khi lấy hoá đơn, chi phí không lưu lại. Bạn biết là cần làm sổ sách cho gọn nhưng không biết bắt đầu từ đâu.</p>
+        </article>
+        <div class="bridge" aria-hidden="true"><span>→</span></div>
+        <article class="sol glow">
+          <div class="k">Bạn mang về</div>
+          <h3>Biết cách lưu hồ sơ và có kế hoạch 7 ngày</h3>
+          <p>Bạn hiểu các loại chứng từ bán hàng, mua hàng, thu tiền, chi tiền, biết lưu hồ sơ chi phí, và ra về với kế hoạch hoàn thiện hồ sơ trong 7 ngày tới.</p>
+          <span class="when">Buổi 2 · 18/10</span>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CÂU HỎI CỘNG ĐỒNG ĐÃ GỬI ============ -->
+<section id="cau-hoi-gui-ve">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Bạn không hỏi một mình</span>
+      <h2>Những câu hỏi cộng đồng đã gửi về trước chương trình</h2>
+      <p>Trích từ câu hỏi thật của thành viên, đã lược bớt thông tin cá nhân.</p>
+    </div>
+    <div class="qwall">
+      <figure class="q glow reveal">
+        <blockquote>“Để mở pháp nhân, tôi cần bắt đầu từ đâu?”</blockquote>
+      </figure>
+      <figure class="q glow reveal">
+        <blockquote>“Tôi chưa biết gì về thuế khi bắt đầu kinh doanh. Người mới bắt đầu cần biết gì để làm đúng quy định?”</blockquote>
+      </figure>
+      <figure class="q glow reveal">
+        <blockquote>“Trước em bán quầy thuốc, có đăng ký kinh doanh và nộp thuế mỗi năm. Từ khi sáp nhập thì không đóng nữa. Em bán thêm online mà cũng không biết báo cáo thuế thế nào.”</blockquote>
+      </figure>
+      <figure class="q glow reveal">
+        <blockquote>“Mình mới lập công ty được hơn 1 tháng, chưa phát sinh doanh thu. Giờ thấy mở hộ kinh doanh hợp hơn, nên giữ công ty hay chuyển đổi?”</blockquote>
+      </figure>
+      <figure class="q glow reveal">
+        <blockquote>“Trung tâm giáo dục của em chưa ai hiểu về thuế. Em muốn học để hiểu và tự làm được.”</blockquote>
+      </figure>
+      <figure class="q glow reveal">
+        <blockquote>“Thuế thu nhập cá nhân, thuế hộ kinh doanh, thuế công ty TNHH và công ty cổ phần khác nhau thế nào?”</blockquote>
+      </figure>
+    </div>
+    <p class="qwall-foot reveal">Câu hỏi của bạn chưa có ở đây? Hãy vào nhóm Zalo và gửi trước chương trình.</p>
+    <div style="text-align:center;margin-top:30px" class="reveal">
+      <a class="cta js-zalo" href="#tham-gia">👉 Vào nhóm Zalo gửi câu hỏi của bạn <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DẤU HIỆU KHÔNG NÊN BỎ LỠ ============ -->
+<section class="dark" id="dau-hieu">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Đừng bỏ lỡ nếu…</span>
+      <h2>Những dấu hiệu cho thấy bạn nên có mặt</h2>
+      <p>Đánh dấu thử xem bạn thấy mình trong bao nhiêu câu.</p>
+    </div>
+    <ul class="signs">
+      <li class="glow reveal">Bạn đang có thu nhập từ bán hàng online nhưng chưa đăng ký kinh doanh.</li>
+      <li class="glow reveal">Tiền của khách chuyển vào tài khoản cá nhân, lẫn với tiền chi tiêu trong nhà.</li>
+      <li class="glow reveal">Bạn chưa biết nên mở hộ kinh doanh hay công ty, và mỗi người khuyên một kiểu.</li>
+      <li class="glow reveal">Bạn nhập hàng, mua dịch vụ nhưng ít khi lấy hoá đơn, chứng từ.</li>
+      <li class="glow reveal">Doanh thu đang tăng và bạn muốn làm đúng trước khi làm lớn.</li>
+      <li class="glow reveal">Bạn đã có hộ kinh doanh hoặc công ty nhưng hồ sơ, sổ sách chưa gọn.</li>
+      <li class="glow reveal">Bạn có câu hỏi về thuế mà chưa biết hỏi ai cho đúng.</li>
+      <li class="glow reveal">Bạn muốn yên tâm tập trung bán hàng, không phải tự mò về giấy tờ một mình.</li>
+    </ul>
+    <p class="signs-foot reveal">Nếu bạn thấy mình trong <b>từ 2 câu trở lên</b>, hai buổi tối này là dành cho bạn.</p>
+
+    <div class="reasons">
+      <div class="reason glow reveal"><b>Chỉ 2 tối</b><span>Mỗi tối 90 phút trên Zoom, học ngay tại nhà.</span></div>
+      <div class="reason glow reveal"><b>Người làm nghề trả lời</b><span>Chị Kim Thanh, Trưởng ban Kế toán Thuế, giải đáp tình huống thực tế.</span></div>
+      <div class="reason glow reveal"><b>Ra về có việc để làm</b><span>Có hướng đăng ký và kế hoạch hoàn thiện hồ sơ 7 ngày, không chỉ nghe lý thuyết.</span></div>
+      <div class="reason glow reveal"><b>Tài trợ 100% vé</b><span>Vé niêm yết 599.000đ, thành viên cộng đồng chỉ cần vào nhóm Zalo.</span></div>
     </div>
   </div>
 </section>
@@ -581,12 +846,47 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
       <article class="session glow reveal">
         <div class="s-top"><span class="pill">BUỔI 1</span><span class="when">17/10/2026 · 20:00–21:30</span></div>
         <h3>Doanh thu tăng — tôi cần hiểu và chuẩn bị gì về thuế?</h3>
-        <p>Hiểu vì sao nên làm đúng từ đầu, nhận diện mô hình kinh doanh phù hợp và nghĩa vụ thuế, hoá đơn theo trường hợp thực tế.</p>
+        <div class="parts">
+          <div class="part">
+            <span class="who">Chị Hoàng Thu Hà chia sẻ</span>
+            <h4>Thuận với nhà nước, thuận với pháp lý ngay từ đầu</h4>
+            <ul>
+              <li>Ba phía cùng thuận: nhà nước, người đi trước, người dân.</li>
+              <li>Hiểu đúng luật chơi, để thông tin kinh doanh nằm đúng chỗ.</li>
+              <li>Ba câu tự soi: mình đã thuận chưa?</li>
+            </ul>
+          </div>
+          <div class="part">
+            <span class="who">Chị Kim Thanh chia sẻ</span>
+            <h4>Nhận diện mô hình và nghĩa vụ thuế</h4>
+            <ul>
+              <li>Có cần đăng ký kinh doanh không, nên chọn hộ kinh doanh hay công ty.</li>
+              <li>Theo dõi doanh thu từ nhiều kênh; nghĩa vụ thuế, hoá đơn theo trường hợp thực tế.</li>
+            </ul>
+          </div>
+        </div>
       </article>
       <article class="session glow reveal">
         <div class="s-top"><span class="pill">BUỔI 2</span><span class="when">18/10/2026 · 20:00–21:30</span></div>
         <h3>Hồ sơ, hoá đơn, sổ sách — chuẩn bị từ đầu để kinh doanh vững vàng</h3>
-        <p>Nắm cách quản lý chứng từ, lưu trữ hồ sơ chi phí và lập kế hoạch hoàn thiện hồ sơ trong 7 ngày tới.</p>
+        <div class="parts">
+          <div class="part">
+            <span class="who">Chị Kim Thanh chia sẻ</span>
+            <h4>Chứng từ và hồ sơ chi phí</h4>
+            <ul>
+              <li>Chứng từ bán hàng, mua hàng, thu tiền, chi tiền.</li>
+              <li>Hồ sơ chi phí và cách lưu trữ.</li>
+              <li>Lập kế hoạch hoàn thiện hồ sơ trong 7 ngày tới.</li>
+            </ul>
+          </div>
+          <div class="part">
+            <span class="who">Hỏi đáp</span>
+            <h4>Giải đáp tình huống thực tế</h4>
+            <ul>
+              <li>Chị Hà điều phối, chị Kim Thanh trả lời các câu hỏi về thuế và hồ sơ.</li>
+            </ul>
+          </div>
+        </div>
       </article>
     </div>
 
@@ -612,18 +912,18 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
           <ul class="ticks">
             <li>Chủ dự án WI.FINANCE</li>
             <li>15 năm kinh doanh, giao thương Việt–Trung</li>
-            <li>Nhà Khai vấn Nhân mệnh</li>
+            <li>Khai vấn nhân mệnh – khai vấn tài chính cá nhân</li>
           </ul>
         </div>
       </article>
       <article class="spk thanh glow reveal">
-        <div class="photo"><img src="assets/chi-kim-thanh.jpg" alt="Chị Dương Thị Kim Thanh" loading="lazy" width="900" height="1200"></div>
+        <div class="photo"><img src="assets/chi-kim-thanh.jpg" alt="Chị Dương Thị Kim Thanh" loading="lazy" width="900" height="976"></div>
         <div class="body">
-          <div class="role">Tài chính &amp; Thuế</div>
+          <div class="role">Kế toán Thuế</div>
           <h3>Chị Dương Thị Kim Thanh</h3>
           <ul class="ticks">
-            <li>Trưởng ban Tài chính &amp; Thuế hệ thống</li>
-            <!-- ĐIỀN SAU: tiểu sử chị Kim Thanh (bằng cấp, kinh nghiệm). Mỗi ý một dòng <li>...</li> -->
+            <li>Trưởng ban Kế toán Thuế</li>
+            <li>Hơn 20 năm kinh nghiệm trong lĩnh vực Kế toán – Thuế</li>
           </ul>
         </div>
       </article>
@@ -651,7 +951,63 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
         <div class="n">2</div>
         <h3>Nhận link Zoom</h3>
         <p>Ban tổ chức gửi link Zoom và hướng dẫn tham dự trong nhóm.</p>
+        <div class="chat-mock" role="img" aria-label="Minh hoạ tin nhắn trong nhóm Zalo: ban tổ chức gửi link Zoom Buổi 1 lúc 20:00 ngày 17/10">
+          <div class="cm-head"><span class="cm-ava">W</span><div><b>WI.FINANCE – Hiểu thuế đúng</b><small>Nhóm Zalo chương trình</small></div></div>
+          <div class="cm-body">
+            <div class="cm-msg"><small>Ban tổ chức</small>Chào cả nhà! Đây là link Zoom cho 2 buổi tối.</div>
+            <div class="cm-card">
+              <span class="cm-cam"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="3"/><path d="M16 10.5 22 7v10l-6-3.5"/></svg></span>
+              <div><b>Phòng Zoom · Hiểu thuế đúng</b><small>Buổi 1 · 20:00 · 17/10/2026</small><small>Buổi 2 · 20:00 · 18/10/2026</small></div>
+            </div>
+            <div class="cm-btn">Vào phòng Zoom</div>
+            <div class="cm-msg"><small>Ban tổ chức</small>Cả nhà vào trước 10 phút, đổi tên theo dạng “Tên – việc đang làm” nhé.</div>
+            <div class="cm-me">Đã nhận ạ 👍</div>
+          </div>
+        </div>
       </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CÂU HỎI THƯỜNG GẶP ============ -->
+<section id="hoi-dap">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Câu hỏi thường gặp</span>
+      <h2>Bạn còn băn khoăn?</h2>
+    </div>
+    <div class="faq">
+      <details class="glow reveal" open>
+        <summary>Chương trình có mất phí không?</summary>
+        <div class="ans"><p>Vé niêm yết là 599.000đ cho 2 buổi. Thành viên cộng đồng 300 DNS được tài trợ 100% vé, chỉ cần tham gia nhóm Zalo của chương trình để nhận link Zoom.</p></div>
+      </details>
+      <details class="glow reveal">
+        <summary>Tôi chưa kinh doanh, có nên tham gia không?</summary>
+        <div class="ans"><p>Rất nên. Buổi 1 giúp bạn mô tả đúng hoạt động, chọn mã ngành và chọn hình thức đăng ký trước khi bắt đầu. Làm đúng từ đầu thì đỡ phải sửa về sau.</p></div>
+      </details>
+      <details class="glow reveal">
+        <summary>Tôi đã có hộ kinh doanh hoặc công ty rồi, còn cần không?</summary>
+        <div class="ans"><p>Có. Buổi 2 tập trung vào chứng từ, hồ sơ chi phí, cách lưu trữ và kế hoạch hoàn thiện hồ sơ, giúp phần giấy tờ của bạn gọn gàng hơn.</p></div>
+      </details>
+      <details class="glow reveal">
+        <summary>Tôi có được hỏi tình huống riêng của mình không?</summary>
+        <div class="ans"><p>Có. Bạn gõ câu hỏi vào khung chat hoặc Q&amp;A trong buổi học, hoặc gửi trước trong nhóm Zalo. Câu hỏi nào cần xem hồ sơ cụ thể sẽ được hẹn trả lời trong nhóm.</p></div>
+      </details>
+      <details class="glow reveal">
+        <summary>Tôi cần chuẩn bị gì trước buổi học?</summary>
+        <div class="ans"><p>Bạn chuẩn bị giấy bút, kèm một câu mô tả ngắn việc kinh doanh của mình: bán gì, cho ai, qua kênh nào. Nhớ vào phòng Zoom trước 10 phút, chương trình bắt đầu đúng 20:00.</p></div>
+      </details>
+      <details class="glow reveal">
+        <summary>Học qua đâu? Nhận link ở đâu?</summary>
+        <div class="ans"><p>Bạn học qua Zoom. Link Zoom và hướng dẫn tham dự được gửi trong nhóm Zalo của chương trình.</p></div>
+      </details>
+      <details class="glow reveal">
+        <summary>Nội dung có thay cho tư vấn thuế riêng được không?</summary>
+        <div class="ans"><p>Chương trình mang tính chia sẻ kiến thức và kinh nghiệm thực tế. Nội dung không thay thế tư vấn thuế, pháp lý cho trường hợp cụ thể của từng người.</p></div>
+      </details>
+    </div>
+    <div style="text-align:center;margin-top:44px" class="reveal">
+      <a class="cta lg js-zalo" href="#tham-gia">👉 Tham gia nhóm Zalo nhận vé tài trợ 100% <span class="arrow">→</span></a>
     </div>
   </div>
 </section>
@@ -665,7 +1021,7 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
   <div class="wrap reveal" style="position:relative">
     <span class="eyebrow">17 &amp; 18/10/2026 · 20:00 · Zoom</span>
     <h2>Bắt đầu kinh doanh đúng từ đầu, cùng cộng đồng</h2>
-    <p>Vé niêm yết 599.000đ / 2 buổi, tài trợ 100% cho thành viên cộng đồng. Tham gia nhóm Zalo để nhận link Zoom.</p>
+    <p>Vé niêm yết 599.000đ / 2 buổi, tài trợ 100% cho thành viên cộng đồng, kèm quà workbook trị giá 199.000đ trao trong buổi học. Tham gia nhóm Zalo để nhận link Zoom.</p>
     <div class="countdown glow" data-cd>
       <div class="cd-label"><span class="dot"></span><span data-cd-label>Buổi 1 bắt đầu sau</span></div>
       <div class="cd-grid" data-cd-grid>
@@ -794,5 +1150,7 @@ const ZALO_QR   = "assets/zalo-qr.png";
   addEventListener("scroll", onScroll, { passive: true }); onScroll();
 })();
 </script>
+
+
 </body>
 </html>
