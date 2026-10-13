@@ -359,6 +359,7 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
 @keyframes blink{ 50%{ opacity: .2; } }
 .cd-live{ font-weight: 600; color: #fff; font-size: 17px; }
 .final .countdown{ margin: 0 auto 32px; text-align: left; }
+.hero-side .countdown{ max-width: none; margin: 26px 0 0; }
 
 /* ====== Toast ====== */
 .toast{
@@ -376,7 +377,7 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
 /* ====== Responsive ====== */
 @media (max-width: 960px){
   .hero .grid{ grid-template-columns: 1fr; gap: 40px; }
-  .duo{ max-width: 560px; width: 100%; margin: 0 auto; }
+  .hero-side{ max-width: 560px; width: 100%; margin: 0 auto; }
   .cards3, .steps{ grid-template-columns: 1fr; }
   .speakers, .cards2, .sessions{ grid-template-columns: 1fr; }
   .ticket{ grid-template-columns: 1fr; }
@@ -451,6 +452,24 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
         </div>
       </div>
 
+      <a class="cta lg js-zalo" href="#tham-gia">👉 Vào nhóm Zalo nhận vé tài trợ 100% <span class="arrow">→</span></a>
+      <p class="free">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        <span>Giá niêm yết 599.000đ · <b>Thành viên cộng đồng được tài trợ 100% vé</b></span>
+      </p>
+    </div>
+
+    <div class="hero-side reveal">
+      <div class="duo">
+        <figure class="portrait ha glow">
+          <img src="assets/chi-hoang-thu-ha.jpg" alt="Chị Hoàng Thu Hà" width="900" height="1139">
+          <figcaption><b>Chị Hoàng Thu Hà</b>Chủ dự án WI.FINANCE</figcaption>
+        </figure>
+        <figure class="portrait thanh glow">
+          <img src="assets/chi-kim-thanh.jpg" alt="Chị Dương Thị Kim Thanh" width="900" height="1200">
+          <figcaption><b>Chị Kim Thanh</b>Trưởng ban Tài chính &amp; Thuế hệ thống</figcaption>
+        </figure>
+      </div>
       <div class="countdown glow" data-cd>
         <div class="cd-label"><span class="dot"></span><span data-cd-label>Buổi 1 bắt đầu sau</span></div>
         <div class="cd-grid" data-cd-grid>
@@ -461,22 +480,6 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
         </div>
         <div class="cd-live" data-cd-live hidden></div>
       </div>
-      <a class="cta lg js-zalo" href="#tham-gia">👉 Vào nhóm Zalo nhận vé tài trợ 100% <span class="arrow">→</span></a>
-      <p class="free">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-        <span>Giá niêm yết 599.000đ · <b>Thành viên cộng đồng được tài trợ 100% vé</b></span>
-      </p>
-    </div>
-
-    <div class="duo reveal">
-      <figure class="portrait ha glow">
-        <img src="assets/chi-hoang-thu-ha.jpg" alt="Chị Hoàng Thu Hà" width="900" height="1139">
-        <figcaption><b>Chị Hoàng Thu Hà</b>Chủ dự án WI.FINANCE</figcaption>
-      </figure>
-      <figure class="portrait thanh glow">
-        <img src="assets/chi-kim-thanh.jpg" alt="Chị Dương Thị Kim Thanh" width="900" height="1200">
-        <figcaption><b>Chị Kim Thanh</b>Trưởng ban Tài chính &amp; Thuế hệ thống</figcaption>
-      </figure>
     </div>
   </div>
 
