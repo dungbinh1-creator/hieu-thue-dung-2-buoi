@@ -260,28 +260,17 @@ section{ position: relative; padding: 96px 0; }
 .res h3{ font-size: 24px; margin-top: 10px; max-width: 90%; }
 
 /* ====== Program ====== */
-.sessions{ display: grid; gap: 32px; }
-.session{ padding: 36px 36px 28px; }
-.session .head{ display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: flex-end; justify-content: space-between; padding-bottom: 22px; border-bottom: 1px solid rgba(230,201,138,.2); margin-bottom: 8px; }
+.sessions{ display: grid; grid-template-columns: 1fr 1fr; gap: 28px; max-width: 980px; margin: 0 auto; }
+.session{ padding: 30px 30px 28px; }
+.session .s-top{ display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between; margin-bottom: 16px; }
 .session .pill{
   display: inline-block; padding: 6px 14px; border-radius: 999px;
   background: linear-gradient(110deg, var(--gold), var(--champagne)); color: var(--coban);
   font-size: 13px; font-weight: 700; letter-spacing: .04em;
 }
-.session h3{ font-size: clamp(22px, 2.6vw, 30px); margin-top: 12px; max-width: 720px; }
-.session .when{ color: var(--champagne); font-weight: 600; font-size: 15px; white-space: nowrap; }
-.tl{ list-style: none; margin: 0; padding: 0; }
-.tl li{ display: grid; grid-template-columns: 132px 1fr; gap: 20px; padding: 20px 0; border-bottom: 1px dashed rgba(234,241,251,.12); position: relative; }
-.tl li:last-child{ border-bottom: 0; }
-.tl time{ font-weight: 700; color: var(--champagne); font-size: 15px; padding-top: 1px; }
-.tl .who{ font-weight: 600; color: #fff; }
-.tl .who em{ font-style: normal; font-weight: 500; color: rgba(234,241,251,.65); }
-.tl .lead{ margin: 6px 0 4px; font-size: 14px; color: rgba(234,241,251,.65); }
-.tl ul{ margin: 6px 0 0; padding: 0; list-style: none; }
-.tl ul li{ display: block; padding: 3px 0 3px 22px; border: 0; color: rgba(234,241,251,.9); }
-.tl ul li::before{ content: ""; position: absolute; left: 2px; top: 13px; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 10px rgba(200,155,60,.8); }
-.tl .aside{ margin-top: 8px; font-size: 14px; font-style: italic; color: rgba(234,241,251,.65); }
-.tl .plain{ color: rgba(234,241,251,.88); }
+.session .when{ color: var(--champagne); font-weight: 600; font-size: 14px; }
+.session h3{ font-size: clamp(21px, 2.2vw, 25px); }
+.session p{ margin: 12px 0 0; color: rgba(234,241,251,.78); }
 
 /* ====== Speakers ====== */
 .speakers{ display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
@@ -389,7 +378,7 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
   .hero .grid{ grid-template-columns: 1fr; gap: 40px; }
   .duo{ max-width: 560px; width: 100%; margin: 0 auto; }
   .cards3, .steps{ grid-template-columns: 1fr; }
-  .speakers, .cards2{ grid-template-columns: 1fr; }
+  .speakers, .cards2, .sessions{ grid-template-columns: 1fr; }
   .ticket{ grid-template-columns: 1fr; }
   .ticket .left{ border-radius: var(--radius) var(--radius) 0 0; }
   .ticket .left::after{ top: auto; bottom: -9px; left: 18px; right: 18px; width: auto; height: 18px; background: radial-gradient(circle at 9px 9px, var(--white) 6px, transparent 6.5px) 0 0/22px 18px repeat-x; }
@@ -408,8 +397,7 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
   .portrait figcaption b{ font-size: 15px; }
   .ticket .left, .ticket .right{ padding: 30px 22px; }
   .ticket .right .cta{ width: 100%; }
-  .session{ padding: 26px 20px 18px; }
-  .tl li{ grid-template-columns: 1fr; gap: 6px; }
+  .session{ padding: 26px 22px 24px; }
   .res{ padding: 30px 24px; }
   .spk .body{ padding: 24px 22px 28px; }
   .final .cta{ width: 100%; }
@@ -588,73 +576,14 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
 
     <div class="sessions">
       <article class="session glow reveal">
-        <div class="head">
-          <div>
-            <span class="pill">BUỔI 1</span>
-            <h3>Doanh thu tăng — tôi cần hiểu và chuẩn bị gì về thuế?</h3>
-          </div>
-          <div class="when">17/10/2026 · 20:00–21:30</div>
-        </div>
-        <ul class="tl">
-          <li><time>20:00–20:05</time><div class="plain">Khai mạc (hướng dẫn cách hỏi trong chat/Q&amp;A)</div></li>
-          <li>
-            <time>20:05–20:45</time>
-            <div>
-              <div class="who">Chị Hoàng Thu Hà</div>
-              <p class="lead">Bạn sẽ hiểu:</p>
-              <ul>
-                <li>“Thuận tam giác giới” là gì</li>
-                <li>Vì sao nên thuận, và vì sao nên thuận ngay từ đầu</li>
-                <li>Vì sao cần đăng ký kinh doanh và làm đúng từ ban đầu</li>
-              </ul>
-              <p class="aside">(Đây là cách chị Hà nhìn và xin phép chia sẻ cùng các bạn.)</p>
-            </div>
-          </li>
-          <li>
-            <time>20:45–21:25</time>
-            <div>
-              <div class="who">Chị Dương Thị Kim Thanh <em>(Trưởng ban Tài chính &amp; Thuế hệ thống)</em></div>
-              <p class="lead">Nội dung chính:</p>
-              <ul>
-                <li>Nhận diện hoạt động kinh doanh</li>
-                <li>Tìm hiểu mô hình hộ kinh doanh và doanh nghiệp</li>
-                <li>Cách theo dõi doanh thu từ nhiều kênh</li>
-                <li>Xác định nghĩa vụ thuế, hoá đơn theo trường hợp thực tế</li>
-                <li>Hỏi đáp các tình huống tiêu biểu</li>
-              </ul>
-            </div>
-          </li>
-          <li><time>21:25–21:30</time><div class="plain">Mời vào nhóm Zalo (nhận thông tin &amp; gửi câu hỏi trước cho Ngày 2)</div></li>
-        </ul>
+        <div class="s-top"><span class="pill">BUỔI 1</span><span class="when">17/10/2026 · 20:00–21:30</span></div>
+        <h3>Doanh thu tăng — tôi cần hiểu và chuẩn bị gì về thuế?</h3>
+        <p>Hiểu vì sao nên làm đúng từ đầu, nhận diện mô hình kinh doanh phù hợp và nghĩa vụ thuế, hoá đơn theo trường hợp thực tế.</p>
       </article>
-
       <article class="session glow reveal">
-        <div class="head">
-          <div>
-            <span class="pill">BUỔI 2</span>
-            <h3>Hồ sơ, hoá đơn, sổ sách — chuẩn bị từ đầu để kinh doanh vững vàng</h3>
-          </div>
-          <div class="when">18/10/2026 · 20:00–21:30</div>
-        </div>
-        <ul class="tl">
-          <li>
-            <time>20:05–20:45</time>
-            <div>
-              <div class="who">Chị Kim Thanh</div>
-              <p class="lead">Nội dung chính:</p>
-              <ul>
-                <li>Chứng từ: bán hàng / mua hàng / thu tiền / chi tiền</li>
-                <li>Hồ sơ chi phí và cách lưu trữ</li>
-                <li>Lập kế hoạch hoàn thiện hồ sơ (bài tập: 1 việc bạn sẽ làm trong 7 ngày tới)</li>
-              </ul>
-            </div>
-          </li>
-          <li><time>20:45–21:05</time><div class="plain"><span class="who">Hỏi đáp</span> (chị Hà điều hướng, chị Thanh trả lời phần thuế/pháp lý)</div></li>
-          <li>
-            <time>21:05–21:25</time>
-            <div class="plain"><span class="who">(Tuỳ chọn) Giới thiệu gói đồng hành</span><br>Cuối buổi chị Hà có giới thiệu một gói đồng hành; bạn thấy hợp thì đăng ký, không thì không sao.</div>
-          </li>
-        </ul>
+        <div class="s-top"><span class="pill">BUỔI 2</span><span class="when">18/10/2026 · 20:00–21:30</span></div>
+        <h3>Hồ sơ, hoá đơn, sổ sách — chuẩn bị từ đầu để kinh doanh vững vàng</h3>
+        <p>Nắm cách giữ chứng từ, lưu hồ sơ chi phí và lên kế hoạch hoàn thiện hồ sơ của bạn trong 7 ngày tới.</p>
       </article>
     </div>
 
