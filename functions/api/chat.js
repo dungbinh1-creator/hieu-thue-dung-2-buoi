@@ -42,10 +42,11 @@ Không trả lời, chỉ lịch sự từ chối và chuyển hướng:
 5. Không đưa ra kết luận pháp lý dứt khoát cho tình huống riêng. Dùng cách diễn đạt như "thông thường", "theo quy định chung".
 6. Không tính toán số thuế phải nộp cuối cùng cho từng cá nhân hoặc doanh nghiệp. Chỉ hướng dẫn cách tính và minh họa bằng ví dụ giả định, ghi rõ là ví dụ.
 7. Hôm nay là {{TODAY}}. Kiến thức sẵn có của bạn có thể chưa bao gồm các thay đổi quy định gần đây (ví dụ các thay đổi về thuế hộ kinh doanh từ năm 2026). Khi trả lời về con số, ngưỡng hoặc cách tính có thể đã thay đổi, nói rõ điều này.
+8. Quy định thuế với hộ kinh doanh và cá nhân kinh doanh (ngưỡng doanh thu được miễn thuế, tỷ lệ thuế trên doanh thu, việc bỏ thuế khoán) đã thay đổi trong năm 2025 và 2026. Không nêu con số ngưỡng doanh thu hay tỷ lệ cụ thể cho nhóm này. Chỉ giải thích nguyên tắc chung, nói rõ các mức này vừa thay đổi, và gợi ý đối chiếu văn bản mới nhất hoặc hỏi chuyên viên.
 
 # CÁCH TRÒ CHUYỆN
 1. Với câu hỏi chung, trả lời ngay, không hỏi ngược.
-2. Với câu hỏi phụ thuộc hoàn cảnh, hỏi ngược tối đa 2 câu ngắn trước khi trả lời. Các thông tin hay cần: loại hình (hộ kinh doanh, cá nhân, công ty), ngành nghề, kênh bán hàng, mức doanh thu tương đối, nơi phát sinh thu nhập (trong nước hay nước ngoài).
+2. Với câu hỏi phụ thuộc hoàn cảnh (ví dụ hỏi phải nộp bao nhiêu thuế) mà người dùng chưa cho đủ thông tin, chỉ trả lời khái quát 1 đến 2 câu rồi hỏi ngược tối đa 2 câu ngắn. Chưa đưa tỷ lệ, con số hay ví dụ tính toán cho tới khi người dùng trả lời. Các thông tin hay cần: loại hình (hộ kinh doanh, cá nhân, công ty), ngành nghề, kênh bán hàng, mức doanh thu tương đối, nơi phát sinh thu nhập (trong nước hay nước ngoài).
 3. Không hỏi và không nhận mã số thuế, số CCCD, số tài khoản ngân hàng hay chứng từ có thông tin cá nhân. Nếu người dùng tự gửi, nhắc họ không nên chia sẻ thông tin nhạy cảm trong khung chat.
 4. Mỗi câu trả lời tối đa khoảng 200 từ, trừ khi người dùng yêu cầu giải thích chi tiết.
 
@@ -55,7 +56,8 @@ Không trả lời, chỉ lịch sự từ chối và chuyển hướng:
 3. Nếu có ví dụ, đặt sau phần giải thích và ghi rõ "Ví dụ minh họa".
 4. Kết thúc bằng lưu ý tham khảo khi có con số hoặc thời hạn.
 5. Không dùng emoji. Không dùng văn phong quảng cáo. Tránh từ ngữ rườm rà.
-6. Chỉ dùng chữ thường, **in đậm** và danh sách đánh số. Không dùng bảng, tiêu đề markdown hay link markdown.
+6. Viết câu bình thường, viết hoa đầu câu. Chỉ được dùng **in đậm** và danh sách đánh số một cấp. Không dùng bảng, tiêu đề, danh sách lồng nhau, gạch đầu dòng con hay link markdown.
+7. Không chào lại và không tự giới thiệu lại ở mỗi câu trả lời, vì lời chào đã hiện sẵn trong khung chat. Đi thẳng vào nội dung.
 
 # GIỌNG ĐIỆU
 Chuyên nghiệp nhưng thân thiện. Xưng "mình", gọi người dùng là "bạn". Câu ngắn, rõ nghĩa. Giữ nguyên thuật ngữ gốc khi cần (ví dụ: VAT, e invoice) và giải thích nghĩa ngay lần đầu.
@@ -132,8 +134,11 @@ function toContents(messages) {
   return contents;
 }
 
-async function callGemini(env, contents, withThinking) {
-  const model = env.GEMINI_MODEL || DEFAULT_MODEL;
+// Mô hình dự phòng khi mô hình chính quá tải (503) hoặc hết lượt (429). Mỗi mô hình có hạn mức miễn phí riêng.
+const BACKUP_MODELS = ["gemini-3.6-flash", "gemini-2.5-flash"];
+const RETRYABLE = new Set([429, 500, 502, 503, 504, 524]);
+
+async function callGemini(env, contents, model, withThinking) {
   const generationConfig = { maxOutputTokens: 2048 };
   if (withThinking) generationConfig.thinkingConfig = { thinkingLevel: "low" };
   return fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:streamGenerateContent?alt=sse`, {
@@ -195,18 +200,29 @@ export async function onRequestPost({ request, env }) {
   const contents = toContents(body?.messages);
   if (!contents) return json(400, { error: "bad_request" });
 
+  const models = [...new Set([env.GEMINI_MODEL || DEFAULT_MODEL, ...BACKUP_MODELS])];
   let upstream;
+  let usedModel;
   try {
-    upstream = await callGemini(env, contents, true);
-    // Nếu mô hình không nhận thinkingConfig thì gọi lại một lần không kèm tham số này.
-    // Chỉ gọi lại khi lỗi 400 nói về thinking, để không tốn thêm lượt trong hạn mức mỗi phút.
-    if (upstream.status === 400) {
-      const errText = await upstream.clone().text();
-      if (/thinking/i.test(errText)) upstream = await callGemini(env, contents, false);
+    for (const model of models) {
+      usedModel = model;
+      try {
+        upstream = await callGemini(env, contents, model, true);
+      } catch {
+        continue; // Lỗi mạng với mô hình này thì thử mô hình kế tiếp.
+      }
+      // Nếu mô hình không nhận thinkingConfig thì gọi lại một lần không kèm tham số này.
+      // Chỉ gọi lại khi lỗi 400 nói về thinking, để không tốn thêm lượt trong hạn mức mỗi phút.
+      if (upstream.status === 400) {
+        const errText = await upstream.clone().text();
+        if (/thinking/i.test(errText)) upstream = await callGemini(env, contents, model, false);
+      }
+      if (!RETRYABLE.has(upstream.status)) break;
     }
   } catch {
     return json(503, { error: "upstream", reason: "fetch_failed", message: FALLBACK_TEXT });
   }
+  if (!upstream) return json(503, { error: "upstream", reason: "fetch_failed", message: FALLBACK_TEXT });
   if (!upstream.ok || !upstream.body) {
     // Dùng 503 thay vì 502 vì Cloudflare thay trang 502 bằng trang lỗi riêng, mất phần lý do.
     // Chỉ trả mã trạng thái lỗi của Google (ví dụ FAILED_PRECONDITION), không trả nội dung có thể chứa thông tin nhạy cảm.
@@ -221,11 +237,11 @@ export async function onRequestPost({ request, env }) {
       // Thông báo lỗi Google không chứa khóa; cắt ngắn để chẩn đoán lỗi tham số.
       else if (err?.message) reason += " | " + String(err.message).replace(/AIza[\w-]+/g, "***").slice(0, 600);
     } catch {}
-    return json(upstream.status === 429 ? 429 : 503, { error: "upstream", reason, colo: request.cf?.colo, message: FALLBACK_TEXT });
+    return json(upstream.status === 429 ? 429 : 503, { error: "upstream", reason, model: usedModel, message: FALLBACK_TEXT });
   }
 
   return new Response(textStream(upstream), {
-    headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "no-store", "x-content-type-options": "nosniff" },
+    headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "no-store", "x-content-type-options": "nosniff", "x-model": usedModel },
   });
 }
 
