@@ -210,6 +210,10 @@ export async function onRequestPost({ request, env }) {
     try {
       const err = (await upstream.json())?.error;
       if (err?.status) reason += " " + err.status;
+      const detail = (err?.details || []).map((d) => d?.reason).filter(Boolean).join(",");
+      if (detail) reason += " " + detail;
+      // Thông báo lỗi Google không chứa khóa; cắt ngắn để chẩn đoán lỗi tham số.
+      else if (err?.message) reason += " | " + String(err.message).replace(/AIza[\w-]+/g, "***").slice(0, 160);
     } catch {}
     return json(upstream.status === 429 ? 429 : 503, { error: "upstream", reason, colo: request.cf?.colo, message: FALLBACK_TEXT });
   }
