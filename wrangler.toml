@@ -1,0 +1,9 @@
+# Cấu hình Cloudflare Pages. Biến bí mật GEMINI_API_KEY vẫn quản lý trên dashboard.
+name = "hieu-thue-dung-2-buoi"
+pages_build_output_dir = "."
+compatibility_date = "2026-10-01"
+
+# Gemini API chặn request từ Hồng Kông (nơi Cloudflare phục vụ khách Việt Nam),
+# nên cho Pages Functions chạy gần vùng Google Cloud được hỗ trợ.
+[placement]
+region = "gcp:us-central1"
