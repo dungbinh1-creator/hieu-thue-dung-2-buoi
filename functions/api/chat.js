@@ -2,7 +2,7 @@
 // Giữ khóa Gemini ở phía máy chủ (biến bí mật GEMINI_API_KEY), trình duyệt không bao giờ thấy khóa.
 // Biến môi trường: GEMINI_API_KEY (bắt buộc, loại Secret), GEMINI_MODEL (tùy chọn).
 
-const DEFAULT_MODEL = "gemini-3.8-flash";
+const DEFAULT_MODEL = "gemini-2.5-flash";
 const ZALO_LINK = "https://zalo.me/g/3c1ladtyy6eyco7m2y2a";
 const MAX_CHARS = 1500;
 const MAX_TURNS = 12;
