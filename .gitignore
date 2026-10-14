@@ -1,1 +1,4 @@
 *.zip
+.dev.vars
+.wrangler/
+node_modules/
