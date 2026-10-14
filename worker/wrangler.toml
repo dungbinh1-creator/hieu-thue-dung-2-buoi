@@ -1,0 +1,10 @@
+# Cloudflare Worker gọi Gemini. Tách khỏi Pages vì Gemini chặn máy chủ Hồng Kông,
+# mà chỉ Worker mới chỉ định được vùng chạy (Pages không hỗ trợ placement.region).
+# Khóa: thêm Secret GEMINI_API_KEY cho Worker trên dashboard Cloudflare.
+name = "wifinance-tax-chat"
+main = "index.js"
+compatibility_date = "2026-10-01"
+workers_dev = true
+
+[placement]
+region = "gcp:us-central1"

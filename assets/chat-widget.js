@@ -1,7 +1,8 @@
 /* Trợ lý Thuế WI.FINANCE: nút chat nổi, gọi /api/chat (Cloudflare Pages Function giữ khóa Gemini).
    Chỉ cần một dòng trong index.html: <script src="assets/chat-widget.js" defer></script> */
 (() => {
-  const API = "/api/chat";
+  // Gọi Worker (chạy vùng Mỹ) vì Gemini chặn máy chủ Cloudflare ở Hồng Kông.
+  const API = "https://wifinance-tax-chat.dungbinh1.workers.dev";
   const ZALO_LINK = "https://zalo.me/g/3c1ladtyy6eyco7m2y2a";
   const AVATAR = "assets/wifinance-icon.jpg";
   const STORE_KEY = "wf-tax-chat";
