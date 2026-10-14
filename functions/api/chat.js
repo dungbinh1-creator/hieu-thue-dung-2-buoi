@@ -201,10 +201,17 @@ export async function onRequestPost({ request, env }) {
     // Nếu mô hình không nhận thinkingConfig thì gọi lại một lần không kèm tham số này.
     if (upstream.status === 400) upstream = await callGemini(env, contents, false);
   } catch {
-    return json(502, { error: "upstream", message: FALLBACK_TEXT });
+    return json(503, { error: "upstream", reason: "fetch_failed", message: FALLBACK_TEXT });
   }
   if (!upstream.ok || !upstream.body) {
-    return json(upstream.status === 429 ? 429 : 502, { error: "upstream", message: FALLBACK_TEXT });
+    // Dùng 503 thay vì 502 vì Cloudflare thay trang 502 bằng trang lỗi riêng, mất phần lý do.
+    // Chỉ trả mã trạng thái lỗi của Google (ví dụ FAILED_PRECONDITION), không trả nội dung có thể chứa thông tin nhạy cảm.
+    let reason = String(upstream.status);
+    try {
+      const err = (await upstream.json())?.error;
+      if (err?.status) reason += " " + err.status;
+    } catch {}
+    return json(upstream.status === 429 ? 429 : 503, { error: "upstream", reason, colo: request.cf?.colo, message: FALLBACK_TEXT });
   }
 
   return new Response(textStream(upstream), {
