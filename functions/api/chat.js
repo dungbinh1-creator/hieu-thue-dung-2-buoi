@@ -199,7 +199,11 @@ export async function onRequestPost({ request, env }) {
   try {
     upstream = await callGemini(env, contents, true);
     // Nếu mô hình không nhận thinkingConfig thì gọi lại một lần không kèm tham số này.
-    if (upstream.status === 400) upstream = await callGemini(env, contents, false);
+    // Chỉ gọi lại khi lỗi 400 nói về thinking, để không tốn thêm lượt trong hạn mức mỗi phút.
+    if (upstream.status === 400) {
+      const errText = await upstream.clone().text();
+      if (/thinking/i.test(errText)) upstream = await callGemini(env, contents, false);
+    }
   } catch {
     return json(503, { error: "upstream", reason: "fetch_failed", message: FALLBACK_TEXT });
   }
