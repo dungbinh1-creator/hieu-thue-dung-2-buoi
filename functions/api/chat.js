@@ -210,6 +210,8 @@ export async function onRequestPost({ request, env }) {
     try {
       const err = (await upstream.json())?.error;
       if (err?.status) reason += " " + err.status;
+      const quota = (err?.details || []).flatMap((d) => d?.violations || []).map((v) => `${v.quotaId || ""}=${v.quotaValue ?? "?"}`).join(",");
+      if (quota) reason += " " + quota;
       const detail = (err?.details || []).map((d) => d?.reason).filter(Boolean).join(",");
       if (detail) reason += " " + detail;
       // Thông báo lỗi Google không chứa khóa; cắt ngắn để chẩn đoán lỗi tham số.
