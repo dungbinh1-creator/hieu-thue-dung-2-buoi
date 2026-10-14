@@ -34,16 +34,16 @@
 .wfc-launch[hidden]{display:none}
 
 /* Khung chat */
-.wfc-panel{position:fixed;right:20px;bottom:20px;z-index:90;width:380px;max-width:calc(100vw - 32px);height:min(620px,calc(100vh - 40px));display:flex;flex-direction:column;
+.wfc-panel{position:fixed;right:20px;bottom:20px;z-index:90;width:390px;max-width:calc(100vw - 32px);height:min(720px,calc(100vh - 32px));margin:0;padding:0;display:flex;flex-direction:column;
   background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 0 0 1px var(--wc-line),0 28px 64px -18px rgba(11,42,91,.45);
   transform-origin:bottom right;animation:wfcIn .22s cubic-bezier(.2,.7,.2,1)}
 .wfc-panel[hidden]{display:none}
 @keyframes wfcIn{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
 
-.wfc-head{display:flex;align-items:center;gap:12px;padding:14px 12px 14px 16px;color:#fff;background:var(--wc-ink);border-bottom:2px solid var(--wc-gold)}
+.wfc-head{margin:0;display:flex;align-items:center;gap:12px;padding:14px 12px 14px 16px;color:#fff;background:var(--wc-ink);border-bottom:2px solid var(--wc-gold)}
 .wfc-head img{flex:none;width:40px;height:40px;border-radius:50%;object-fit:cover;background:#fff}
 .wfc-title{flex:1;min-width:0}
-.wfc-title b{display:block;font:700 15.5px/1.3 "Playfair Display",Georgia,serif;letter-spacing:.01em}
+.wfc-title b{display:block;font:700 15.5px/1.3 "Playfair Display",Georgia,serif;letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .wfc-title small{display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(234,241,251,.75);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .wfc-title small::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:#3FC380;box-shadow:0 0 0 3px rgba(63,195,128,.2)}
 .wfc-icon{flex:none;width:34px;height:34px;border:0;border-radius:10px;cursor:pointer;display:grid;place-items:center;color:rgba(255,255,255,.85);background:transparent;transition:background .15s}
@@ -70,7 +70,7 @@
 .wfc-chip{align-self:flex-start;border:1px solid rgba(30,79,163,.22);background:#fff;color:var(--wc-blue);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:500;line-height:1.35;text-align:left;cursor:pointer;transition:background .15s,border-color .15s}
 .wfc-chip:hover{background:var(--wc-mist);border-color:var(--wc-blue)}
 
-.wfc-foot{padding:10px 12px 10px;border-top:1px solid var(--wc-line);background:#fff}
+.wfc-foot{margin:0;padding:10px 12px;border-top:1px solid var(--wc-line);background:#fff}
 .wfc-form{display:flex;align-items:flex-end;gap:6px;padding:5px 5px 5px 14px;border:1px solid rgba(11,42,91,.16);border-radius:14px;background:#fff;transition:border-color .15s,box-shadow .15s}
 .wfc-form:focus-within{border-color:var(--wc-blue);box-shadow:0 0 0 3px rgba(30,79,163,.12)}
 .wfc-input{flex:1;min-width:0;resize:none;border:0;outline:none;background:transparent;max-height:110px;padding:7px 0;font:14.5px/1.45 "Montserrat",system-ui,sans-serif;color:var(--wc-ink)}
@@ -111,15 +111,15 @@
     <button type="button" class="wfc-launch" aria-label="Mở Trợ lý Thuế WI.FINANCE" aria-expanded="false">
       <img src="${AVATAR}" alt=""><span>Hỏi đáp thuế</span>
     </button>
-    <section class="wfc-panel" role="dialog" aria-label="Trợ lý Thuế WI.FINANCE" hidden>
-      <header class="wfc-head">
+    <div class="wfc-panel" role="dialog" aria-label="Trợ lý Thuế WI.FINANCE" hidden>
+      <div class="wfc-head">
         <img src="${AVATAR}" alt="">
         <div class="wfc-title"><b>Trợ lý Thuế WI.FINANCE</b><small>Trả lời tự động, tham khảo</small></div>
         <button type="button" class="wfc-icon wfc-reset" aria-label="Bắt đầu cuộc trò chuyện mới" title="Cuộc trò chuyện mới">${svg.refresh}</button>
         <button type="button" class="wfc-icon wfc-close" aria-label="Đóng khung chat" title="Đóng">${svg.close}</button>
-      </header>
+      </div>
       <div class="wfc-body" aria-live="polite"></div>
-      <footer class="wfc-foot">
+      <div class="wfc-foot">
         <form class="wfc-form">
           <textarea class="wfc-input" rows="1" maxlength="${MAX_CHARS}" placeholder="Nhập câu hỏi về thuế..." aria-label="Câu hỏi của bạn"></textarea>
           <button type="submit" class="wfc-send" aria-label="Gửi câu hỏi" disabled>${svg.send}</button>
@@ -128,8 +128,8 @@
           <span>Không gửi mã số thuế, CCCD, số tài khoản.</span>
           <a class="wfc-zalo" href="${ZALO_LINK}" target="_blank" rel="noopener">${svg.chat}Hỏi chuyên viên</a>
         </div>
-      </footer>
-    </section>`;
+      </div>
+    </div>`;
   document.body.appendChild(root);
 
   const launch = root.querySelector(".wfc-launch");
