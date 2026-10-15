@@ -16,7 +16,7 @@
     "Khi nào phải xuất hóa đơn điện tử?",
   ];
   const ERROR_TEXT =
-    "Xin lỗi bạn, hệ thống đang bận nên mình chưa trả lời được. Bạn thử hỏi lại sau ít phút, hoặc gọi hotline 0948 387 418 để được chuyên viên hỗ trợ.";
+    "Xin lỗi bạn, hệ thống đang bận nên mình chưa trả lời được. Bạn thử hỏi lại sau ít phút, hoặc bấm nút Hotline bên dưới để được chuyên viên hỗ trợ.";
 
   const css = `
 .wfc,.wfc *{box-sizing:border-box}
