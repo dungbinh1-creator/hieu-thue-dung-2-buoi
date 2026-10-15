@@ -16,12 +16,12 @@ function corsHeaders(origin) {
 }
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const cors = corsHeaders(request.headers.get("origin") || "");
     if (request.method === "OPTIONS") return new Response(null, { status: cors ? 204 : 403, headers: cors || {} });
     if (request.method !== "POST") return new Response(JSON.stringify({ error: "method_not_allowed" }), { status: 405, headers: { "content-type": "application/json" } });
 
-    const res = await onRequestPost({ request, env });
+    const res = await onRequestPost({ request, env, waitUntil: (p) => ctx.waitUntil(p) });
     const headers = new Headers(res.headers);
     for (const [k, v] of Object.entries(cors || {})) headers.set(k, v);
     return new Response(res.body, { status: res.status, headers });

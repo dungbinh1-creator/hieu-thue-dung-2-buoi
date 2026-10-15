@@ -3,7 +3,8 @@
 (() => {
   // Gọi Worker (chạy vùng Mỹ) vì Gemini chặn máy chủ Cloudflare ở Hồng Kông.
   const API = "https://wifinance-tax-chat.dungbinh1.workers.dev";
-  const ZALO_LINK = "https://zalo.me/g/3c1ladtyy6eyco7m2y2a";
+  const HOTLINE = "0948 387 418";
+  const SESSION_KEY = "wf-tax-session";
   const AVATAR = "assets/wifinance-icon.jpg";
   const STORE_KEY = "wf-tax-chat";
   const MAX_CHARS = 1500;
@@ -15,7 +16,7 @@
     "Khi nào phải xuất hóa đơn điện tử?",
   ];
   const ERROR_TEXT =
-    "Xin lỗi bạn, hệ thống đang bận nên mình chưa trả lời được. Bạn thử hỏi lại sau ít phút, hoặc vào nhóm Zalo của chương trình để hỏi chuyên viên.";
+    "Xin lỗi bạn, hệ thống đang bận nên mình chưa trả lời được. Bạn thử hỏi lại sau ít phút, hoặc gọi hotline 0948 387 418 để được chuyên viên hỗ trợ.";
 
   const css = `
 .wfc,.wfc *{box-sizing:border-box}
@@ -80,8 +81,8 @@
 .wfc-send:hover:not(:disabled){transform:translateY(-1px)}
 .wfc-send:disabled{opacity:.35;cursor:default}
 .wfc-meta{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:8px;font-size:11.5px;color:var(--wc-muted)}
-.wfc-zalo{flex:none;display:inline-flex;align-items:center;gap:5px;font-weight:600;color:var(--wc-blue);text-decoration:none}
-.wfc-zalo:hover{text-decoration:underline}
+.wfc-hotline{flex:none;display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;font-size:12.5px;font-weight:700;color:#fff;background:var(--wc-cta);text-decoration:none;white-space:nowrap;transition:transform .15s}
+.wfc-hotline:hover{transform:translateY(-1px)}
 
 @media (max-width:640px){
   .wfc-launch{right:14px;bottom:14px;height:48px;padding:0 16px 0 5px}
@@ -91,6 +92,8 @@
   .wfc-head{padding-top:calc(14px + env(safe-area-inset-top))}
   .wfc-foot{padding-bottom:calc(10px + env(safe-area-inset-bottom))}
   .wfc-input{font-size:16px}
+  .wfc-title b{font-size:14.5px}
+  .wfc-head{gap:10px;padding-left:12px;padding-right:8px}
 }
 @media (prefers-reduced-motion:reduce){.wfc-panel,.wfc-typing i{animation:none}.wfc-launch,.wfc-chip,.wfc-send{transition:none}}`;
 
@@ -102,7 +105,7 @@
     refresh: `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 21v-5h5"/></svg>`,
     close: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>`,
     send: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`,
-    chat: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.9A8 8 0 1 1 21 12Z"/></svg>`,
+    phone: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg>`,
   };
 
   const root = document.createElement("div");
@@ -125,8 +128,8 @@
           <button type="submit" class="wfc-send" aria-label="Gửi câu hỏi" disabled>${svg.send}</button>
         </form>
         <div class="wfc-meta">
-          <span>Không gửi mã số thuế, CCCD, số tài khoản.</span>
-          <a class="wfc-zalo" href="${ZALO_LINK}" target="_blank" rel="noopener">${svg.chat}Hỏi chuyên viên</a>
+          <span>Không gửi MST, CCCD, số tài khoản.</span>
+          <a class="wfc-hotline" href="tel:${HOTLINE.replace(/\s/g, "")}" aria-label="Gọi hotline ${HOTLINE}">${svg.phone}Hotline ${HOTLINE}</a>
         </div>
       </div>
     </div>`;
@@ -145,6 +148,12 @@
     const saved = JSON.parse(sessionStorage.getItem(STORE_KEY) || "[]");
     if (Array.isArray(saved)) history = saved.filter((m) => m && typeof m.text === "string" && (m.role === "user" || m.role === "model"));
   } catch {}
+  // Mã phiên gom các câu hỏi cùng một cuộc trò chuyện khi lưu về Google Sheet.
+  const newSession = () => Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+  let session = "";
+  try { session = sessionStorage.getItem(SESSION_KEY) || ""; } catch {}
+  const setSession = (v) => { session = v; try { sessionStorage.setItem(SESSION_KEY, v); } catch {} };
+  if (!session) setSession(newSession());
   const save = () => {
     try { sessionStorage.setItem(STORE_KEY, JSON.stringify(history.slice(-30))); } catch {}
   };
@@ -238,7 +247,7 @@
       const res = await fetch(API, {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ messages: history.slice(-12) }),
+        body: JSON.stringify({ messages: history.slice(-12), session }),
       });
       if (!res.ok || !res.body) throw new Error(String(res.status));
       const reader = res.body.getReader();
@@ -284,6 +293,7 @@
     if (busy) return;
     history = [];
     save();
+    setSession(newSession());
     renderAll();
     input.focus();
   }
