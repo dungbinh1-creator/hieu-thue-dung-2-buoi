@@ -158,12 +158,16 @@ async function callGemini(env, contents, model, withThinking) {
 async function logToSheet(env, row) {
   if (!env.SHEET_WEBHOOK_URL || !env.SHEET_WEBHOOK_TOKEN) return;
   try {
-    await fetch(env.SHEET_WEBHOOK_URL, {
+    const res = await fetch(env.SHEET_WEBHOOK_URL, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ token: env.SHEET_WEBHOOK_TOKEN, ...row }),
     });
-  } catch {}
+    const text = await res.text();
+    if (!res.ok || !text.includes('"ok":true')) console.log("sheet_log_failed", res.status, text.slice(0, 200));
+  } catch (err) {
+    console.log("sheet_log_error", String(err));
+  }
 }
 
 // Đổi luồng SSE của Gemini thành luồng chữ thuần cho trình duyệt.
