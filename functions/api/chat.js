@@ -2,6 +2,7 @@
 // Giữ khóa Gemini ở phía máy chủ (biến bí mật GEMINI_API_KEY), trình duyệt không bao giờ thấy khóa.
 // Biến môi trường: GEMINI_API_KEY (bắt buộc, loại Secret), GEMINI_MODEL (tùy chọn),
 // SHEET_WEBHOOK_URL và SHEET_WEBHOOK_TOKEN (tùy chọn): ghi câu hỏi về Google Sheet qua Apps Script.
+// KIE_API_KEY (tùy chọn): gọi Gemini qua Kie.ai (nguồn chính). GEMINI_API_KEY: gọi thẳng Google (dự phòng).
 
 const DEFAULT_MODEL = "gemini-3.8-flash";
 const MAX_CHARS = 1500;
@@ -133,9 +134,12 @@ function toContents(messages) {
   return contents;
 }
 
-// Mô hình dự phòng khi mô hình chính quá tải (503) hoặc hết lượt (429). Mỗi mô hình có hạn mức miễn phí riêng.
+// Kie.ai (API kiểu OpenAI) là nguồn chính. Mô hình chọn theo đường dẫn URL.
+const KIE_MODELS = ["gemini-3-8-flash-openai", "gemini-3-6-flash-openai"];
+// Google Gemini trực tiếp là nguồn dự phòng. Mỗi mô hình có hạn mức miễn phí riêng.
 const BACKUP_MODELS = ["gemini-3.6-flash", "gemini-2.5-flash"];
-const RETRYABLE = new Set([429, 500, 502, 503, 504, 524]);
+
+const systemText = () => SYSTEM_PROMPT.replace("{{TODAY}}", todayVN());
 
 async function callGemini(env, contents, model, withThinking) {
   const generationConfig = { maxOutputTokens: 2048 };
@@ -143,12 +147,47 @@ async function callGemini(env, contents, model, withThinking) {
   return fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:streamGenerateContent?alt=sse`, {
     method: "POST",
     headers: { "content-type": "application/json", "x-goog-api-key": env.GEMINI_API_KEY },
-    body: JSON.stringify({
-      systemInstruction: { parts: [{ text: SYSTEM_PROMPT.replace("{{TODAY}}", todayVN()) }] },
-      contents,
-      generationConfig,
-    }),
+    body: JSON.stringify({ systemInstruction: { parts: [{ text: systemText() }] }, contents, generationConfig }),
   });
+}
+
+// Gọi Kie.ai. Kie trả lỗi bằng HTTP 200 kèm {"code","msg"} dạng JSON, nên phải đọc nội dung để biết lỗi.
+async function tryKie(env, contents, model) {
+  const messages = [{ role: "system", content: systemText() }].concat(
+    contents.map((c) => ({ role: c.role === "model" ? "assistant" : "user", content: [{ type: "text", text: c.parts[0].text }] }))
+  );
+  const res = await fetch(`https://api.kie.ai/${model}/v1/chat/completions`, {
+    method: "POST",
+    headers: { "content-type": "application/json", authorization: `Bearer ${env.KIE_API_KEY}` },
+    body: JSON.stringify({ messages, stream: true, include_thoughts: false, reasoning_effort: "low" }),
+  });
+  const type = res.headers.get("content-type") || "";
+  if (res.ok && res.body && type.includes("text/event-stream")) return { ok: true, res };
+  let reason = String(res.status);
+  try {
+    const data = JSON.parse(await res.text());
+    reason = `${data.code ?? res.status} ${String(data.msg || "").slice(0, 200)}`.trim();
+  } catch {}
+  return { ok: false, status: res.status === 200 ? 502 : res.status, reason: "Kie " + reason };
+}
+
+// Gọi Google trực tiếp, đọc lý do lỗi (không chứa khóa) để chẩn đoán.
+async function tryGoogle(env, contents, model) {
+  let res = await callGemini(env, contents, model, true);
+  // Chỉ gọi lại khi lỗi 400 nói về thinking, để không tốn thêm lượt trong hạn mức mỗi phút.
+  if (res.status === 400 && /thinking/i.test(await res.clone().text())) res = await callGemini(env, contents, model, false);
+  if (res.ok && res.body) return { ok: true, res };
+  let reason = String(res.status);
+  try {
+    const err = (await res.json())?.error;
+    if (err?.status) reason += " " + err.status;
+    const quota = (err?.details || []).flatMap((d) => d?.violations || []).map((v) => `${v.quotaId || ""}=${v.quotaValue ?? "?"}`).join(",");
+    if (quota) reason += " " + quota;
+    const detail = (err?.details || []).map((d) => d?.reason).filter(Boolean).join(",");
+    if (detail) reason += " " + detail;
+    else if (err?.message) reason += " | " + String(err.message).replace(/AIza[\w-]+/g, "***").slice(0, 600);
+  } catch {}
+  return { ok: false, status: res.status, reason };
 }
 
 // Ghi một dòng hỏi đáp về Google Sheet qua Apps Script. Lỗi ghi không ảnh hưởng câu trả lời.
@@ -167,7 +206,7 @@ async function logToSheet(env, row) {
   }
 }
 
-// Đổi luồng SSE của Gemini thành luồng chữ thuần cho trình duyệt.
+// Đổi luồng SSE (Google hoặc Kie) thành luồng chữ thuần cho trình duyệt.
 // onDone nhận toàn bộ câu trả lời khi luồng kết thúc (để ghi Sheet).
 function textStream(upstream, onDone) {
   const decoder = new TextDecoder();
@@ -183,15 +222,18 @@ function textStream(upstream, onDone) {
         buffer = lines.pop();
         for (const line of lines) {
           if (!line.startsWith("data:")) continue;
+          const payload = line.slice(5).trim();
+          if (!payload || payload === "[DONE]") continue;
           try {
-            const data = JSON.parse(line.slice(5));
-            const parts = data?.candidates?.[0]?.content?.parts || [];
-            for (const p of parts) {
-              if (p.text && !p.thought) {
-                sentAny = true;
-                full += p.text;
-                controller.enqueue(encoder.encode(p.text));
-              }
+            const data = JSON.parse(payload);
+            // Google: candidates[].content.parts[].text. Kie (kiểu OpenAI): choices[].delta.content.
+            const texts = data?.candidates
+              ? (data.candidates[0]?.content?.parts || []).filter((p) => p.text && !p.thought).map((p) => p.text)
+              : [data?.choices?.[0]?.delta?.content].filter((t) => typeof t === "string" && t);
+            for (const t of texts) {
+              sentAny = true;
+              full += t;
+              controller.enqueue(encoder.encode(t));
             }
           } catch {
             // Bỏ qua dòng không phải JSON hoàn chỉnh.
@@ -208,7 +250,7 @@ function textStream(upstream, onDone) {
 
 export async function onRequestPost({ request, env, waitUntil }) {
   if (!originAllowed(request)) return json(403, { error: "forbidden" });
-  if (!env.GEMINI_API_KEY) return json(503, { error: "not_configured", message: FALLBACK_TEXT });
+  if (!env.KIE_API_KEY && !env.GEMINI_API_KEY) return json(503, { error: "not_configured", message: FALLBACK_TEXT });
 
   let body;
   try {
@@ -226,49 +268,31 @@ export async function onRequestPost({ request, env, waitUntil }) {
     if (waitUntil) waitUntil(p);
   };
 
-  const models = [...new Set([env.GEMINI_MODEL || DEFAULT_MODEL, ...BACKUP_MODELS])];
+  const attempts = [];
+  if (env.KIE_API_KEY) for (const m of KIE_MODELS) attempts.push({ label: "kie:" + m, run: () => tryKie(env, contents, m) });
+  if (env.GEMINI_API_KEY) for (const m of new Set([env.GEMINI_MODEL || DEFAULT_MODEL, ...BACKUP_MODELS])) attempts.push({ label: m, run: () => tryGoogle(env, contents, m) });
+
   let upstream;
   let usedModel;
-  try {
-    for (const model of models) {
-      usedModel = model;
-      try {
-        upstream = await callGemini(env, contents, model, true);
-      } catch {
-        continue; // Lỗi mạng với mô hình này thì thử mô hình kế tiếp.
+  let failure = { status: 503, reason: "fetch_failed" };
+  for (const attempt of attempts) {
+    usedModel = attempt.label;
+    try {
+      const r = await attempt.run();
+      if (r.ok) {
+        upstream = r.res;
+        break;
       }
-      // Nếu mô hình không nhận thinkingConfig thì gọi lại một lần không kèm tham số này.
-      // Chỉ gọi lại khi lỗi 400 nói về thinking, để không tốn thêm lượt trong hạn mức mỗi phút.
-      if (upstream.status === 400) {
-        const errText = await upstream.clone().text();
-        if (/thinking/i.test(errText)) upstream = await callGemini(env, contents, model, false);
-      }
-      if (!RETRYABLE.has(upstream.status)) break;
+      failure = r;
+    } catch {
+      failure = { status: 503, reason: "fetch_failed" };
     }
-  } catch {
-    log({ answer: "", status: "Lỗi: fetch_failed", model: usedModel });
-    return json(503, { error: "upstream", reason: "fetch_failed", message: FALLBACK_TEXT });
+    // Lỗi ở nguồn này thì thử nguồn kế tiếp (quá tải, hết lượt, hết credit, khóa sai).
   }
   if (!upstream) {
-    log({ answer: "", status: "Lỗi: fetch_failed", model: usedModel });
-    return json(503, { error: "upstream", reason: "fetch_failed", message: FALLBACK_TEXT });
-  }
-  if (!upstream.ok || !upstream.body) {
     // Dùng 503 thay vì 502 vì Cloudflare thay trang 502 bằng trang lỗi riêng, mất phần lý do.
-    // Chỉ trả mã trạng thái lỗi của Google (ví dụ FAILED_PRECONDITION), không trả nội dung có thể chứa thông tin nhạy cảm.
-    let reason = String(upstream.status);
-    try {
-      const err = (await upstream.json())?.error;
-      if (err?.status) reason += " " + err.status;
-      const quota = (err?.details || []).flatMap((d) => d?.violations || []).map((v) => `${v.quotaId || ""}=${v.quotaValue ?? "?"}`).join(",");
-      if (quota) reason += " " + quota;
-      const detail = (err?.details || []).map((d) => d?.reason).filter(Boolean).join(",");
-      if (detail) reason += " " + detail;
-      // Thông báo lỗi Google không chứa khóa; cắt ngắn để chẩn đoán lỗi tham số.
-      else if (err?.message) reason += " | " + String(err.message).replace(/AIza[\w-]+/g, "***").slice(0, 600);
-    } catch {}
-    log({ answer: "", status: "Lỗi: " + reason.split(" | ")[0], model: usedModel });
-    return json(upstream.status === 429 ? 429 : 503, { error: "upstream", reason, model: usedModel, message: FALLBACK_TEXT });
+    log({ answer: "", status: "Lỗi: " + failure.reason.split(" | ")[0], model: usedModel });
+    return json(failure.status === 429 ? 429 : 503, { error: "upstream", reason: failure.reason, model: usedModel, message: FALLBACK_TEXT });
   }
 
   let finish;
