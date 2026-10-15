@@ -2,7 +2,7 @@
 // Giữ khóa Gemini ở phía máy chủ (biến bí mật GEMINI_API_KEY), trình duyệt không bao giờ thấy khóa.
 // Biến môi trường: GEMINI_API_KEY (bắt buộc, loại Secret), GEMINI_MODEL (tùy chọn),
 // SHEET_WEBHOOK_URL và SHEET_WEBHOOK_TOKEN (tùy chọn): ghi câu hỏi về Google Sheet qua Apps Script.
-// KIE_API_KEY (tùy chọn): gọi Gemini qua Kie.ai (nguồn chính). GEMINI_API_KEY: gọi thẳng Google (dự phòng).
+// KIE_API_KEY (tùy chọn): gọi Claude Haiku 5.5 qua Kie.ai (nguồn chính), rồi Gemini qua Kie. GEMINI_API_KEY: gọi thẳng Google (dự phòng cuối).
 
 const DEFAULT_MODEL = "gemini-3.8-flash";
 const MAX_CHARS = 1500;
@@ -134,7 +134,9 @@ function toContents(messages) {
   return contents;
 }
 
-// Kie.ai (API kiểu OpenAI) là nguồn chính. Mô hình chọn theo đường dẫn URL.
+// Nguồn chính: Claude Haiku 5.5 qua Kie.ai (định dạng Messages của Anthropic).
+const KIE_CLAUDE_MODEL = "claude-haiku-5-5";
+// Dự phòng 1: Gemini qua Kie.ai (API kiểu OpenAI), mô hình chọn theo đường dẫn URL.
 const KIE_MODELS = ["gemini-3-8-flash-openai", "gemini-3-6-flash-openai"];
 // Google Gemini trực tiếp là nguồn dự phòng. Mỗi mô hình có hạn mức miễn phí riêng.
 const BACKUP_MODELS = ["gemini-3.6-flash", "gemini-2.5-flash"];
@@ -151,7 +153,36 @@ async function callGemini(env, contents, model, withThinking) {
   });
 }
 
-// Gọi Kie.ai. Kie trả lỗi bằng HTTP 200 kèm {"code","msg"} dạng JSON, nên phải đọc nội dung để biết lỗi.
+// Kie trả lỗi bằng HTTP 200 kèm JSON {"code","msg"}; luồng thành công có content-type text/event-stream.
+async function kieResult(res) {
+  const type = res.headers.get("content-type") || "";
+  if (res.ok && res.body && type.includes("text/event-stream")) return { ok: true, res };
+  let reason = String(res.status);
+  try {
+    const data = JSON.parse(await res.text());
+    reason = `${data.code ?? data.error?.type ?? res.status} ${String(data.msg || data.error?.message || "").slice(0, 200)}`.trim();
+  } catch {}
+  return { ok: false, status: res.status === 200 ? 502 : res.status, reason: "Kie " + reason };
+}
+
+// Gọi Claude qua Kie.ai. thinkingFlag: false tắt suy nghĩ mở rộng để trả lời nhanh, ít token.
+async function tryKieClaude(env, contents) {
+  const res = await fetch("https://api.kie.ai/claude/v1/messages", {
+    method: "POST",
+    headers: { "content-type": "application/json", authorization: `Bearer ${env.KIE_API_KEY}`, "anthropic-version": "2023-06-01" },
+    body: JSON.stringify({
+      model: KIE_CLAUDE_MODEL,
+      system: systemText(),
+      messages: contents.map((c) => ({ role: c.role === "model" ? "assistant" : "user", content: c.parts[0].text })),
+      max_tokens: 1024,
+      stream: true,
+      thinkingFlag: false,
+    }),
+  });
+  return kieResult(res);
+}
+
+// Gọi Gemini qua Kie.ai. Kie trả lỗi bằng HTTP 200 kèm {"code","msg"} dạng JSON, nên phải đọc nội dung để biết lỗi.
 async function tryKie(env, contents, model) {
   const messages = [{ role: "system", content: systemText() }].concat(
     contents.map((c) => ({ role: c.role === "model" ? "assistant" : "user", content: [{ type: "text", text: c.parts[0].text }] }))
@@ -161,14 +192,7 @@ async function tryKie(env, contents, model) {
     headers: { "content-type": "application/json", authorization: `Bearer ${env.KIE_API_KEY}` },
     body: JSON.stringify({ messages, stream: true, include_thoughts: false, reasoning_effort: "low" }),
   });
-  const type = res.headers.get("content-type") || "";
-  if (res.ok && res.body && type.includes("text/event-stream")) return { ok: true, res };
-  let reason = String(res.status);
-  try {
-    const data = JSON.parse(await res.text());
-    reason = `${data.code ?? res.status} ${String(data.msg || "").slice(0, 200)}`.trim();
-  } catch {}
-  return { ok: false, status: res.status === 200 ? 502 : res.status, reason: "Kie " + reason };
+  return kieResult(res);
 }
 
 // Gọi Google trực tiếp, đọc lý do lỗi (không chứa khóa) để chẩn đoán.
@@ -226,10 +250,13 @@ function textStream(upstream, onDone) {
           if (!payload || payload === "[DONE]") continue;
           try {
             const data = JSON.parse(payload);
-            // Google: candidates[].content.parts[].text. Kie (kiểu OpenAI): choices[].delta.content.
+            // Google: candidates[].content.parts[].text. Kie Gemini (kiểu OpenAI): choices[].delta.content.
+            // Kie Claude (kiểu Anthropic): content_block_delta với delta.type "text_delta".
             const texts = data?.candidates
               ? (data.candidates[0]?.content?.parts || []).filter((p) => p.text && !p.thought).map((p) => p.text)
-              : [data?.choices?.[0]?.delta?.content].filter((t) => typeof t === "string" && t);
+              : data?.type === "content_block_delta"
+                ? [data.delta?.type === "text_delta" ? data.delta.text : ""].filter(Boolean)
+                : [data?.choices?.[0]?.delta?.content].filter((t) => typeof t === "string" && t);
             for (const t of texts) {
               sentAny = true;
               full += t;
@@ -269,6 +296,7 @@ export async function onRequestPost({ request, env, waitUntil }) {
   };
 
   const attempts = [];
+  if (env.KIE_API_KEY) attempts.push({ label: "kie:" + KIE_CLAUDE_MODEL, run: () => tryKieClaude(env, contents) });
   if (env.KIE_API_KEY) for (const m of KIE_MODELS) attempts.push({ label: "kie:" + m, run: () => tryKie(env, contents, m) });
   if (env.GEMINI_API_KEY) for (const m of new Set([env.GEMINI_MODEL || DEFAULT_MODEL, ...BACKUP_MODELS])) attempts.push({ label: m, run: () => tryGoogle(env, contents, m) });
 
