@@ -129,7 +129,7 @@
         </form>
         <div class="wfc-meta">
           <span>Không gửi MST, CCCD, số tài khoản.</span>
-          <a class="wfc-hotline" href="tel:${HOTLINE.replace(/\s/g, "")}" aria-label="Gọi hotline ${HOTLINE}">${svg.phone}Hotline ${HOTLINE}</a>
+          <a class="wfc-hotline" href="tel:${HOTLINE.replace(/\s/g, "")}" aria-label="Gọi hotline ${HOTLINE}">${svg.phone}Hotline</a>
         </div>
       </div>
     </div>`;
