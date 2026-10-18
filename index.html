@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hiểu thuế đúng · 2 buổi Zoom</title>
-<meta name="description" content="2 buổi tối Zoom giúp bạn bắt đầu kinh doanh đúng từ đầu về thuế và hồ sơ. Dành cho Cộng đồng 300 DNS · Khởi nghiệp Kinh doanh số. Tài trợ 100% cho thành viên.">
+<title>Hiểu thuế đúng · WI.FINANCE</title>
+<meta name="description" content="Đồng hành kế toán, thuế cho chủ doanh nghiệp nhỏ và hộ kinh doanh: cộng đồng miễn phí, workshop, hỏi đáp kế toán thuế cả năm và bảng giá dịch vụ rõ ràng.">
 <link rel="icon" href="assets/wifinance-icon.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -460,6 +460,114 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
 .final .countdown{ margin: 0 auto 32px; text-align: left; }
 .hero-side .countdown{ max-width: none; margin: 26px 0 0; }
 
+/* ====== Event bar (tự ẩn sau sự kiện) ====== */
+.event-bar{ background: linear-gradient(110deg, var(--night), var(--coban)); color: #EAF1FB; border-bottom: 1px solid rgba(230,201,138,.35); }
+.event-bar .wrap{ display: flex; align-items: center; gap: 12px; padding: 10px 0; font-size: 14px; }
+.event-bar p{ margin: 0; flex: 1; }
+.event-bar b{ color: var(--champagne); }
+.event-bar .dot{ flex: none; width: 9px; height: 9px; border-radius: 50%; background: var(--cta); animation: livePulse 1.6s ease-out infinite; }
+.ev-btn{ flex: none; padding: 7px 16px; border-radius: 999px; font-weight: 700; font-size: 13px; color: var(--coban); background: var(--champagne); text-decoration: none; }
+.hero .free a{ color: #fff; }
+.hero .free a[href^="tel:"]{ white-space: nowrap; }
+
+/* ====== Lộ trình 4 bước ====== */
+.ladder-sec{ background: var(--mist); }
+.ladder{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; align-items: stretch; }
+.lcard{
+  display: flex; flex-direction: column; padding: 30px 24px 26px; border-radius: var(--radius);
+  background: #fff; box-shadow: 0 0 0 1px rgba(30,79,163,.10), var(--shadow);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+.lcard:hover{ transform: translateY(-4px); }
+.lstep{ font-size: 13px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--coban-ink); }
+.lcard h3{ font-size: 25px; margin: 14px 0 10px; color: var(--coban); }
+.lsub{ margin: 0; font-weight: 600; color: var(--coban-2); }
+.lprice{ margin: 22px 0 18px; font: 700 34px/1.15 "Playfair Display", Georgia, serif; color: var(--coban); }
+.lprice.muted{ font: 500 15px/1.5 "Montserrat", sans-serif; color: var(--coban-ink); }
+.lprice.big{ font-size: 36px; color: var(--champagne); }
+.lprice.big span{ display: block; font: 500 14px/1.6 "Montserrat", sans-serif; color: rgba(234,241,251,.6); }
+.lcard ul{ margin: 0 0 22px; padding-left: 18px; color: var(--coban-ink); flex: 1; }
+.lqr{ width: 120px; height: 120px; margin: 0 auto 16px; border-radius: 12px; box-shadow: 0 0 0 1px rgba(30,79,163,.15); }
+.lbtn{
+  display: block; text-align: center; padding: 14px 18px; border-radius: 999px; text-decoration: none;
+  font-weight: 700; color: var(--coban); border: 2px solid var(--coban); transition: background .2s ease, color .2s ease;
+}
+.lbtn:hover{ background: var(--coban); color: #fff; }
+.lbtn.solid{ background: var(--gold); border-color: var(--gold); color: #fff; }
+.lbtn.solid:hover{ background: #B5872C; border-color: #B5872C; }
+.lcall{ display: block; margin-top: 10px; text-align: center; font-size: 13.5px; font-weight: 600; color: var(--coban-2); }
+.lcard.featured{ background: linear-gradient(165deg, var(--coban), var(--night)); color: #EAF1FB; transform: translateY(-14px); box-shadow: 0 0 0 1px rgba(230,201,138,.35), 0 30px 60px -26px rgba(11,42,91,.75); }
+.lcard.featured:hover{ transform: translateY(-18px); }
+.lcard.featured .lstep{ color: rgba(234,241,251,.75); }
+.lcard.featured h3{ color: #fff; }
+.lcard.featured .lsub{ color: var(--champagne); }
+.lcard.featured ul{ color: rgba(234,241,251,.85); }
+.lcard.featured .lcall{ color: var(--champagne); }
+
+/* ====== Bảng giá ====== */
+.pricing{ max-width: 920px; margin: 0 auto; }
+.ptabs{ display: flex; gap: 8px; padding: 6px; border-radius: 999px; background: var(--mist); width: fit-content; max-width: 100%; margin: 0 auto 26px; overflow-x: auto; }
+.ptabs button{ flex: none; border: 0; cursor: pointer; padding: 10px 20px; border-radius: 999px; font: 600 15px/1.3 "Montserrat", sans-serif; color: var(--coban-ink); background: transparent; }
+.ptabs button[aria-selected="true"]{ background: var(--coban); color: #fff; box-shadow: 0 6px 18px -8px rgba(11,42,91,.6); }
+.ptabs button:focus-visible{ outline: 2px solid var(--gold); outline-offset: 2px; }
+.ppanel{ display: grid; gap: 22px; }
+.tscroll{ overflow-x: auto; border-radius: 16px; box-shadow: 0 0 0 1px rgba(30,79,163,.12); }
+.ptable{ width: 100%; border-collapse: collapse; font-size: 15px; background: #fff; }
+.ptable th{ text-align: left; padding: 13px 18px; background: var(--coban); color: #fff; font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; }
+.ptable th:not(:first-child), .ptable td:not(:first-child){ text-align: right; white-space: nowrap; }
+.ptable td{ padding: 12px 18px; border-top: 1px solid rgba(30,79,163,.10); color: var(--coban); }
+.ptable td:not(:first-child){ font-weight: 700; }
+.ptable td small{ display: block; font-size: 12.5px; font-weight: 600; color: var(--gold); }
+.ptable td em{ font-weight: 600; color: var(--gold); }
+.ptable tbody tr:nth-child(even){ background: #F8FAFD; }
+.ptable tr.hl td{ background: #FBF4E6; font-weight: 700; }
+.pnote{ margin: 0; text-align: center; color: var(--coban-ink); }
+.pfoot{ margin: 18px 0 0; text-align: center; font-style: italic; color: var(--gold); font-size: 14.5px; }
+.contact-box{ max-width: 920px; margin: 34px auto 0; padding: 28px 32px; display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; }
+.contact-box h3{ font-size: 26px; margin: 8px 0 6px; }
+.contact-box p{ margin: 0; color: var(--coban-ink); }
+.cb-actions{ display: grid; gap: 10px; justify-items: stretch; min-width: 260px; }
+.btn-line{ display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 22px; border-radius: 999px; border: 2px solid var(--coban); color: var(--coban); font-weight: 700; text-decoration: none; transition: background .2s ease, color .2s ease; }
+.btn-line:hover{ background: var(--coban); color: #fff; }
+.btn-line.sm{ margin-top: 10px; padding: 9px 18px; font-size: 14px; }
+.btn-line.light{ border-color: rgba(230,201,138,.7); color: var(--champagne); }
+.btn-line.light:hover{ background: var(--champagne); color: var(--coban); }
+.pdf-link{ text-align: center; font-size: 14px; font-weight: 600; color: var(--coban-2); }
+
+/* ====== Kết nối, CTA cuối, footer ====== */
+.steps.three{ grid-template-columns: repeat(3, 1fr); max-width: 1060px; }
+.phone-big{ display: block; margin: 18px 0 4px; font: 700 28px/1.2 "Montserrat", sans-serif; color: var(--coban); text-decoration: none; letter-spacing: .02em; }
+.final-actions{ display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; align-items: center; }
+.final-sub{ margin-top: 22px !important; }
+.final-sub a{ color: var(--champagne); font-weight: 600; }
+footer .fcontact{ margin: 0; font-weight: 600; color: var(--coban); }
+footer .fcontact a{ color: var(--coban-2); }
+@media (max-width: 960px){
+  .ladder{ grid-template-columns: 1fr 1fr; }
+  .lcard.featured, .lcard.featured:hover{ transform: none; }
+  .steps.three{ grid-template-columns: 1fr; }
+  .contact-box{ grid-template-columns: 1fr; }
+}
+@media (max-width: 640px){
+  .event-bar .wrap{ flex-wrap: wrap; font-size: 13px; }
+  .ladder{ grid-template-columns: 1fr; }
+  .lqr{ display: none; }
+  .ptabs{ display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; border-radius: 16px; gap: 4px; }
+  .ptabs button{ padding: 10px 6px; font-size: 13px; white-space: normal; }
+  .ptable{ font-size: 14px; }
+  .ptable th, .ptable td{ padding: 11px 12px; }
+  .ptable th{ font-size: 11px; letter-spacing: .04em; }
+  .ptable th:not(:first-child){ white-space: normal; width: 34%; }
+  .ptable.three th, .ptable.three td{ padding: 10px 8px; }
+  .ptable.three th{ font-size: 10px; }
+  .ptable.three th:first-child{ width: 28%; }
+  .ptable.three th:not(:first-child){ width: 36%; }
+  .ptable.three td{ font-size: 12.5px; }
+  .contact-box{ padding: 24px 20px; }
+  .cb-actions{ min-width: 0; }
+  .final-actions .cta, .final-actions .btn-line{ width: 100%; }
+}
+
 /* ====== Toast ====== */
 .toast{
   position: fixed; left: 50%; top: 84px; z-index: 80; transform: translate(-50%, -20px); opacity: 0;
@@ -529,19 +637,21 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
 </head>
 <body>
 
-<!-- ================================================================
-     ĐIỀN SAU (2 chỗ):
-     1) Link nhóm Zalo: sửa ZALO_LINK ở cuối file (phần <script>).
-        Ảnh QR (nếu có): lưu vào assets/zalo-qr.jpg rồi sửa ZALO_QR = "assets/zalo-qr.jpg".
-     2) Tiểu sử chị Kim Thanh: tìm dòng "ĐIỀN SAU: tiểu sử chị Kim Thanh".
-     ================================================================ -->
-
 <header class="topbar">
   <div class="wrap">
     <a class="logo" href="#top" aria-label="WI.FINANCE"><img src="assets/wifinance-logo.png" alt="WI.FINANCE — Dòng tiền thịnh vượng, sống đời hạnh phúc" width="900" height="267"></a>
-    <a class="cta sm js-zalo" href="#tham-gia">Nhận vé tài trợ 100% <span class="arrow">→</span></a>
+    <a class="cta sm" href="https://zalo.me/0948387418" target="_blank" rel="noopener">Nhận tư vấn <span class="arrow">→</span></a>
   </div>
 </header>
+
+<!-- Dải thông báo Buổi 2: tự ẩn sau 21:30 ngày 18/10/2026 (xem script cuối trang) -->
+<div class="event-bar" id="eventBar" data-until="2026-10-18T21:30:00">
+  <div class="wrap">
+    <span class="dot" aria-hidden="true"></span>
+    <p><b>Tối nay 18/10 · 20:00:</b> Buổi 2 Workshop Hiểu thuế đúng trên Zoom. Link tham dự có trong nhóm Zalo.</p>
+    <a class="ev-btn js-zalo" href="#tham-gia">Vào nhóm Zalo</a>
+  </div>
+</div>
 
 <!-- ============ HERO ============ -->
 <section class="hero dark" id="top">
@@ -555,21 +665,21 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
     <div class="reveal">
       <span class="tag">WI.FINANCE — Tài Chính Tâm Thức</span>
       <h1>Hiểu thuế đúng, chuẩn hồ sơ, an tâm phát triển</h1>
-      <p class="sub"><b>2 buổi tối</b> giúp bạn nắm vững thuế và hồ sơ ngay từ đầu, để khởi nghiệp bài bản và an tâm phát triển.</p>
+      <p class="sub">Đồng hành cùng chủ doanh nghiệp nhỏ và hộ kinh doanh, <b>từ hiểu đúng thuế đến hồ sơ, kế toán gọn gàng</b>, để bạn yên tâm tập trung bán hàng.</p>
 
       <div class="facts">
-        <div class="fact glow"><small>Buổi 1</small><strong>20:00–21:30 · 17/10/2026</strong></div>
-        <div class="fact glow"><small>Buổi 2</small><strong>20:00–21:30 · 18/10/2026</strong></div>
+        <div class="fact glow"><small>Bắt đầu</small><strong>Cộng đồng kế toán – thuế miễn phí</strong></div>
+        <div class="fact glow"><small>Đồng hành</small><strong>Hỏi đáp kế toán thuế cả năm</strong></div>
         <div class="fact full glow">
-          <span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="3"/><path d="M16 10.5 22 7v10l-6-3.5"/></svg></span>
-          <div><small>Hình thức</small><strong>Zoom online</strong></div>
+          <span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span>
+          <div><small>Dịch vụ</small><strong>Đăng ký kinh doanh · Kế toán thuế · Thuế TNCN</strong></div>
         </div>
       </div>
 
-      <a class="cta lg js-zalo" href="#tham-gia">👉 Tham gia nhóm Zalo nhận vé tài trợ 100% <span class="arrow">→</span></a>
+      <a class="cta lg" href="#lo-trinh">Xem lộ trình đồng hành <span class="arrow">→</span></a>
       <p class="free">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-        <span>Giá niêm yết 599.000đ · <b>Thành viên cộng đồng 300 DNS được tài trợ 100% vé</b></span>
+        <span><a href="#bang-gia">Xem bảng giá dịch vụ</a> · Liên hệ chị Huyền <a href="tel:0948387418"><b>0948 387 418</b></a></span>
       </p>
     </div>
 
@@ -584,16 +694,6 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
           <figcaption><b>Chị Kim Thanh</b>Trưởng ban Kế toán Thuế</figcaption>
         </figure>
       </div>
-      <div class="countdown glow" data-cd>
-        <div class="cd-label"><span class="dot"></span><span data-cd-label>Buổi 1 bắt đầu sau</span></div>
-        <div class="cd-grid" data-cd-grid>
-          <div class="cd-unit"><b data-u="d">00</b><small>Ngày</small></div><span class="cd-sep">:</span>
-          <div class="cd-unit"><b data-u="h">00</b><small>Giờ</small></div><span class="cd-sep">:</span>
-          <div class="cd-unit"><b data-u="m">00</b><small>Phút</small></div><span class="cd-sep">:</span>
-          <div class="cd-unit"><b data-u="s">00</b><small>Giây</small></div>
-        </div>
-        <div class="cd-live" data-cd-live hidden></div>
-      </div>
     </div>
   </div>
 
@@ -604,60 +704,154 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
   </svg>
 </section>
 
-<!-- ============ VÉ THAM DỰ ============ -->
-<section class="ticket-sec" id="ve">
+<!-- ============ LỘ TRÌNH 4 BƯỚC ============ -->
+<section class="ladder-sec" id="lo-trinh">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="eyebrow">Vé tham dự</span>
-      <h2>Ưu đãi ra mắt cộng đồng</h2>
+      <span class="eyebrow">Lộ trình đồng hành</span>
+      <h2>4 bước đồng hành cùng doanh nghiệp của bạn</h2>
+      <p>Bắt đầu từ bước phù hợp với giai đoạn của bạn. Bước nào cũng có người làm nghề trả lời.</p>
     </div>
-
-    <div class="ticket glow reveal">
-      <div class="left">
-        <div class="label">Vé 2 buổi · Zoom online</div>
-        <div class="old">Giá vé niêm yết: <s>599.000đ</s> / 2 buổi</div>
-        <div class="zero">0<span>đ</span></div>
-        <span class="badge">TÀI TRỢ 100%</span>
-      </div>
-      <div class="right">
-        <h3>Chương trình được tài trợ 100% cho thành viên cộng đồng</h3>
-        <p>Điều kiện nhận tài trợ: <b>tham gia nhóm Zalo của chương trình.</b></p>
-        <div class="means">→ Vé của bạn được <b>TÀI TRỢ 100%</b>. Bạn chỉ cần hoàn tất 1 bước: tham gia nhóm Zalo để nhận link Zoom.</div>
-        <a class="cta js-zalo" href="#tham-gia">👉 Tham gia nhóm Zalo để nhận vé tài trợ 100% và link Zoom</a>
-        <p class="note">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-          <span>Lưu ý: Vui lòng vào phòng Zoom trước 10 phút. Chương trình bắt đầu đúng 20:00.</span>
-        </p>
-      </div>
+    <div class="ladder">
+      <article class="lcard reveal">
+        <span class="lstep">Bước 1</span>
+        <h3>Cộng đồng kế toán – thuế</h3>
+        <p class="lsub">Chia sẻ kiến thức thường xuyên</p>
+        <div class="lprice">Miễn phí</div>
+        <ul><li>Cập nhật kiến thức kế toán, thuế dễ hiểu cho chủ doanh nghiệp nhỏ và hộ kinh doanh</li></ul>
+        <img class="lqr" src="assets/fb-qr.png" alt="Mã QR nhóm Facebook Hiểu thuế đúng" width="480" height="480" loading="lazy">
+        <a class="lbtn" href="https://www.facebook.com/groups/hieuthuedung" target="_blank" rel="noopener">Tham gia</a>
+      </article>
+      <article class="lcard reveal">
+        <span class="lstep">Bước 2</span>
+        <h3>Workshop Thuế – Pháp lý – Vận hành</h3>
+        <p class="lsub">2 ngày</p>
+        <div class="lprice muted">Liên hệ để biết lịch</div>
+        <ul><li>Hiểu đúng nghĩa vụ thuế, pháp lý và cách vận hành tài chính doanh nghiệp</li></ul>
+        <a class="lbtn js-zalo" href="#tham-gia">Đăng ký nhận lịch</a>
+      </article>
+      <article class="lcard featured reveal">
+        <span class="lstep">Bước 3</span>
+        <h3>Hỏi đáp kế toán thuế</h3>
+        <p class="lsub">Đồng hành cả năm</p>
+        <div class="lprice big">1.999.000đ<span>/ năm</span></div>
+        <ul><li>Có người đồng hành giải đáp khi doanh nghiệp gặp câu hỏi về kế toán, thuế</li></ul>
+        <a class="lbtn solid" href="https://zalo.me/0948387418" target="_blank" rel="noopener">Đăng ký</a>
+        <a class="lcall" href="tel:0948387418">hoặc gọi 0948 387 418</a>
+      </article>
+      <article class="lcard reveal">
+        <span class="lstep">Bước 4</span>
+        <h3>Gói giải pháp doanh nghiệp</h3>
+        <p class="lsub">Theo mô hình và quy mô</p>
+        <div class="lprice muted">Báo giá riêng</div>
+        <ul><li>Giải pháp tài chính, kế toán, thuế thiết kế riêng cho từng doanh nghiệp</li></ul>
+        <a class="lbtn" href="https://zalo.me/0948387418" target="_blank" rel="noopener">Nhận tư vấn</a>
+        <a class="lcall" href="tel:0948387418">hoặc gọi 0948 387 418</a>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- ============ QUÀ TẶNG WORKBOOK ============ -->
-<section class="gift-sec" id="qua-tang">
-  <div class="wrap gift">
-    <div class="book-wrap reveal" aria-hidden="true">
-      <div class="book">
-        <div class="book-cover">
-          <span class="bk-eyebrow">Workbook</span>
-          <span class="bk-title">Hiểu thuế đúng, chuẩn hồ sơ, an tâm phát triển</span>
-          <span class="bk-rule"></span>
-          <span class="bk-sub">Workshop 2 buổi · 17–18/10/2026</span>
-          <span class="bk-brand">WI.FINANCE</span>
-        </div>
-      </div>
-      <div class="price-tag"><small>Trị giá</small><b>199.000đ</b></div>
+<!-- ============ BẢNG GIÁ DỊCH VỤ ============ -->
+<section id="bang-gia">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Bảng giá dịch vụ</span>
+      <h2>Bảng giá rõ ràng, biết trước chi phí</h2>
+      <p>Đăng ký kinh doanh · Kế toán thuế · Thuế thu nhập cá nhân</p>
     </div>
-    <div class="gift-text reveal">
-      <span class="eyebrow">Quà tặng kèm</span>
-      <h2>Workbook “Hiểu thuế đúng, chuẩn hồ sơ, an tâm phát triển”</h2>
-      <p>Workbook chứa trọn nội dung của 2 buổi tối, để bạn vừa nghe vừa ghi và áp dụng ngay cho việc kinh doanh của mình.</p>
-      <ul class="ticks">
-        <li>Buổi 1: thuế, đăng ký kinh doanh, chọn hộ kinh doanh hay công ty</li>
-        <li>Buổi 2: hồ sơ, hoá đơn, sổ sách và cách lưu trữ</li>
-      </ul>
-      <div class="gift-price"><s>199.000đ</s><b>Quà tặng</b><span>Trao tận tay người tham gia ngay trong buổi học</span></div>
-      <a class="cta js-zalo" href="#tham-gia">👉 Vào nhóm Zalo nhận vé tham dự <span class="arrow">→</span></a>
+
+    <div class="pricing reveal">
+      <div class="ptabs" role="tablist" aria-label="Nhóm dịch vụ">
+        <button type="button" role="tab" id="tab-dkkd" aria-controls="panel-dkkd" aria-selected="true">Đăng ký kinh doanh</button>
+        <button type="button" role="tab" id="tab-ktt" aria-controls="panel-ktt" aria-selected="false" tabindex="-1">Kế toán thuế</button>
+        <button type="button" role="tab" id="tab-tncn" aria-controls="panel-tncn" aria-selected="false" tabindex="-1">Thuế TNCN</button>
+      </div>
+
+      <div class="ppanel" role="tabpanel" id="panel-dkkd" aria-labelledby="tab-dkkd">
+        <div class="tscroll"><table class="ptable">
+          <thead><tr><th>Doanh nghiệp</th><th>Phí dịch vụ (đồng/lần)</th></tr></thead>
+          <tbody>
+<tr><td>Thành lập công ty TNHH</td><td>1.100.000</td></tr>
+<tr><td>Thành lập công ty cổ phần</td><td>1.300.000</td></tr>
+<tr><td>Thành lập chi nhánh, VPĐD, địa điểm kinh doanh</td><td>1.000.000</td></tr>
+<tr><td>Bổ sung ngành nghề</td><td>1.000.000</td></tr>
+<tr><td>Thay đổi thông tin GPKD<small>Thêm nội dung: +200.000đ/lần</small></td><td>1.000.000</td></tr>
+<tr><td>Chuyển nhượng vốn / thay chủ sở hữu / Giám đốc</td><td>1.300.000</td></tr>
+<tr><td>Tạm ngưng công ty</td><td>800.000</td></tr>
+<tr><td>Hoạt động lại</td><td>800.000</td></tr>
+<tr><td>Chuyển đổi loại hình doanh nghiệp</td><td>1.700.000</td></tr>
+          </tbody>
+        </table></div>
+        <div class="tscroll"><table class="ptable">
+          <thead><tr><th>Hộ kinh doanh</th><th>Phí dịch vụ (đồng/lần)</th></tr></thead>
+          <tbody>
+<tr><td>Thành lập hộ kinh doanh</td><td>800.000</td></tr>
+<tr><td>Thay đổi thông tin GPKD</td><td>800.000</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <div class="ppanel" role="tabpanel" id="panel-ktt" aria-labelledby="tab-ktt" hidden>
+        <p class="pnote">Phí tính theo quý, dựa trên tổng số hoá đơn vào và ra trong quý.</p>
+        <div class="tscroll"><table class="ptable three">
+          <thead><tr><th>Số hoá đơn / quý (vào + ra)</th><th>Thương mại (đồng/quý)</th><th>Dịch vụ (đồng/quý)</th></tr></thead>
+          <tbody>
+<tr><td>Không phát sinh</td><td>900.000</td><td>900.000</td></tr>
+<tr><td>Dưới 11</td><td>2.100.000</td><td>2.400.000</td></tr>
+<tr><td>Dưới 21</td><td>2.500.000</td><td>2.800.000</td></tr>
+<tr><td>Dưới 31</td><td>2.900.000</td><td>3.200.000</td></tr>
+<tr><td>Dưới 41</td><td>3.300.000</td><td>3.600.000</td></tr>
+<tr><td>Dưới 51</td><td>3.700.000</td><td>4.000.000</td></tr>
+<tr><td>Dưới 61</td><td>4.100.000</td><td>4.400.000</td></tr>
+<tr><td>Dưới 71</td><td>4.500.000</td><td>4.800.000</td></tr>
+<tr><td>Dưới 81</td><td>4.800.000</td><td>5.100.000</td></tr>
+<tr><td>Dưới 91</td><td>5.200.000</td><td>5.400.000</td></tr>
+<tr><td>Dưới 101</td><td>5.500.000</td><td>5.800.000</td></tr>
+            <tr class="hl"><td>Từ 102 hoá đơn trở lên</td><td>+20.000đ / hoá đơn</td><td>+20.000đ / hoá đơn</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <div class="ppanel" role="tabpanel" id="panel-tncn" aria-labelledby="tab-tncn" hidden>
+        <div class="tscroll"><table class="ptable">
+          <thead><tr><th>Dịch vụ mức phí cố định</th><th>Mức phí (đồng/lần)</th></tr></thead>
+          <tbody>
+<tr><td>Tạo, kích hoạt tài khoản thuế, lấy mật khẩu</td><td>80.000</td></tr>
+<tr><td>Tạo mã số thuế cá nhân</td><td>150.000</td></tr>
+<tr><td>Cập nhật thông tin CMND lên CCCD + sửa đúng địa chỉ</td><td>100.000</td></tr>
+<tr><td>Đóng mã số thuế cá nhân / phụ thuộc do trùng</td><td>250.000</td></tr>
+<tr><td>Đăng ký người phụ thuộc, thay đổi thời gian giảm trừ</td><td>200.000</td></tr>
+<tr><td>Sửa thông tin người phụ thuộc</td><td>150.000</td></tr>
+<tr><td>Đổi số điện thoại, Gmail</td><td>150.000</td></tr>
+<tr><td>Chuyển người phụ thuộc từ mã số thuế này sang mã số thuế khác</td><td>300.000</td></tr>
+          </tbody>
+        </table></div>
+        <div class="tscroll"><table class="ptable">
+          <thead><tr><th>Dịch vụ tính phí theo hồ sơ</th><th>Mức phí</th></tr></thead>
+          <tbody>
+<tr><td>Xử lý hồ sơ đang thiếu chứng từ; hồ sơ treo lâu năm chưa nhận được quyết định hoàn thuế</td><td><em>Dựa theo hồ sơ</em></td></tr>
+<tr><td>Làm thủ tục hoàn thuế TNCN cho cá nhân có nhu cầu</td><td><em>Dựa theo hồ sơ</em></td></tr>
+<tr><td>Tư vấn, xử lý hồ sơ lỗi, hỗ trợ các vấn đề về thuế TNCN</td><td><em>Dựa theo hồ sơ</em></td></tr>
+<tr><td>Hỗ trợ lên tờ khai quý và quyết toán năm thuế TNCN cho đơn vị</td><td><em>Dựa theo hồ sơ</em></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <p class="pfoot">Chi phí đi lại (nếu có) tính riêng, hai bên thoả thuận trước khi thực hiện.</p>
+    </div>
+
+    <div class="contact-box glow reveal">
+      <div>
+        <span class="eyebrow">Liên hệ tư vấn</span>
+        <h3>Chị Huyền · 0948 387 418</h3>
+        <p>Nhắn Zalo hoặc gọi để được báo phí đúng với hồ sơ của bạn.</p>
+      </div>
+      <div class="cb-actions">
+        <a class="cta" href="https://zalo.me/0948387418" target="_blank" rel="noopener">Nhắn Zalo chị Huyền <span class="arrow">→</span></a>
+        <a class="btn-line" href="tel:0948387418"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg>Gọi 0948 387 418</a>
+        <a class="pdf-link" href="assets/bang-gia-dich-vu-wifinance.pdf" target="_blank" rel="noopener" download>Tải bảng giá PDF</a>
+      </div>
     </div>
   </div>
 </section>
@@ -667,8 +861,8 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="eyebrow">Dành cho ai</span>
-      <h2>Chương trình này dành cho bạn nếu…</h2>
-      <p>Dành cho Cộng đồng 300 DNS · Khởi nghiệp Kinh doanh số</p>
+      <h2>Lộ trình này dành cho bạn nếu…</h2>
+      <p>Dành cho chủ doanh nghiệp nhỏ, hộ kinh doanh và người kinh doanh online</p>
     </div>
     <div class="cards3">
       <article class="aud glow reveal">
@@ -695,7 +889,7 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="eyebrow">3 nỗi lo lớn nhất</span>
-      <h2>Bạn đang gặp điều nào? 2 buổi tối này dành để gỡ đúng 3 điều đó</h2>
+      <h2>Bạn đang gặp điều nào? Đã có sẵn bước để gỡ đúng điều đó</h2>
       <p>Đây là ba điều người kinh doanh số hay hỏi nhất về thuế và hồ sơ.</p>
     </div>
 
@@ -708,10 +902,10 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
         </article>
         <div class="bridge" aria-hidden="true"><span>→</span></div>
         <article class="sol glow">
-          <div class="k">Bạn mang về</div>
-          <h3>Biết rõ hướng đăng ký của chính mình</h3>
-          <p>Bạn mô tả đúng hoạt động của mình để chọn mã ngành, kiểm tra mình có thuộc diện được miễn đăng ký không, rồi so sánh hộ kinh doanh với công ty để tự chọn hình thức hợp với mình. Bạn được tặng bộ mã ngành gần với mô hình của 300 DNS.</p>
-          <span class="when">Buổi 1 · 17/10</span>
+          <div class="k">Cách gỡ</div>
+          <h3>Chọn đúng hình thức, đăng ký gọn gàng</h3>
+          <p>Workshop giúp bạn mô tả đúng hoạt động, chọn mã ngành và so sánh hộ kinh doanh với công ty. Khi đã chọn xong, dịch vụ đăng ký kinh doanh lo phần thủ tục cho bạn.</p>
+          <span class="when">Workshop · Đăng ký kinh doanh</span>
         </article>
       </div>
 
@@ -723,10 +917,10 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
         </article>
         <div class="bridge" aria-hidden="true"><span>→</span></div>
         <article class="sol glow">
-          <div class="k">Bạn mang về</div>
-          <h3>Biết theo dõi doanh thu và hiểu nghĩa vụ của mình</h3>
-          <p>Bạn biết cách theo dõi doanh thu từ nhiều kênh và xác định nghĩa vụ thuế, hoá đơn theo đúng trường hợp thực tế của mình. Có thêm phần hỏi đáp các tình huống tiêu biểu.</p>
-          <span class="when">Buổi 1 · 17/10</span>
+          <div class="k">Cách gỡ</div>
+          <h3>Có người giải đáp đúng trường hợp của bạn</h3>
+          <p>Gói Hỏi đáp kế toán thuế đồng hành cả năm, giúp bạn hiểu cách theo dõi doanh thu từ nhiều kênh và nghĩa vụ thuế, hoá đơn theo trường hợp thực tế.</p>
+          <span class="when">Hỏi đáp kế toán thuế</span>
         </article>
       </div>
 
@@ -738,10 +932,10 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
         </article>
         <div class="bridge" aria-hidden="true"><span>→</span></div>
         <article class="sol glow">
-          <div class="k">Bạn mang về</div>
-          <h3>Biết cách lưu hồ sơ và có kế hoạch 7 ngày</h3>
-          <p>Bạn hiểu các loại chứng từ bán hàng, mua hàng, thu tiền, chi tiền, biết lưu hồ sơ chi phí, và ra về với kế hoạch hoàn thiện hồ sơ trong 7 ngày tới.</p>
-          <span class="when">Buổi 2 · 18/10</span>
+          <div class="k">Cách gỡ</div>
+          <h3>Hồ sơ, sổ sách được làm gọn theo quý</h3>
+          <p>Bạn biết các loại chứng từ bán hàng, mua hàng, thu tiền, chi tiền cần giữ. Nếu không có thời gian tự làm, dịch vụ kế toán thuế theo quý hỗ trợ hoá đơn, kê khai và sổ sách cho bạn.</p>
+          <span class="when">Kế toán thuế</span>
         </article>
       </div>
     </div>
@@ -753,7 +947,7 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="eyebrow">Bạn không hỏi một mình</span>
-      <h2>Những câu hỏi cộng đồng đã gửi về trước chương trình</h2>
+      <h2>Những câu hỏi cộng đồng thường gửi về</h2>
       <p>Trích từ câu hỏi thật của thành viên, đã lược bớt thông tin cá nhân.</p>
     </div>
     <div class="qwall">
@@ -776,9 +970,9 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
         <blockquote>“Thuế thu nhập cá nhân, thuế hộ kinh doanh, thuế công ty TNHH và công ty cổ phần khác nhau thế nào?”</blockquote>
       </figure>
     </div>
-    <p class="qwall-foot reveal">Câu hỏi của bạn chưa có ở đây? Hãy vào nhóm Zalo và gửi trước chương trình.</p>
+    <p class="qwall-foot reveal">Câu hỏi của bạn chưa có ở đây? Hỏi Trợ lý Thuế ở góc phải màn hình, hoặc gửi vào cộng đồng Facebook.</p>
     <div style="text-align:center;margin-top:30px" class="reveal">
-      <a class="cta js-zalo" href="#tham-gia">👉 Vào nhóm Zalo gửi câu hỏi của bạn <span class="arrow">→</span></a>
+      <a class="cta" href="https://www.facebook.com/groups/hieuthuedung" target="_blank" rel="noopener">Tham gia cộng đồng Facebook <span class="arrow">→</span></a>
     </div>
   </div>
 </section>
@@ -787,8 +981,8 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
 <section class="dark" id="dau-hieu">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="eyebrow">Đừng bỏ lỡ nếu…</span>
-      <h2>Những dấu hiệu cho thấy bạn nên có mặt</h2>
+      <span class="eyebrow">Bạn có đang…</span>
+      <h2>Những dấu hiệu cho thấy bạn nên có người đồng hành</h2>
       <p>Đánh dấu thử xem bạn thấy mình trong bao nhiêu câu.</p>
     </div>
     <ul class="signs">
@@ -801,97 +995,13 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
       <li class="glow reveal">Bạn có câu hỏi về thuế mà chưa biết hỏi ai cho đúng.</li>
       <li class="glow reveal">Bạn muốn yên tâm tập trung bán hàng, không phải tự mò về giấy tờ một mình.</li>
     </ul>
-    <p class="signs-foot reveal">Nếu bạn thấy mình trong <b>từ 2 câu trở lên</b>, hai buổi tối này là dành cho bạn.</p>
+    <p class="signs-foot reveal">Nếu bạn thấy mình trong <b>từ 2 câu trở lên</b>, hãy bắt đầu từ bước phù hợp trong lộ trình.</p>
 
     <div class="reasons">
-      <div class="reason glow reveal"><b>Chỉ 2 tối</b><span>Mỗi tối 90 phút trên Zoom, học ngay tại nhà.</span></div>
+      <div class="reason glow reveal"><b>Bắt đầu miễn phí</b><span>Tham gia cộng đồng kế toán – thuế, không mất phí.</span></div>
       <div class="reason glow reveal"><b>Người làm nghề trả lời</b><span>Chị Kim Thanh, Trưởng ban Kế toán Thuế, giải đáp tình huống thực tế.</span></div>
-      <div class="reason glow reveal"><b>Ra về có việc để làm</b><span>Có hướng đăng ký và kế hoạch hoàn thiện hồ sơ 7 ngày, không chỉ nghe lý thuyết.</span></div>
-      <div class="reason glow reveal"><b>Tài trợ 100% vé</b><span>Vé niêm yết 599.000đ, thành viên cộng đồng chỉ cần vào nhóm Zalo.</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ KẾT QUẢ ============ -->
-<section class="results" id="ket-qua">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="eyebrow">Sau 2 buổi</span>
-      <h2>Kết quả bạn nhận được</h2>
-    </div>
-    <div class="cards2">
-      <article class="res glow reveal">
-        <span class="day">01</span>
-        <div class="label">Kết quả ngày 1</div>
-        <h3>Xác định rõ những nội dung cần rà soát và các câu hỏi cần được giải đáp.</h3>
-      </article>
-      <article class="res glow reveal">
-        <span class="day">02</span>
-        <div class="label">Kết quả ngày 2</div>
-        <h3>Có định hướng và kế hoạch hành động để hoàn thiện hồ sơ, bắt đầu kinh doanh vững vàng.</h3>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ============ NỘI DUNG CHƯƠNG TRÌNH ============ -->
-<section class="dark" id="noi-dung">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="eyebrow">Nội dung chương trình</span>
-      <h2>2 buổi tối, đi từ hiểu đúng đến làm đúng</h2>
-    </div>
-
-    <div class="sessions">
-      <article class="session glow reveal">
-        <div class="s-top"><span class="pill">BUỔI 1</span><span class="when">17/10/2026 · 20:00–21:30</span></div>
-        <h3>Doanh thu tăng — tôi cần hiểu và chuẩn bị gì về thuế?</h3>
-        <div class="parts">
-          <div class="part">
-            <span class="who">Chị Hoàng Thu Hà chia sẻ</span>
-            <h4>Thuận với nhà nước, thuận với pháp lý ngay từ đầu</h4>
-            <ul>
-              <li>Ba phía cùng thuận: nhà nước, người đi trước, người dân.</li>
-              <li>Hiểu đúng luật chơi, để thông tin kinh doanh nằm đúng chỗ.</li>
-              <li>Ba câu tự soi: mình đã thuận chưa?</li>
-            </ul>
-          </div>
-          <div class="part">
-            <span class="who">Chị Kim Thanh chia sẻ</span>
-            <h4>Nhận diện mô hình và nghĩa vụ thuế</h4>
-            <ul>
-              <li>Có cần đăng ký kinh doanh không, nên chọn hộ kinh doanh hay công ty.</li>
-              <li>Theo dõi doanh thu từ nhiều kênh; nghĩa vụ thuế, hoá đơn theo trường hợp thực tế.</li>
-            </ul>
-          </div>
-        </div>
-      </article>
-      <article class="session glow reveal">
-        <div class="s-top"><span class="pill">BUỔI 2</span><span class="when">18/10/2026 · 20:00–21:30</span></div>
-        <h3>Hồ sơ, hoá đơn, sổ sách — chuẩn bị từ đầu để kinh doanh vững vàng</h3>
-        <div class="parts">
-          <div class="part">
-            <span class="who">Chị Kim Thanh chia sẻ</span>
-            <h4>Chứng từ và hồ sơ chi phí</h4>
-            <ul>
-              <li>Chứng từ bán hàng, mua hàng, thu tiền, chi tiền.</li>
-              <li>Hồ sơ chi phí và cách lưu trữ.</li>
-              <li>Lập kế hoạch hoàn thiện hồ sơ trong 7 ngày tới.</li>
-            </ul>
-          </div>
-          <div class="part">
-            <span class="who">Hỏi đáp</span>
-            <h4>Giải đáp tình huống thực tế</h4>
-            <ul>
-              <li>Chị Hà điều phối, chị Kim Thanh trả lời các câu hỏi về thuế và hồ sơ.</li>
-            </ul>
-          </div>
-        </div>
-      </article>
-    </div>
-
-    <div style="text-align:center;margin-top:44px" class="reveal">
-      <a class="cta lg js-zalo" href="#tham-gia">👉 Đăng ký giữ chỗ — tham gia nhóm Zalo <span class="arrow">→</span></a>
+      <div class="reason glow reveal"><b>Đồng hành cả năm</b><span>Gói Hỏi đáp kế toán thuế 1.999.000đ/năm, hỏi khi bạn cần.</span></div>
+      <div class="reason glow reveal"><b>Bảng giá rõ ràng</b><span>Biết trước chi phí từng dịch vụ trước khi bắt đầu.</span></div>
     </div>
   </div>
 </section>
@@ -900,8 +1010,8 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
 <section id="dien-gia">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="eyebrow">Diễn giả</span>
-      <h2>Người đồng hành cùng bạn 2 buổi tối</h2>
+      <span class="eyebrow">Đội ngũ</span>
+      <h2>Người đồng hành cùng bạn</h2>
     </div>
     <div class="speakers">
       <article class="spk ha glow reveal">
@@ -931,39 +1041,36 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
   </div>
 </section>
 
-<!-- ============ CÁCH THAM GIA ============ -->
+<!-- ============ KẾT NỐI ============ -->
 <section class="join" id="tham-gia">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="eyebrow">Vé tài trợ 100%</span>
-      <h2>Cách tham gia</h2>
-      <p>2 bước đơn giản để nhận link Zoom cả 2 buổi.</p>
+      <span class="eyebrow">Kết nối</span>
+      <h2>Kết nối với WI.FINANCE</h2>
+      <p>Chọn kênh thuận tiện nhất với bạn.</p>
     </div>
-    <div class="steps">
+    <div class="steps three">
       <article class="step glow reveal">
         <div class="n">1</div>
-        <h3>Tham gia nhóm Zalo</h3>
-        <p>Quét mã QR hoặc bấm vào liên kết để tham gia nhóm Zalo của chương trình.</p>
-        <div class="qr" id="qrBox" hidden><img id="qrImg" alt="Mã QR nhóm Zalo chương trình"></div>
-        <a class="cta sm mini js-zalo" href="#tham-gia">Tham gia nhóm Zalo <span class="arrow">→</span></a>
+        <h3>Cộng đồng Facebook</h3>
+        <p>Nhóm “Hiểu thuế đúng”: kiến thức kế toán, thuế dễ hiểu, miễn phí.</p>
+        <div class="qr"><img src="assets/fb-qr.png" alt="Mã QR nhóm Facebook Hiểu thuế đúng" width="480" height="480" loading="lazy"></div>
+        <a class="cta sm mini" href="https://www.facebook.com/groups/hieuthuedung" target="_blank" rel="noopener">Tham gia nhóm Facebook <span class="arrow">→</span></a>
       </article>
       <article class="step glow reveal">
         <div class="n">2</div>
-        <h3>Nhận link Zoom</h3>
-        <p>Ban tổ chức gửi link Zoom và hướng dẫn tham dự trong nhóm.</p>
-        <div class="chat-mock" role="img" aria-label="Minh hoạ tin nhắn trong nhóm Zalo: ban tổ chức gửi link Zoom Buổi 1 lúc 20:00 ngày 17/10">
-          <div class="cm-head"><span class="cm-ava">W</span><div><b>WI.FINANCE – Hiểu thuế đúng</b><small>Nhóm Zalo chương trình</small></div></div>
-          <div class="cm-body">
-            <div class="cm-msg"><small>Ban tổ chức</small>Chào cả nhà! Đây là link Zoom cho 2 buổi tối.</div>
-            <div class="cm-card">
-              <span class="cm-cam"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="3"/><path d="M16 10.5 22 7v10l-6-3.5"/></svg></span>
-              <div><b>Phòng Zoom · Hiểu thuế đúng</b><small>Buổi 1 · 20:00 · 17/10/2026</small><small>Buổi 2 · 20:00 · 18/10/2026</small></div>
-            </div>
-            <div class="cm-btn">Vào phòng Zoom</div>
-            <div class="cm-msg"><small>Ban tổ chức</small>Cả nhà vào trước 10 phút, đổi tên theo dạng “Tên – việc đang làm” nhé.</div>
-            <div class="cm-me">Đã nhận ạ 👍</div>
-          </div>
-        </div>
+        <h3>Nhóm Zalo chương trình</h3>
+        <p>Nhận lịch workshop và thông báo mới từ WI.FINANCE.</p>
+        <div class="qr" id="qrBox" hidden><img id="qrImg" alt="Mã QR nhóm Zalo chương trình"></div>
+        <a class="cta sm mini js-zalo" href="#tham-gia">Vào nhóm Zalo <span class="arrow">→</span></a>
+      </article>
+      <article class="step glow reveal">
+        <div class="n">3</div>
+        <h3>Tư vấn trực tiếp</h3>
+        <p>Chị Huyền tư vấn dịch vụ và báo phí theo hồ sơ của bạn.</p>
+        <a class="phone-big" href="tel:0948387418">0948 387 418</a>
+        <a class="cta sm mini" href="https://zalo.me/0948387418" target="_blank" rel="noopener">Nhắn Zalo chị Huyền <span class="arrow">→</span></a>
+        <a class="btn-line sm" href="tel:0948387418"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg>Gọi ngay</a>
       </article>
     </div>
   </div>
@@ -978,36 +1085,36 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
     </div>
     <div class="faq">
       <details class="glow reveal" open>
-        <summary>Chương trình có mất phí không?</summary>
-        <div class="ans"><p>Vé niêm yết là 599.000đ cho 2 buổi. Thành viên cộng đồng 300 DNS được tài trợ 100% vé, chỉ cần tham gia nhóm Zalo của chương trình để nhận link Zoom.</p></div>
+        <summary>Cộng đồng kế toán – thuế có mất phí không?</summary>
+        <div class="ans"><p>Không. Cộng đồng “Hiểu thuế đúng” trên Facebook hoàn toàn miễn phí, chia sẻ kiến thức kế toán, thuế thường xuyên.</p></div>
       </details>
       <details class="glow reveal">
-        <summary>Tôi chưa kinh doanh, có nên tham gia không?</summary>
-        <div class="ans"><p>Rất nên. Buổi 1 giúp bạn mô tả đúng hoạt động, chọn mã ngành và chọn hình thức đăng ký trước khi bắt đầu. Làm đúng từ đầu thì đỡ phải sửa về sau.</p></div>
+        <summary>Gói Hỏi đáp kế toán thuế gồm những gì?</summary>
+        <div class="ans"><p>Gói đồng hành 12 tháng, giá 1.999.000đ/năm. Khi doanh nghiệp gặp câu hỏi về kế toán, thuế, bạn hỏi trong nhóm đồng hành và được chị Kim Thanh giải đáp, chị Hà điều phối.</p></div>
       </details>
       <details class="glow reveal">
-        <summary>Tôi đã có hộ kinh doanh hoặc công ty rồi, còn cần không?</summary>
-        <div class="ans"><p>Có. Buổi 2 tập trung vào chứng từ, hồ sơ chi phí, cách lưu trữ và kế hoạch hoàn thiện hồ sơ, giúp phần giấy tờ của bạn gọn gàng hơn.</p></div>
+        <summary>Phí kế toán thuế được tính thế nào?</summary>
+        <div class="ans"><p>Phí tính theo quý, dựa trên tổng số hoá đơn vào và ra trong quý, và theo loại hình thương mại hay dịch vụ. Bạn xem chi tiết ở tab “Kế toán thuế” trong bảng giá.</p></div>
       </details>
       <details class="glow reveal">
-        <summary>Tôi có được hỏi tình huống riêng của mình không?</summary>
-        <div class="ans"><p>Có. Bạn gõ câu hỏi vào khung chat hoặc Q&amp;A trong buổi học, hoặc gửi trước trong nhóm Zalo. Câu hỏi nào cần xem hồ sơ cụ thể sẽ được hẹn trả lời trong nhóm.</p></div>
+        <summary>Bảng giá đã gồm chi phí đi lại chưa?</summary>
+        <div class="ans"><p>Chưa. Chi phí đi lại (nếu có) tính riêng, hai bên thoả thuận trước khi thực hiện.</p></div>
       </details>
       <details class="glow reveal">
-        <summary>Tôi cần chuẩn bị gì trước buổi học?</summary>
-        <div class="ans"><p>Bạn chuẩn bị giấy bút, kèm một câu mô tả ngắn việc kinh doanh của mình: bán gì, cho ai, qua kênh nào. Nhớ vào phòng Zoom trước 10 phút, chương trình bắt đầu đúng 20:00.</p></div>
+        <summary>Dịch vụ thuế TNCN “dựa theo hồ sơ” nghĩa là sao?</summary>
+        <div class="ans"><p>Với các việc như hoàn thuế hay xử lý hồ sơ thiếu chứng từ, phí phụ thuộc tình trạng hồ sơ thực tế. Bạn liên hệ chị Huyền để được báo phí trước khi làm.</p></div>
       </details>
       <details class="glow reveal">
-        <summary>Học qua đâu? Nhận link ở đâu?</summary>
-        <div class="ans"><p>Bạn học qua Zoom. Link Zoom và hướng dẫn tham dự được gửi trong nhóm Zalo của chương trình.</p></div>
+        <summary>Khi nào có workshop tiếp theo?</summary>
+        <div class="ans"><p>Bạn vào nhóm Zalo hoặc nhắn chị Huyền để được báo lịch khi có workshop mới.</p></div>
       </details>
       <details class="glow reveal">
-        <summary>Nội dung có thay cho tư vấn thuế riêng được không?</summary>
-        <div class="ans"><p>Chương trình mang tính chia sẻ kiến thức và kinh nghiệm thực tế. Nội dung không thay thế tư vấn thuế, pháp lý cho trường hợp cụ thể của từng người.</p></div>
+        <summary>Nội dung chia sẻ có thay cho tư vấn thuế riêng được không?</summary>
+        <div class="ans"><p>Nội dung trong cộng đồng, workshop và Trợ lý Thuế mang tính chia sẻ kiến thức, không thay thế tư vấn cho trường hợp cụ thể. Khi cần xử lý hồ sơ riêng, bạn liên hệ chị Huyền.</p></div>
       </details>
     </div>
     <div style="text-align:center;margin-top:44px" class="reveal">
-      <a class="cta lg js-zalo" href="#tham-gia">👉 Tham gia nhóm Zalo nhận vé tài trợ 100% <span class="arrow">→</span></a>
+      <a class="cta lg" href="https://zalo.me/0948387418" target="_blank" rel="noopener">Nhắn Zalo chị Huyền <span class="arrow">→</span></a>
     </div>
   </div>
 </section>
@@ -1019,45 +1126,34 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
     <circle cx="420" cy="360" r="150" fill="none" stroke="rgba(110,155,234,.22)"/>
   </svg>
   <div class="wrap reveal" style="position:relative">
-    <span class="eyebrow">17 &amp; 18/10/2026 · 20:00 · Zoom</span>
-    <h2>Bắt đầu kinh doanh đúng từ đầu, cùng cộng đồng</h2>
-    <p>Vé niêm yết 599.000đ / 2 buổi, tài trợ 100% cho thành viên cộng đồng, kèm quà workbook trị giá 199.000đ trao trong buổi học. Tham gia nhóm Zalo để nhận link Zoom.</p>
-    <div class="countdown glow" data-cd>
-      <div class="cd-label"><span class="dot"></span><span data-cd-label>Buổi 1 bắt đầu sau</span></div>
-      <div class="cd-grid" data-cd-grid>
-        <div class="cd-unit"><b data-u="d">00</b><small>Ngày</small></div><span class="cd-sep">:</span>
-        <div class="cd-unit"><b data-u="h">00</b><small>Giờ</small></div><span class="cd-sep">:</span>
-        <div class="cd-unit"><b data-u="m">00</b><small>Phút</small></div><span class="cd-sep">:</span>
-        <div class="cd-unit"><b data-u="s">00</b><small>Giây</small></div>
-      </div>
-      <div class="cd-live" data-cd-live hidden></div>
+    <span class="eyebrow">WI.FINANCE · Tài Chính Tâm Thức</span>
+    <h2>Bắt đầu đúng từ đầu, có người đồng hành</h2>
+    <p>Tham gia cộng đồng miễn phí, hoặc nhắn chị Huyền để được tư vấn bước phù hợp với doanh nghiệp của bạn.</p>
+    <div class="final-actions">
+      <a class="cta lg" href="https://zalo.me/0948387418" target="_blank" rel="noopener">Nhắn Zalo chị Huyền <span class="arrow">→</span></a>
+      <a class="btn-line light" href="tel:0948387418"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg>Gọi 0948 387 418</a>
     </div>
-    <a class="cta lg js-zalo" href="#tham-gia">👉 Tham gia nhóm Zalo để nhận link Zoom <span class="arrow">→</span></a>
-    <p class="note">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-      <span>Vui lòng vào phòng Zoom trước 10 phút. Chương trình bắt đầu đúng 20:00.</span>
-    </p>
+    <p class="final-sub"><a href="https://www.facebook.com/groups/hieuthuedung" target="_blank" rel="noopener">Tham gia cộng đồng Facebook “Hiểu thuế đúng”</a></p>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
     <img class="logo" src="assets/wifinance-logo.png" alt="WI.FINANCE" loading="lazy" width="900" height="267">
-    <p class="disc">Chương trình mang tính chia sẻ kiến thức và kinh nghiệm thực tế. Nội dung không thay thế tư vấn thuế, pháp lý cho trường hợp cụ thể của từng người.</p>
+    <p class="fcontact">Liên hệ: Chị Huyền · <a href="tel:0948387418">0948 387 418</a> · <a href="https://zalo.me/0948387418" target="_blank" rel="noopener">Zalo</a> · <a href="https://www.facebook.com/groups/hieuthuedung" target="_blank" rel="noopener">Cộng đồng Facebook</a></p>
+    <p class="disc">Nội dung chia sẻ mang tính tham khảo, không thay thế tư vấn thuế, pháp lý cho trường hợp cụ thể của từng người. Chi phí đi lại (nếu có) tính riêng.</p>
     <div class="copy">© 2026 WI.FINANCE — Tài Chính Tâm Thức</div>
   </div>
 </footer>
 
 <div class="sticky" id="sticky">
-  <a class="cta js-zalo" href="#tham-gia">👉 Tham gia nhóm Zalo nhận vé tài trợ 100%</a>
+  <a class="cta" href="https://zalo.me/0948387418" target="_blank" rel="noopener">Nhắn Zalo nhận tư vấn</a>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
-/* ===== ĐIỀN SAU ===== */
 const ZALO_LINK = "https://zalo.me/g/3c1ladtyy6eyco7m2y2a";
 const ZALO_QR   = "assets/zalo-qr.png";
-/* ==================== */
 
 (function(){
   // Tất cả nút CTA trỏ về link Zalo
@@ -1083,34 +1179,31 @@ const ZALO_QR   = "assets/zalo-qr.png";
     document.getElementById("qrBox").hidden = false;
   }
 
-  // Đồng hồ đếm ngược theo giờ Việt Nam (UTC+7)
-  const T = t => new Date(t + "+07:00").getTime();
-  const PHASES = [
-    { until: T("2026-10-17T20:00:00"), label: "Buổi 1 bắt đầu sau", to: T("2026-10-17T20:00:00") },
-    { until: T("2026-10-17T21:30:00"), live: "Buổi 1 đang diễn ra trên Zoom. Link tham dự có trong nhóm Zalo." },
-    { until: T("2026-10-18T20:00:00"), label: "Buổi 2 bắt đầu sau", to: T("2026-10-18T20:00:00") },
-    { until: T("2026-10-18T21:30:00"), live: "Buổi 2 đang diễn ra trên Zoom. Link tham dự có trong nhóm Zalo." },
-    { until: Infinity, live: "Chương trình đã kết thúc. Cảm ơn bạn đã đồng hành!" }
-  ];
-  const cds = [...document.querySelectorAll("[data-cd]")];
-  const pad = n => String(n).padStart(2, "0");
-  function renderCd(){
-    const now = Date.now();
-    const ph = PHASES.find(p => now < p.until);
-    cds.forEach(cd => {
-      const grid = cd.querySelector("[data-cd-grid]"), live = cd.querySelector("[data-cd-live]");
-      cd.querySelector("[data-cd-label]").textContent = ph.label || "Trạng thái chương trình";
-      if (ph.live){ grid.hidden = true; live.hidden = false; live.textContent = ph.live; return; }
-      grid.hidden = false; live.hidden = true;
-      let t = Math.max(0, Math.floor((ph.to - now) / 1000));
-      const v = { d: Math.floor(t / 86400), h: Math.floor(t % 86400 / 3600), m: Math.floor(t % 3600 / 60), s: t % 60 };
-      for (const k in v){
-        const el = cd.querySelector('[data-u="' + k + '"]'), txt = pad(v[k]);
-        if (el.textContent !== txt){ el.textContent = txt; el.classList.remove("tick"); void el.offsetWidth; el.classList.add("tick"); }
-      }
+  // Dải thông báo sự kiện: ẩn sau thời điểm kết thúc (giờ Việt Nam)
+  const bar = document.getElementById("eventBar");
+  if (bar){
+    const until = new Date(bar.dataset.until + "+07:00").getTime();
+    const check = () => { if (Date.now() >= until) bar.hidden = true; };
+    check(); setInterval(check, 60000);
+  }
+
+  // Tab bảng giá
+  const tabs = [...document.querySelectorAll('.ptabs [role="tab"]')];
+  function selectTab(tab){
+    tabs.forEach(t => {
+      const on = t === tab;
+      t.setAttribute("aria-selected", on); t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
     });
   }
-  renderCd(); setInterval(renderCd, 1000);
+  tabs.forEach((t, i) => {
+    t.addEventListener("click", () => selectTab(t));
+    t.addEventListener("keydown", e => {
+      if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+      const next = tabs[(i + (e.key === "ArrowRight" ? 1 : tabs.length - 1)) % tabs.length];
+      selectTab(next); next.focus();
+    });
+  });
 
   // Hiện dần khi cuộn
   const io = new IntersectionObserver(entries => {
@@ -1122,7 +1215,7 @@ const ZALO_QR   = "assets/zalo-qr.png";
   const fine = matchMedia("(pointer: fine)").matches && !matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (fine){
     document.querySelectorAll(".glow").forEach(card => {
-      const tilt = card.classList.contains("fact") || card.classList.contains("ticket") || card.classList.contains("session") ? 2 : 5;
+      const tilt = card.classList.contains("fact") || card.classList.contains("contact-box") ? 2 : 5;
       card.addEventListener("pointermove", e => {
         const r = card.getBoundingClientRect();
         const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
