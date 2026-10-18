@@ -577,6 +577,46 @@ footer .fcontact a{ color: var(--coban-2); }
   .final-actions .cta, .final-actions .btn-line{ width: 100%; }
 }
 
+/* ====== Đội ngũ (6 thẻ) ====== */
+.team{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.mem{ overflow: hidden; display: grid; grid-template-rows: auto 1fr; }
+.mem .photo{ aspect-ratio: 4/5; overflow: hidden; border-radius: var(--radius) var(--radius) 0 0; background: var(--mist); }
+.mem .photo img{ width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+.mem.ha .photo img{ object-position: 50% 14%; }
+.mem.thanh .photo img{ object-position: 50% 8%; }
+.mem:hover .photo img{ transform: scale(1.05); }
+.mem .photo.ph{ display: grid; place-items: center; background: radial-gradient(420px 320px at 70% 20%, rgba(230,201,138,.28), transparent 60%), linear-gradient(160deg, var(--coban-2), var(--coban) 60%, var(--night)); }
+.mem .photo.ph span{ width: 112px; height: 112px; border-radius: 50%; display: grid; place-items: center; font: 700 40px/1 "Playfair Display", serif; color: var(--coban); background: radial-gradient(circle at 30% 30%, #fff, var(--champagne)); box-shadow: 0 0 0 6px rgba(230,201,138,.18), 0 0 40px rgba(200,155,60,.5); }
+.mem .body{ padding: 22px 24px 26px; }
+.mem .role{ font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); font-weight: 700; }
+.mem h3{ font-size: 22px; margin: 6px 0 14px; }
+.mem .ticks{ gap: 8px; }
+.mem .ticks li{ font-size: 14.5px; line-height: 1.55; }
+
+/* ====== Thẻ đội ngũ ở hero ====== */
+.team-strip{ display: flex; align-items: center; gap: 14px; margin-top: 18px; padding: 14px 18px; text-decoration: none; color: #EAF1FB; }
+.team-strip .avs{ display: flex; flex: none; }
+.team-strip .avs img, .team-strip .avs .more{ width: 44px; height: 44px; border-radius: 50%; object-fit: cover; object-position: 50% 15%; border: 2px solid var(--champagne); margin-left: -12px; background: var(--coban); }
+.team-strip .avs img:first-child{ margin-left: 0; }
+.team-strip .avs .more{ display: grid; place-items: center; font-weight: 700; font-size: 14px; color: var(--coban); background: var(--champagne); }
+.team-strip .ts-text{ display: grid; gap: 2px; min-width: 0; }
+.team-strip .ts-text b{ color: #fff; font-size: 15px; }
+.team-strip .ts-text span{ font-size: 13px; color: rgba(234,241,251,.75); line-height: 1.45; }
+.team-strip .ts-arrow{ margin-left: auto; color: var(--champagne); font-size: 20px; transition: transform .25s ease; }
+.team-strip:hover .ts-arrow{ transform: translateX(4px); }
+@media (max-width: 960px){ .team{ grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px){
+  .team{ grid-template-columns: 1fr; gap: 16px; }
+  .mem{ grid-template-columns: 116px 1fr; grid-template-rows: auto; }
+  .mem .photo{ border-radius: var(--radius) 0 0 var(--radius); aspect-ratio: auto; min-height: 100%; }
+  .mem .photo.ph span{ width: 64px; height: 64px; font-size: 24px; }
+  .mem .body{ padding: 16px 16px 18px; }
+  .mem h3{ font-size: 18px; margin: 4px 0 10px; }
+  .mem .ticks li{ font-size: 13.5px; padding-left: 26px; }
+  .team-strip{ padding: 12px 14px; }
+  .team-strip .ts-text span{ font-size: 12px; }
+}
+
 /* ====== Toast ====== */
 .toast{
   position: fixed; left: 50%; top: 84px; z-index: 80; transform: translate(-50%, -20px); opacity: 0;
@@ -703,6 +743,16 @@ footer .fcontact a{ color: var(--coban-2); }
           <figcaption><b>Chị Kim Thanh</b>Trưởng ban Kế toán Thuế</figcaption>
         </figure>
       </div>
+      <a class="team-strip glow" href="#dien-gia">
+        <span class="avs" aria-hidden="true">
+          <img src="assets/chi-kim-thanh.jpg" alt="" width="44" height="44">
+          <img src="assets/chi-minh-trang.jpg" alt="" width="44" height="44">
+          <img src="assets/chi-giang-huong.jpg" alt="" width="44" height="44">
+          <span class="more">+2</span>
+        </span>
+        <span class="ts-text"><b>Đội ngũ chuyên gia đồng hành</b><span>Kế toán trưởng 18 đến gần 27 năm kinh nghiệm, cùng hỗ trợ pháp lý doanh nghiệp</span></span>
+        <span class="ts-arrow" aria-hidden="true">→</span>
+      </a>
     </div>
   </div>
 
@@ -1021,29 +1071,55 @@ footer .fcontact a{ color: var(--coban-2); }
     <div class="sec-head reveal">
       <span class="eyebrow">Đội ngũ</span>
       <h2>Người đồng hành cùng bạn</h2>
+      <p>Đội ngũ kế toán trưởng và chuyên viên từ 18 đến gần 27 năm kinh nghiệm kế toán – thuế, cùng hỗ trợ pháp lý doanh nghiệp.</p>
     </div>
-    <div class="speakers">
-      <article class="spk ha glow reveal">
-        <div class="photo"><img src="assets/chi-hoang-thu-ha.jpg" alt="Chị Hoàng Thu Hà" loading="lazy" width="900" height="1139"></div>
+    <div class="team">
+      <article class="mem ha glow reveal">
+        <div class="photo"><img src="assets/chi-hoang-thu-ha.jpg" alt="Chị Hoàng Thu Hà" loading="lazy" width="720" height="900"></div>
         <div class="body">
           <div class="role">Chủ dự án WI.FINANCE</div>
           <h3>Chị Hoàng Thu Hà</h3>
-          <ul class="ticks">
-            <li>Chủ dự án WI.FINANCE</li>
-            <li>15 năm kinh doanh, giao thương Việt–Trung</li>
-            <li>Khai vấn nhân mệnh – khai vấn tài chính cá nhân</li>
-          </ul>
+          <ul class="ticks"><li>15 năm kinh doanh, giao thương Việt–Trung</li><li>Khai vấn nhân mệnh, khai vấn tài chính cá nhân</li></ul>
         </div>
       </article>
-      <article class="spk thanh glow reveal">
-        <div class="photo"><img src="assets/chi-kim-thanh.jpg" alt="Chị Dương Thị Kim Thanh" loading="lazy" width="900" height="976"></div>
+      <article class="mem thanh glow reveal">
+        <div class="photo"><img src="assets/chi-kim-thanh.jpg" alt="Chị Dương Thị Kim Thanh" loading="lazy" width="720" height="900"></div>
         <div class="body">
-          <div class="role">Kế toán Thuế</div>
+          <div class="role">Trưởng ban Kế toán Thuế</div>
           <h3>Chị Dương Thị Kim Thanh</h3>
-          <ul class="ticks">
-            <li>Trưởng ban Kế toán Thuế</li>
-            <li>Hơn 20 năm kinh nghiệm trong lĩnh vực Kế toán – Thuế</li>
-          </ul>
+          <ul class="ticks"><li>Hơn 20 năm kinh nghiệm Kế toán – Thuế, từng là Kế toán trưởng</li><li>Hiện cung cấp dịch vụ kế toán – thuế cho các doanh nghiệp</li></ul>
+        </div>
+      </article>
+      <article class="mem  glow reveal">
+        <div class="photo ph" role="img" aria-label="Chị Đào Thị Hoàng Hà"><span>ĐH</span></div><!-- ẢNH CẬP NHẬT SAU: thay div này bằng <div class="photo"><img src="assets/..." alt="Chị Đào Thị Hoàng Hà" loading="lazy" width="720" height="900"></div> -->
+        <div class="body">
+          <div class="role">Kế toán trưởng</div>
+          <h3>Chị Đào Thị Hoàng Hà</h3>
+          <ul class="ticks"><li>Gần 19 năm kinh nghiệm Kế toán – Thuế</li><li>Gần 9 năm giữ vai trò Kế toán trưởng, hiện là Kế toán trưởng doanh nghiệp</li></ul>
+        </div>
+      </article>
+      <article class="mem  glow reveal">
+        <div class="photo ph" role="img" aria-label="Chị Trương Thị Thu Hương"><span>TH</span></div><!-- ẢNH CẬP NHẬT SAU: thay div này bằng <div class="photo"><img src="assets/..." alt="Chị Trương Thị Thu Hương" loading="lazy" width="720" height="900"></div> -->
+        <div class="body">
+          <div class="role">Tài chính – Kế toán</div>
+          <h3>Chị Trương Thị Thu Hương</h3>
+          <ul class="ticks"><li>Gần 27 năm kinh nghiệm Tài chính – Kế toán doanh nghiệp vừa và nhỏ</li><li>Thương mại, dịch vụ, sản xuất, xây dựng</li><li>Gần 20 năm giữ chức vụ Kế toán trưởng</li></ul>
+        </div>
+      </article>
+      <article class="mem trang glow reveal">
+        <div class="photo"><img src="assets/chi-minh-trang.jpg" alt="Chị Lê Thị Minh Trang" loading="lazy" width="720" height="900"></div>
+        <div class="body">
+          <div class="role">Kế toán – Thuế</div>
+          <h3>Chị Lê Thị Minh Trang</h3>
+          <ul class="ticks"><li>18 năm kinh nghiệm Kế toán – Thuế</li><li>Chuyên viên phụ trách Kế toán thuế, Ban QLDA Đầu tư Xây dựng công trình giao thông tỉnh Quảng Trị</li></ul>
+        </div>
+      </article>
+      <article class="mem huong glow reveal">
+        <div class="photo"><img src="assets/chi-giang-huong.jpg" alt="Chị Giang Chi Hương" loading="lazy" width="720" height="900"></div>
+        <div class="body">
+          <div class="role">Pháp lý doanh nghiệp</div>
+          <h3>Chị Giang Chi Hương</h3>
+          <ul class="ticks"><li>Cán bộ phòng Hỗ trợ pháp lý doanh nghiệp, Trung tâm Công nghệ chống hàng giả ACT</li><li>Đơn vị trực thuộc Hiệp hội Chống hàng giả và Bảo vệ thương hiệu Việt Nam (VATAP)</li></ul>
         </div>
       </article>
     </div>
