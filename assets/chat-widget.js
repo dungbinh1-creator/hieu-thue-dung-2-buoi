@@ -28,7 +28,7 @@
 /* Nút mở */
 .wfc-launch{position:fixed;right:20px;bottom:20px;z-index:70;display:flex;align-items:center;gap:10px;height:52px;padding:0 18px 0 6px;border:0;border-radius:999px;cursor:pointer;
   color:#fff;background:var(--wc-ink);box-shadow:0 0 0 1px rgba(200,155,60,.5),0 12px 30px -10px rgba(11,42,91,.6);transition:bottom .35s ease,transform .2s ease,box-shadow .2s ease}
-.wfc-launch:hover{transform:translateY(-2px);box-shadow:0 0 0 1px var(--wc-gold),0 16px 36px -10px rgba(11,42,91,.7)}
+.wfc-launch:hover{transform:translateY(-2px);box-shadow:0 0 0 2px rgba(230,201,138,.6),0 0 20px 4px rgba(230,201,138,.7),0 0 40px 8px rgba(200,155,60,.45),0 16px 36px -10px rgba(11,42,91,.7)}
 .wfc-launch img{width:40px;height:40px;border-radius:50%;object-fit:cover;background:#fff;box-shadow:0 0 0 2px var(--wc-cham)}
 .wfc-launch span{font-weight:600;font-size:14.5px;letter-spacing:.01em}
 .wfc-launch.lift{bottom:88px}
@@ -77,12 +77,12 @@
 .wfc-input{flex:1;min-width:0;resize:none;border:0;outline:none;background:transparent;max-height:110px;padding:7px 0;font:14.5px/1.45 "Montserrat",system-ui,sans-serif;color:var(--wc-ink)}
 .wfc-input::placeholder{color:#8A97AD}
 .wfc .wfc-input:focus-visible{outline:none}
-.wfc-send{flex:none;width:38px;height:38px;border:0;border-radius:10px;cursor:pointer;display:grid;place-items:center;color:var(--wc-ink);background:var(--wc-cta);transition:opacity .15s,transform .15s}
-.wfc-send:hover:not(:disabled){transform:translateY(-1px)}
+.wfc-send{flex:none;width:38px;height:38px;border:0;border-radius:10px;cursor:pointer;display:grid;place-items:center;color:var(--wc-ink);background:var(--wc-cta);transition:opacity .15s,transform .15s,box-shadow .25s}
+.wfc-send:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 0 0 2px rgba(230,201,138,.6),0 0 20px 4px rgba(230,201,138,.7),0 0 40px 8px rgba(200,155,60,.45)}
 .wfc-send:disabled{opacity:.35;cursor:default}
 .wfc-meta{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:8px;font-size:11.5px;color:var(--wc-muted)}
-.wfc-hotline{flex:none;display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;font-size:12.5px;font-weight:700;color:var(--wc-ink);background:linear-gradient(110deg,var(--wc-gold),var(--wc-cham));text-decoration:none;white-space:nowrap;transition:transform .15s}
-.wfc-hotline:hover{transform:translateY(-1px)}
+.wfc-hotline{flex:none;display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;font-size:12.5px;font-weight:700;color:var(--wc-ink);background:linear-gradient(110deg,var(--wc-gold),var(--wc-cham));text-decoration:none;white-space:nowrap;transition:transform .15s,box-shadow .25s}
+.wfc-hotline:hover{transform:translateY(-1px);box-shadow:0 0 0 2px rgba(230,201,138,.6),0 0 20px 4px rgba(230,201,138,.7),0 0 40px 8px rgba(200,155,60,.45)}
 
 @media (max-width:640px){
   .wfc-launch{right:14px;bottom:14px;height:48px;padding:0 16px 0 5px}
