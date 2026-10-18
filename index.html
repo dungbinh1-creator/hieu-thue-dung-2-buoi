@@ -20,7 +20,7 @@
   --champagne: #E6C98A;
   --white: #FFFFFF;
   --mist: #EEF4FA;
-  --cta: #D9622B;
+  --cta: #C89B3C;
   --night: #071D40;
   --radius: 22px;
   --shadow: 0 18px 50px -24px rgba(11,42,91,.45);
@@ -68,11 +68,11 @@ section{ position: relative; padding: 96px 0; }
   min-height: var(--h); padding: 14px 30px;
   border: 0; border-radius: 999px; cursor: pointer;
   font: 700 16px/1.3 "Montserrat", sans-serif; letter-spacing: .01em;
-  color: #fff; text-decoration: none; text-align: center;
-  background: linear-gradient(110deg, #D9622B 0%, #E58A3A 25%, #C89B3C 45%, #E6C98A 55%, #D9622B 75%, #E58A3A 100%);
+  color: var(--coban); text-decoration: none; text-align: center;
+  background: linear-gradient(110deg, #B8872E 0%, #C89B3C 25%, #E6C98A 50%, #C89B3C 75%, #B8872E 100%);
   background-size: 300% 100%;
   animation: ctaFlow 6s linear infinite, ctaBreath 2.8s ease-in-out infinite;
-  text-shadow: 0 1px 2px rgba(120,45,10,.35);
+  text-shadow: 0 1px 0 rgba(255,250,235,.45);
   transition: transform .25s ease, filter .25s ease;
 }
 .cta::before{ /* vệt sáng lướt qua */
@@ -95,8 +95,8 @@ section{ position: relative; padding: 96px 0; }
 @keyframes ctaFlow{ to{ background-position: 300% 0; } }
 @keyframes shine{ 0%{ transform: translateX(-120%); } 55%,100%{ transform: translateX(120%); } }
 @keyframes ctaBreath{
-  0%,100%{ box-shadow: 0 10px 28px -10px rgba(217,98,43,.65), 0 0 0 0 rgba(230,201,138,.0); }
-  50%{ box-shadow: 0 14px 36px -10px rgba(217,98,43,.8), 0 0 0 8px rgba(230,201,138,.18); }
+  0%,100%{ box-shadow: 0 10px 28px -10px rgba(184,135,46,.7), 0 0 0 0 rgba(230,201,138,.0); }
+  50%{ box-shadow: 0 14px 36px -10px rgba(184,135,46,.85), 0 0 0 8px rgba(230,201,138,.22); }
 }
 
 /* ====== Glow card ====== */
@@ -290,9 +290,9 @@ section{ position: relative; padding: 96px 0; }
 .pains{ display: grid; gap: 22px; max-width: 1000px; margin: 0 auto; }
 .pair{ display: grid; grid-template-columns: 1fr 64px 1fr; align-items: stretch; }
 .pair .pain, .pair .sol{ padding: 28px 28px 26px; }
-.pair .pain{ --card-bg: #FFF8F3; }
+.pair .pain{ --card-bg: #F6F8FB; }
 .pair .k{ font-size: 12px; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; }
-.pair .pain .k{ color: var(--cta); }
+.pair .pain .k{ color: var(--coban-2); }
 .pair .sol .k{ color: var(--gold); }
 .pair h3{ font-size: 21px; margin-top: 8px; }
 .pair p{ margin: 10px 0 0; color: var(--coban-ink); }
@@ -405,7 +405,7 @@ section{ position: relative; padding: 96px 0; }
 .cm-card b{ display: block; font-size: 13.5px; }
 .cm-card small{ display: block; font-size: 12px; color: var(--coban-ink); }
 .cm-cam{ flex: none; width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; color: #fff; background: linear-gradient(140deg, var(--coban-2), var(--coban)); }
-.cm-btn{ text-align: center; padding: 9px; border-radius: 999px; font-weight: 700; font-size: 13px; color: #fff; background: linear-gradient(110deg, #D9622B, #E58A3A); }
+.cm-btn{ text-align: center; padding: 9px; border-radius: 999px; font-weight: 700; font-size: 13px; color: var(--coban); background: linear-gradient(110deg, #C89B3C, #E6C98A); }
 .cm-me{ justify-self: end; padding: 7px 12px; border-radius: 14px 4px 14px 14px; background: #D6E6FB; }
 /* ====== Final CTA ====== */
 .final{ text-align: center; padding: 110px 0 120px; overflow: hidden; }
@@ -437,8 +437,8 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
 /* ====== Countdown ====== */
 .countdown{ max-width: 560px; padding: 18px 20px 20px; margin: 0 0 28px; }
 .cd-label{ display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--champagne); margin-bottom: 14px; }
-.cd-label .dot{ width: 9px; height: 9px; border-radius: 50%; background: var(--cta); box-shadow: 0 0 0 0 rgba(217,98,43,.7); animation: livePulse 1.6s ease-out infinite; }
-@keyframes livePulse{ 70%{ box-shadow: 0 0 0 10px rgba(217,98,43,0); } 100%{ box-shadow: 0 0 0 0 rgba(217,98,43,0); } }
+.cd-label .dot{ width: 9px; height: 9px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 0 rgba(200,155,60,.7); animation: livePulse 1.6s ease-out infinite; }
+@keyframes livePulse{ 0%{ box-shadow: 0 0 0 0 rgba(230,201,138,.7); } 70%{ box-shadow: 0 0 0 10px rgba(230,201,138,0); } 100%{ box-shadow: 0 0 0 0 rgba(230,201,138,0); } }
 .cd-grid{ display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr; align-items: center; gap: 8px; }
 .cd-unit{
   position: relative; overflow: hidden; text-align: center; padding: 12px 4px 10px; border-radius: 16px;
@@ -465,7 +465,7 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
 .event-bar .wrap{ display: flex; align-items: center; gap: 12px; padding: 10px 0; font-size: 14px; }
 .event-bar p{ margin: 0; flex: 1; }
 .event-bar b{ color: var(--champagne); }
-.event-bar .dot{ flex: none; width: 9px; height: 9px; border-radius: 50%; background: var(--cta); animation: livePulse 1.6s ease-out infinite; }
+.event-bar .dot{ flex: none; width: 9px; height: 9px; border-radius: 50%; background: var(--champagne); animation: livePulse 1.6s ease-out infinite; }
 .ev-btn{ flex: none; padding: 7px 16px; border-radius: 999px; font-weight: 700; font-size: 13px; color: var(--coban); background: var(--champagne); text-decoration: none; }
 .hero .free a{ color: #fff; }
 .hero .free a[href^="tel:"]{ white-space: nowrap; }
@@ -493,8 +493,8 @@ footer .copy{ font-size: 12px; color: var(--coban-ink); }
   font-weight: 700; color: var(--coban); border: 2px solid var(--coban); transition: background .2s ease, color .2s ease;
 }
 .lbtn:hover{ background: var(--coban); color: #fff; }
-.lbtn.solid{ background: var(--gold); border-color: var(--gold); color: #fff; }
-.lbtn.solid:hover{ background: #B5872C; border-color: #B5872C; }
+.lbtn.solid{ background: linear-gradient(110deg, #C89B3C, #E6C98A); border-color: var(--gold); color: var(--coban); }
+.lbtn.solid:hover{ background: var(--champagne); border-color: var(--champagne); color: var(--coban); }
 .lcall{ display: block; margin-top: 10px; text-align: center; font-size: 13.5px; font-weight: 600; color: var(--coban-2); }
 .lcard.featured{ background: linear-gradient(165deg, var(--coban), var(--night)); color: #EAF1FB; transform: translateY(-14px); box-shadow: 0 0 0 1px rgba(230,201,138,.35), 0 30px 60px -26px rgba(11,42,91,.75); }
 .lcard.featured:hover{ transform: translateY(-18px); }
@@ -1245,6 +1245,6 @@ const ZALO_QR   = "assets/zalo-qr.png";
 </script>
 
 
-<script src="assets/chat-widget.js?v=20261015c" defer></script>
+<script src="assets/chat-widget.js?v=20261018a" defer></script>
 </body>
 </html>
