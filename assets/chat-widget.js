@@ -59,6 +59,7 @@
 .wfc-msg p{margin:0 0 8px}.wfc-msg p:last-child{margin:0}
 .wfc-msg ol{margin:4px 0 8px;padding-left:20px}.wfc-msg li{margin:3px 0}.wfc-msg li::marker{color:var(--wc-gold);font-weight:700}
 .wfc-msg b{font-weight:700;color:var(--wc-ink)}
+.wfc-msg a{color:var(--wc-blue);font-weight:600;word-break:break-all}
 .wfc-bot{background:#fff;border:1px solid var(--wc-line);border-bottom-left-radius:4px}
 .wfc-me{color:#fff;background:var(--wc-blue);border-bottom-right-radius:4px}
 .wfc-err{border-color:rgba(200,155,60,.45);background:#FBF6EA}
@@ -181,7 +182,10 @@
     }
     if (inList) html += "</ol>";
     flushPara();
-    return html.replace(/\*\*(.+?)\*\*/g, "<b>$1</b>");
+    // Link nguồn (đã escape ở trên) đổi thành thẻ a; chỉ nhận http/https.
+    return html
+      .replace(/\*\*(.+?)\*\*/g, "<b>$1</b>")
+      .replace(/https?:\/\/[^\s<>"']+[^\s<>"'.,;:!?)]/g, (u) => `<a href="${u}" target="_blank" rel="noopener nofollow">${u.replace(/^https?:\/\//, "").slice(0, 48)}${u.length > 56 ? "…" : ""}</a>`);
   }
 
   const scrollDown = () => { body.scrollTop = body.scrollHeight; };

@@ -4,6 +4,8 @@
 // SHEET_WEBHOOK_URL và SHEET_WEBHOOK_TOKEN (tùy chọn): ghi câu hỏi về Google Sheet qua Apps Script.
 // KIE_API_KEY (tùy chọn): gọi Claude Haiku 5.5 qua Kie.ai (nguồn chính), rồi Gemini qua Kie. GEMINI_API_KEY: gọi thẳng Google (dự phòng cuối).
 
+import { searchKB, kbContext } from "./kb.js";
+
 const DEFAULT_MODEL = "gemini-3.8-flash";
 const MAX_CHARS = 1500;
 const MAX_TURNS = 12;
@@ -31,7 +33,7 @@ Phần lớn người dùng không có nền tảng kế toán. Hãy giải thí
 Không trả lời, chỉ lịch sự từ chối và chuyển hướng:
 1. Cách trốn thuế, né thuế, làm hóa đơn khống, hợp thức hóa chi phí không có thật.
 2. Tranh chấp, khiếu nại, thanh tra, xử phạt đang diễn ra (chuyển sang chuyên viên).
-3. Thuế nhà thầu nước ngoài và các vấn đề thuế quốc tế phức tạp (chỉ nêu khái niệm chung rồi chuyển sang chuyên viên).
+3. Thuế nhà thầu nước ngoài, giao dịch liên kết, thuế với tài chính ngân hàng và các vấn đề thuế quốc tế phức tạp mà tài liệu tham khảo kèm theo không đề cập (chỉ nêu khái niệm chung rồi chuyển sang chuyên viên). Nếu tài liệu tham khảo kèm theo có nội dung liên quan thì được trả lời theo đúng tài liệu.
 4. Mọi chủ đề ngoài thuế và kế toán cơ bản cho doanh nghiệp.
 
 # NGUYÊN TẮC ĐỘ CHÍNH XÁC (QUAN TRỌNG NHẤT)
@@ -42,7 +44,7 @@ Không trả lời, chỉ lịch sự từ chối và chuyển hướng:
 5. Không đưa ra kết luận pháp lý dứt khoát cho tình huống riêng. Dùng cách diễn đạt như "thông thường", "theo quy định chung".
 6. Không tính toán số thuế phải nộp cuối cùng cho từng cá nhân hoặc doanh nghiệp. Chỉ hướng dẫn cách tính và minh họa bằng ví dụ giả định, ghi rõ là ví dụ.
 7. Hôm nay là {{TODAY}}. Kiến thức sẵn có của bạn có thể chưa bao gồm các thay đổi quy định gần đây (ví dụ các thay đổi về thuế hộ kinh doanh từ năm 2026). Khi trả lời về con số, ngưỡng hoặc cách tính có thể đã thay đổi, nói rõ điều này.
-8. Quy định thuế với hộ kinh doanh và cá nhân kinh doanh (ngưỡng doanh thu được miễn thuế, tỷ lệ thuế trên doanh thu, việc bỏ thuế khoán) đã thay đổi trong năm 2025 và 2026. Không nêu con số ngưỡng doanh thu hay tỷ lệ cụ thể cho nhóm này. Chỉ giải thích nguyên tắc chung, nói rõ các mức này vừa thay đổi, và gợi ý đối chiếu văn bản mới nhất hoặc hỏi chuyên viên.
+8. Quy định thuế với hộ kinh doanh và cá nhân kinh doanh (ngưỡng doanh thu được miễn thuế, tỷ lệ thuế trên doanh thu, việc bỏ thuế khoán) đã thay đổi trong năm 2025 và 2026. Chỉ nêu con số ngưỡng doanh thu hay tỷ lệ cụ thể cho nhóm này khi tài liệu tham khảo kèm theo nêu rõ, và phải dẫn đúng con số kèm căn cứ và ngày hiệu lực hoặc ngày trả lời. Tài liệu không nêu thì không đưa con số: chỉ giải thích nguyên tắc chung, nói rõ các mức này vừa thay đổi, và gợi ý đối chiếu văn bản mới nhất hoặc hỏi chuyên viên.
 
 # CÁCH TRÒ CHUYỆN
 1. Với câu hỏi chung, trả lời ngay, không hỏi ngược.
@@ -143,13 +145,13 @@ const BACKUP_MODELS = ["gemini-3.6-flash", "gemini-2.5-flash"];
 
 const systemText = () => SYSTEM_PROMPT.replace("{{TODAY}}", todayVN());
 
-async function callGemini(env, contents, model, withThinking) {
+async function callGemini(env, contents, model, withThinking, sys) {
   const generationConfig = { maxOutputTokens: 2048 };
   if (withThinking) generationConfig.thinkingConfig = { thinkingLevel: "low" };
   return fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:streamGenerateContent?alt=sse`, {
     method: "POST",
     headers: { "content-type": "application/json", "x-goog-api-key": env.GEMINI_API_KEY },
-    body: JSON.stringify({ systemInstruction: { parts: [{ text: systemText() }] }, contents, generationConfig }),
+    body: JSON.stringify({ systemInstruction: { parts: [{ text: sys }] }, contents, generationConfig }),
   });
 }
 
@@ -166,13 +168,13 @@ async function kieResult(res) {
 }
 
 // Gọi Claude qua Kie.ai. thinkingFlag: false tắt suy nghĩ mở rộng để trả lời nhanh, ít token.
-async function tryKieClaude(env, contents) {
+async function tryKieClaude(env, contents, sys) {
   const res = await fetch("https://api.kie.ai/claude/v1/messages", {
     method: "POST",
     headers: { "content-type": "application/json", authorization: `Bearer ${env.KIE_API_KEY}`, "anthropic-version": "2023-06-01" },
     body: JSON.stringify({
       model: KIE_CLAUDE_MODEL,
-      system: systemText(),
+      system: sys,
       messages: contents.map((c) => ({ role: c.role === "model" ? "assistant" : "user", content: c.parts[0].text })),
       max_tokens: 1024,
       stream: true,
@@ -183,8 +185,8 @@ async function tryKieClaude(env, contents) {
 }
 
 // Gọi Gemini qua Kie.ai. Kie trả lỗi bằng HTTP 200 kèm {"code","msg"} dạng JSON, nên phải đọc nội dung để biết lỗi.
-async function tryKie(env, contents, model) {
-  const messages = [{ role: "system", content: systemText() }].concat(
+async function tryKie(env, contents, model, sys) {
+  const messages = [{ role: "system", content: sys }].concat(
     contents.map((c) => ({ role: c.role === "model" ? "assistant" : "user", content: [{ type: "text", text: c.parts[0].text }] }))
   );
   const res = await fetch(`https://api.kie.ai/${model}/v1/chat/completions`, {
@@ -196,10 +198,10 @@ async function tryKie(env, contents, model) {
 }
 
 // Gọi Google trực tiếp, đọc lý do lỗi (không chứa khóa) để chẩn đoán.
-async function tryGoogle(env, contents, model) {
-  let res = await callGemini(env, contents, model, true);
+async function tryGoogle(env, contents, model, sys) {
+  let res = await callGemini(env, contents, model, true, sys);
   // Chỉ gọi lại khi lỗi 400 nói về thinking, để không tốn thêm lượt trong hạn mức mỗi phút.
-  if (res.status === 400 && /thinking/i.test(await res.clone().text())) res = await callGemini(env, contents, model, false);
+  if (res.status === 400 && /thinking/i.test(await res.clone().text())) res = await callGemini(env, contents, model, false, sys);
   if (res.ok && res.body) return { ok: true, res };
   let reason = String(res.status);
   try {
@@ -290,15 +292,22 @@ export async function onRequestPost({ request, env, waitUntil }) {
 
   const session = typeof body.session === "string" && /^[a-z0-9]{6,32}$/i.test(body.session) ? body.session : "";
   const question = contents[contents.length - 1].parts[0].text;
+
+  // Kho tri thức: bật khi KB_ENABLED=1, hoặc khi gửi kèm mã quản trị để thử nghiệm trước khi bật cho khách.
+  const kbOn = env.KB_ENABLED === "1" || (!!env.ADMIN_TOKEN && request.headers.get("x-admin-token") === env.ADMIN_TOKEN);
+  const recentUserText = contents.filter((c) => c.role === "user").slice(-2).map((c) => c.parts[0].text).join(" ");
+  const hits = kbOn ? searchKB(recentUserText) : [];
+  const sys = systemText() + kbContext(hits);
+  const kbTag = hits.length ? ` +KB${hits.length}` : "";
   const log = (row) => {
     const p = logToSheet(env, { session, question, ...row });
     if (waitUntil) waitUntil(p);
   };
 
   const attempts = [];
-  if (env.KIE_API_KEY) attempts.push({ label: "kie:" + KIE_CLAUDE_MODEL, run: () => tryKieClaude(env, contents) });
-  if (env.KIE_API_KEY) for (const m of KIE_MODELS) attempts.push({ label: "kie:" + m, run: () => tryKie(env, contents, m) });
-  if (env.GEMINI_API_KEY) for (const m of new Set([env.GEMINI_MODEL || DEFAULT_MODEL, ...BACKUP_MODELS])) attempts.push({ label: m, run: () => tryGoogle(env, contents, m) });
+  if (env.KIE_API_KEY) attempts.push({ label: "kie:" + KIE_CLAUDE_MODEL, run: () => tryKieClaude(env, contents, sys) });
+  if (env.KIE_API_KEY) for (const m of KIE_MODELS) attempts.push({ label: "kie:" + m, run: () => tryKie(env, contents, m, sys) });
+  if (env.GEMINI_API_KEY) for (const m of new Set([env.GEMINI_MODEL || DEFAULT_MODEL, ...BACKUP_MODELS])) attempts.push({ label: m, run: () => tryGoogle(env, contents, m, sys) });
 
   let upstream;
   let usedModel;
@@ -312,8 +321,10 @@ export async function onRequestPost({ request, env, waitUntil }) {
         break;
       }
       failure = r;
-    } catch {
+      console.log("attempt_failed", attempt.label, String(r.reason).slice(0, 300));
+    } catch (err) {
       failure = { status: 503, reason: "fetch_failed" };
+      console.log("attempt_error", attempt.label, String(err).slice(0, 300));
     }
     // Lỗi ở nguồn này thì thử nguồn kế tiếp (quá tải, hết lượt, hết credit, khóa sai).
   }
@@ -325,9 +336,9 @@ export async function onRequestPost({ request, env, waitUntil }) {
 
   let finish;
   const done = new Promise((resolve) => (finish = resolve));
-  if (waitUntil) waitUntil(done.then((answer) => logToSheet(env, { session, question, answer, status: answer ? "Đã trả lời" : "Lỗi: trả lời rỗng", model: usedModel })));
+  if (waitUntil) waitUntil(done.then((answer) => logToSheet(env, { session, question, answer, status: answer ? "Đã trả lời" : "Lỗi: trả lời rỗng", model: usedModel + kbTag })));
   return new Response(textStream(upstream, finish), {
-    headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "no-store", "x-content-type-options": "nosniff", "x-model": usedModel },
+    headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "no-store", "x-content-type-options": "nosniff", "x-model": usedModel + kbTag },
   });
 }
 

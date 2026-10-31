@@ -1,5 +1,6 @@
 // Worker bọc lại đúng logic của functions/api/chat.js, thêm CORS để landing gọi sang.
 import { onRequestPost } from "../functions/api/chat.js";
+import { handleDigest, handleRules } from "./digest.js";
 
 const ALLOWED_ORIGINS = ["https://ketoanthue.wifinance.com.vn", "https://hieu-thue-dung-2-buoi.pages.dev", "http://localhost:8788", "http://127.0.0.1:8788"];
 
@@ -17,6 +18,9 @@ function corsHeaders(origin) {
 
 export default {
   async fetch(request, env, ctx) {
+    // Đường nội bộ dựng kho tri thức (có mã bảo vệ ADMIN_TOKEN), không dùng CORS.
+    if (new URL(request.url).pathname === "/admin/digest" && request.method === "POST") return handleDigest(request, env);
+    if (new URL(request.url).pathname === "/admin/rules" && request.method === "POST") return handleRules(request, env);
     const cors = corsHeaders(request.headers.get("origin") || "");
     if (request.method === "OPTIONS") return new Response(null, { status: cors ? 204 : 403, headers: cors || {} });
     if (request.method !== "POST") return new Response(JSON.stringify({ error: "method_not_allowed" }), { status: 405, headers: { "content-type": "application/json" } });
