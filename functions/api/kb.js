@@ -31,7 +31,7 @@ const avgLen = docs.reduce((s, x) => s + x.len, 0) / N || 1;
 const df = new Map();
 for (const x of docs) for (const t of x.tf.keys()) df.set(t, (df.get(t) || 0) + 1);
 
-export function searchKB(query, limit = 3, minScore = 6) {
+export function searchKB(query, limit = 4, minScore = 6) {
   const q = [...new Set(terms(query))];
   if (!q.length) return [];
   const k1 = 1.4, b = 0.75;
@@ -46,8 +46,8 @@ export function searchKB(query, limit = 3, minScore = 6) {
       s += w * idf * ((f * (k1 + 1)) / (f + k1 * (1 - b + (b * x.len) / avgLen)));
     }
     if (s < minScore) continue;
-    // Ưu tiên: quy định mới > hỏi đáp năm 2026 > mục cũ hơn. Mục có căn cứ cũ (x) xếp sau cùng.
-    const rank = x.d.x ? 0.8 : x.d.y === "qd" ? 1.25 : /2026$/.test(x.d.n || x.d.h || "") ? 1.1 : 1;
+    // Ưu tiên: thư viện > quy định > hỏi đáp năm 2026 > mục cũ hơn. Mục có căn cứ cũ (x) xếp sau cùng.
+    const rank = x.d.x ? 0.8 : x.d.y === "tv" ? 1.6 : x.d.y === "qd" ? 1.25 : /2026$/.test(x.d.n || x.d.h || "") ? 1.1 : 1;
     scored.push({ s: s * rank, d: x.d });
   }
   scored.sort((a, b2) => b2.s - a.s);
@@ -58,7 +58,9 @@ export function searchKB(query, limit = 3, minScore = 6) {
 export function kbContext(hits) {
   if (!hits.length) return "";
   const parts = hits.map(({ d }, i) =>
-    d.y === "qd"
+    d.y === "tv"
+      ? `[${i + 1}] Loại: THƯ VIỆN WI.FINANCE. Chủ đề: ${d.t}. Mục: ${d.q}.\nNội dung: ${d.a}`
+      : d.y === "qd"
       ? [
           `[${i + 1}] Loại: QUY ĐỊNH. Chủ đề: ${d.t}.${d.e ? ` Hiệu lực từ ${d.e}.` : ""}`,
           `Nội dung: ${d.q} ${d.a}`,
@@ -79,13 +81,13 @@ export function kbContext(hits) {
   return `
 
 # TÀI LIỆU THAM KHẢO CHO CÂU HỎI NÀY
-Loại QUY ĐỊNH là quy định pháp luật đã tóm tắt. Loại HỎI ĐÁP là trả lời của cơ quan thuế trên Cổng hỏi đáp chính sách của Bộ Tài chính, viết cho trường hợp cụ thể của người hỏi khác.
+Loại THƯ VIỆN WI.FINANCE là nguồn chính về quy định mới và dịch vụ, ưu tiên cao nhất. Loại QUY ĐỊNH là quy định pháp luật đã tóm tắt. Loại HỎI ĐÁP là trả lời của cơ quan thuế trên Cổng hỏi đáp chính sách của Bộ Tài chính, viết cho trường hợp cụ thể của người hỏi khác.
 Cách dùng:
-1. Nếu tài liệu liên quan trực tiếp, trả lời bám theo tài liệu, và ưu tiên loại QUY ĐỊNH. Mọi con số (ngưỡng, tỷ lệ, mức tiền, thời hạn) chỉ được lấy đúng từ tài liệu dưới đây, không dùng số nhớ sẵn vì có thể đã cũ. Tài liệu không có con số đó thì không nêu số.
-2. Với loại QUY ĐỊNH, ghi ở cuối: "Căn cứ: [điều, văn bản], hiệu lực từ [ngày]". Thiếu ngày hiệu lực thì chỉ ghi căn cứ. Không nhắc tới tài liệu nội bộ hay người soạn.
+1. Nếu tài liệu liên quan trực tiếp, trả lời thẳng kết luận theo tài liệu, ưu tiên loại THƯ VIỆN WI.FINANCE rồi tới QUY ĐỊNH. Mọi con số (ngưỡng, tỷ lệ, mức tiền, thời hạn) chỉ được lấy đúng từ tài liệu dưới đây, không dùng số nhớ sẵn vì có thể đã cũ. Tài liệu không có con số đó thì không nêu số.
+2. Với loại THƯ VIỆN WI.FINANCE và QUY ĐỊNH, ghi: "Căn cứ: [điều, văn bản], hiệu lực từ [ngày]" theo đúng văn bản nêu trong tài liệu. Thiếu ngày hiệu lực thì chỉ ghi căn cứ. Không nhắc tới tài liệu nội bộ hay người soạn. Không ghi căn cứ pháp luật cho câu trả lời về giá và dịch vụ.
 3. Với loại HỎI ĐÁP, ghi ở cuối: "Tham khảo trả lời của [cơ quan] ngày [ngày]: [link]", và nói rõ đây là hướng dẫn cho một trường hợp cụ thể, người dùng nên đối chiếu với tình huống của mình.
 4. Nếu mục HỎI ĐÁP có ngày trước năm 2026 và liên quan tới hộ kinh doanh, thuế khoán hoặc thương mại điện tử, nhắc rằng quy định có thể đã thay đổi từ năm 2026.
-5. Nếu các mục nêu con số khác nhau, không tự chọn một con số: nói rõ quy định đã thay đổi qua các văn bản, nêu mức theo văn bản mới nhất có trong tài liệu kèm căn cứ, và gợi ý đối chiếu văn bản hiện hành.
+5. Nếu các mục nêu con số khác nhau, dùng con số của loại THƯ VIỆN WI.FINANCE. Không có loại đó thì nêu mức theo văn bản mới nhất có trong tài liệu kèm căn cứ.
 6. Nếu tài liệu không liên quan tới câu hỏi thì bỏ qua, không nhắc tới.
 
 ${parts.join("\n\n")}`;
