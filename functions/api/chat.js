@@ -143,6 +143,12 @@ const BACKUP_MODELS = ["gemini-3.6-flash", "gemini-2.5-flash"];
 
 const systemText = () => SYSTEM_PROMPT.replace("{{TODAY}}", todayVN());
 
+// Gemini dễ bỏ qua quy tắc nằm giữa prompt nên nhắc lại ở cuối.
+const FINAL_REMINDER = `
+
+# NHẮC LẠI TRƯỚC KHI TRẢ LỜI
+Với hộ kinh doanh, cá nhân kinh doanh, cá nhân cho thuê tài sản: nếu tài liệu tham khảo phía trên không nêu rõ ngưỡng doanh thu, tuyệt đối không nói một mức doanh thu cụ thể "phải nộp", "không phải nộp", "thuộc diện chịu thuế" hay "được miễn", và không tự nêu con số ngưỡng. Hãy nói rõ ngưỡng vừa thay đổi trong năm 2025 và 2026, chưa thể kết luận cho mức doanh thu này, và mời người dùng gọi Hotline để chuyên viên kiểm tra.`;
+
 async function callGemini(env, contents, model, withThinking, sys) {
   const generationConfig = { maxOutputTokens: 2048 };
   if (withThinking) generationConfig.thinkingConfig = { thinkingLevel: "low" };
@@ -275,7 +281,7 @@ export async function onRequestPost({ request, env, waitUntil }) {
   const kbOn = env.KB_ENABLED === "1" || (!!env.ADMIN_TOKEN && request.headers.get("x-admin-token") === env.ADMIN_TOKEN);
   const recentUserText = contents.filter((c) => c.role === "user").slice(-2).map((c) => c.parts[0].text).join(" ");
   const hits = kbOn ? searchKB(recentUserText) : [];
-  const sys = systemText() + kbContext(hits);
+  const sys = systemText() + kbContext(hits) + FINAL_REMINDER;
   const kbTag = hits.length ? ` +KB${hits.length}` : "";
   const log = (row) => {
     const p = logToSheet(env, { session, question, ...row });

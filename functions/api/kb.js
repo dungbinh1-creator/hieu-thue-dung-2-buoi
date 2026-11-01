@@ -81,7 +81,7 @@ export function kbContext(hits) {
 # TÀI LIỆU THAM KHẢO CHO CÂU HỎI NÀY
 Loại QUY ĐỊNH là quy định pháp luật đã tóm tắt. Loại HỎI ĐÁP là trả lời của cơ quan thuế trên Cổng hỏi đáp chính sách của Bộ Tài chính, viết cho trường hợp cụ thể của người hỏi khác.
 Cách dùng:
-1. Nếu tài liệu liên quan trực tiếp, trả lời bám theo tài liệu, giữ đúng con số, và ưu tiên loại QUY ĐỊNH.
+1. Nếu tài liệu liên quan trực tiếp, trả lời bám theo tài liệu, và ưu tiên loại QUY ĐỊNH. Mọi con số (ngưỡng, tỷ lệ, mức tiền, thời hạn) chỉ được lấy đúng từ tài liệu dưới đây, không dùng số nhớ sẵn vì có thể đã cũ. Tài liệu không có con số đó thì không nêu số.
 2. Với loại QUY ĐỊNH, ghi ở cuối: "Căn cứ: [điều, văn bản], hiệu lực từ [ngày]". Thiếu ngày hiệu lực thì chỉ ghi căn cứ. Không nhắc tới tài liệu nội bộ hay người soạn.
 3. Với loại HỎI ĐÁP, ghi ở cuối: "Tham khảo trả lời của [cơ quan] ngày [ngày]: [link]", và nói rõ đây là hướng dẫn cho một trường hợp cụ thể, người dùng nên đối chiếu với tình huống của mình.
 4. Nếu mục HỎI ĐÁP có ngày trước năm 2026 và liên quan tới hộ kinh doanh, thuế khoán hoặc thương mại điện tử, nhắc rằng quy định có thể đã thay đổi từ năm 2026.
