@@ -27,7 +27,7 @@
 
 /* Nút mở */
 .wfc-launch{position:fixed;right:20px;bottom:20px;z-index:70;display:flex;align-items:center;gap:10px;height:52px;padding:0 18px 0 6px;border:0;border-radius:999px;cursor:pointer;
-  color:#fff;background:var(--wc-ink);box-shadow:0 0 0 1px rgba(200,155,60,.5),0 12px 30px -10px rgba(11,42,91,.6);transition:bottom .35s ease,transform .2s ease,box-shadow .2s ease}
+  color:var(--on-blue,#fff);background:var(--bg-blue-2,#0449AC);box-shadow:0 0 0 1px rgba(200,155,60,.5),0 12px 30px -10px rgba(11,42,91,.6);transition:bottom .35s ease,transform .2s ease,box-shadow .2s ease}
 .wfc-launch:hover{transform:translateY(-2px);box-shadow:0 0 0 2px rgba(230,201,138,.6),0 0 20px 4px rgba(230,201,138,.7),0 0 40px 8px rgba(200,155,60,.45),0 16px 36px -10px rgba(11,42,91,.7)}
 .wfc-launch img{width:40px;height:40px;border-radius:50%;object-fit:cover;background:#fff;box-shadow:0 0 0 2px var(--wc-cham)}
 .wfc-launch span{font-weight:600;font-size:14.5px;letter-spacing:.01em}
@@ -41,7 +41,7 @@
 .wfc-panel[hidden]{display:none}
 @keyframes wfcIn{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
 
-.wfc-head{margin:0;display:flex;align-items:center;gap:12px;padding:14px 12px 14px 16px;color:#fff;background:var(--wc-ink);border-bottom:2px solid var(--wc-gold)}
+.wfc-head{margin:0;display:flex;align-items:center;gap:12px;padding:14px 12px 14px 16px;color:var(--on-blue,#fff);background:var(--bg-blue-2,#0449AC);border-bottom:2px solid var(--wc-gold)}
 .wfc-head img{flex:none;width:40px;height:40px;border-radius:50%;object-fit:cover;background:#fff}
 .wfc-title{flex:1;min-width:0}
 .wfc-title b{display:block;font:700 15.5px/1.3 "Playfair Display",Georgia,serif;letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
