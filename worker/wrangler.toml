@@ -8,3 +8,7 @@ workers_dev = true
 
 [placement]
 region = "gcp:us-central1"
+
+# Bật kho tri thức cho khách. Xoá dòng này rồi deploy lại để tắt.
+[vars]
+KB_ENABLED = "1"

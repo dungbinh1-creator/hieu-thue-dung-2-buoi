@@ -67,7 +67,7 @@ export function kbContext(hits) {
           .filter(Boolean)
           .join("\n")
       : [
-          `[${i + 1}] Loại: HỎI ĐÁP. Chủ đề: ${d.t}. Cơ quan trả lời: ${d.c || "cơ quan thuế"}${d.n ? `, ngày ${d.n}` : ""}.`,
+          `[${i + 1}] Loại: HỎI ĐÁP. Chủ đề: ${d.t}. Cơ quan trả lời: ${d.c || "cơ quan thuế"}${d.n ? `, ngày ${d.n}` : d.h ? `, câu hỏi gửi ngày ${d.h}` : ""}.`,
           `Hỏi: ${d.q}`,
           `Trả lời: ${d.a}`,
           d.v && d.v.length ? `Căn cứ: ${d.v.join("; ")}` : "",
@@ -79,7 +79,7 @@ export function kbContext(hits) {
   return `
 
 # TÀI LIỆU THAM KHẢO CHO CÂU HỎI NÀY
-Các mục dưới đây đã được chuyên viên duyệt. Loại QUY ĐỊNH là quy định pháp luật đã tóm tắt. Loại HỎI ĐÁP là trả lời của cơ quan thuế trên Cổng hỏi đáp chính sách của Bộ Tài chính, viết cho trường hợp cụ thể của người hỏi khác.
+Loại QUY ĐỊNH là quy định pháp luật đã tóm tắt. Loại HỎI ĐÁP là trả lời của cơ quan thuế trên Cổng hỏi đáp chính sách của Bộ Tài chính, viết cho trường hợp cụ thể của người hỏi khác.
 Cách dùng:
 1. Nếu tài liệu liên quan trực tiếp, trả lời bám theo tài liệu, giữ đúng con số, và ưu tiên loại QUY ĐỊNH.
 2. Với loại QUY ĐỊNH, ghi ở cuối: "Căn cứ: [điều, văn bản], hiệu lực từ [ngày]". Thiếu ngày hiệu lực thì chỉ ghi căn cứ. Không nhắc tới tài liệu nội bộ hay người soạn.
