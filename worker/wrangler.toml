@@ -4,7 +4,7 @@
 name = "wifinance-tax-chat"
 main = "index.js"
 compatibility_date = "2026-10-01"
-workers_dev = true
+workers_dev = false
 # Tên miền riêng, không phụ thuộc tên miền phụ workers.dev của tài khoản.
 routes = [{ pattern = "chatbot-thue.wifinance.com.vn", custom_domain = true }]
 
