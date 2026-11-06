@@ -2,7 +2,7 @@
    Chỉ cần một dòng trong index.html: <script src="assets/chat-widget.js" defer></script> */
 (() => {
   // Gọi Worker (chạy vùng Mỹ) vì Gemini chặn máy chủ Cloudflare ở Hồng Kông.
-  const API = "https://wifinance-tax-chat.dungbinh1.workers.dev";
+  const API = "https://wifinance-tax-chat.tamlyhocduong.workers.dev";
   const HOTLINE = "0948 387 418";
   const SESSION_KEY = "wf-tax-session";
   const AVATAR = "assets/wifinance-icon.jpg";
