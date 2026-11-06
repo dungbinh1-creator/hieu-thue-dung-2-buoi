@@ -5,6 +5,8 @@ name = "wifinance-tax-chat"
 main = "index.js"
 compatibility_date = "2026-10-01"
 workers_dev = true
+# Tên miền riêng, không phụ thuộc tên miền phụ workers.dev của tài khoản.
+routes = [{ pattern = "chatbot-thue.wifinance.com.vn", custom_domain = true }]
 
 [placement]
 region = "gcp:us-central1"
@@ -12,3 +14,4 @@ region = "gcp:us-central1"
 # Bật kho tri thức cho khách. Xoá dòng này rồi deploy lại để tắt.
 [vars]
 KB_ENABLED = "1"
+
