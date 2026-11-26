@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hiểu thuế đúng · WI.FINANCE</title>
-<meta name="description" content="Đồng hành kế toán, thuế cho chủ doanh nghiệp nhỏ và hộ kinh doanh: cộng đồng miễn phí, workshop, hỏi đáp kế toán thuế cả năm và bảng giá dịch vụ rõ ràng.">
+<meta name="description" content="Đồng hành kế toán, thuế cho chủ doanh nghiệp nhỏ và hộ kinh doanh: cộng đồng miễn phí, workshop và hỏi đáp kế toán thuế cả năm.">
 <link rel="icon" href="assets/wifinance-icon.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -66,6 +66,7 @@ section{ position: relative; padding: 96px 0; }
 .topbar .wrap{ display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 0; }
 .topbar .logo img{ width: 270px; height: auto; }
 
+[hidden]{ display: none !important; }
 /* ====== CTA button ====== */
 .cta{
   --h: 60px;
@@ -327,7 +328,7 @@ section{ position: relative; padding: 96px 0; }
 .signs li::after{ content: "✓"; z-index: 3; position: absolute; left: 18px; top: 16px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: 14px; font-weight: 700; color: var(--coban); background: radial-gradient(circle at 30% 30%, #fff, var(--champagne)); }
 .signs-foot{ text-align: center; max-width: 720px; margin: 40px auto 0; color: var(--on-blue); }
 .signs-foot b{ color: var(--on-blue-gold); }
-.reasons{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; max-width: 1060px; margin: 52px auto 0; }
+.reasons{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; max-width: 1060px; margin: 52px auto 0; }
 .reason{ padding: 24px 22px; }
 .reason b{ display: block; font-family: "Playfair Display", serif; font-size: 19px; color: var(--on-blue); }
 .reason span{ display: block; margin-top: 8px; font-size: 14.5px; color: var(--on-blue); }
@@ -586,7 +587,7 @@ footer .fcontact a{ color: var(--on-blue-gold); }
 }
 
 /* ====== Đội ngũ (5 thẻ) ====== */
-.team{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.team{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
 .mem{ overflow: hidden; display: grid; grid-template-rows: auto 1fr; }
 .mem .photo{ aspect-ratio: 4/5; overflow: hidden; border-radius: var(--radius) var(--radius) 0 0; background: var(--mist); }
 .mem .photo img{ width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; transition: transform .8s cubic-bezier(.2,.7,.2,1); }
@@ -602,7 +603,7 @@ footer .fcontact a{ color: var(--on-blue-gold); }
 .mem .ticks li{ font-size: 14.5px; line-height: 1.55; }
 
 /* ====== Đội ngũ ở hero (chân dung nhỏ) ====== */
-.crew{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 8px; }
+.crew{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 8px; }
 .portrait.sm{ aspect-ratio: 2/3; border-radius: 16px; }
 .portrait.sm img{ object-position: 50% 6%; }
 .portrait.sm .mono{ position: absolute; inset: 0; display: grid; justify-items: center; align-content: start; padding-top: 24%; border-radius: inherit;
@@ -736,7 +737,7 @@ footer .fcontact a{ color: var(--on-blue-gold); }
       <a class="cta lg" href="#lo-trinh">Xem lộ trình đồng hành <span class="arrow">→</span></a>
       <p class="free">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-        <span><a href="#bang-gia">Xem bảng giá dịch vụ</a> · Liên hệ chị Huyền <a href="tel:0948387418"><b>0948 387 418</b></a></span>
+        <span>Liên hệ chị Huyền <a href="tel:0948387418"><b>0948 387 418</b></a></span>
       </p>
     </div>
 
@@ -759,10 +760,6 @@ footer .fcontact a{ color: var(--on-blue-gold); }
         <figure class="portrait sm trang glow">
           <img src="assets/chi-minh-trang.jpg?v=2" alt="Chị Lê Thị Minh Trang" width="720" height="900" loading="lazy">
           <figcaption><b>Chị Minh Trang</b>Kế toán – Thuế</figcaption>
-        </figure>
-        <figure class="portrait sm huong glow">
-          <img src="assets/chi-giang-huong.jpg" alt="Chị Giang Chi Hương" width="720" height="900" loading="lazy">
-          <figcaption><b>Chị Chi Hương</b>Pháp lý doanh nghiệp</figcaption>
         </figure>
       </div>
       <a class="crew-link" href="#dien-gia">Xem đầy đủ đội ngũ chuyên gia <span aria-hidden="true">→</span></a>
@@ -825,7 +822,7 @@ footer .fcontact a{ color: var(--on-blue-gold); }
 </section>
 
 <!-- ============ BẢNG GIÁ DỊCH VỤ ============ -->
-<section id="bang-gia">
+<section id="bang-gia" hidden><!-- Sếp cho ẩn 26/11/2026, bỏ "hidden" để hiện lại -->
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="eyebrow">Bảng giá dịch vụ</span>
@@ -1073,7 +1070,7 @@ footer .fcontact a{ color: var(--on-blue-gold); }
       <div class="reason glow reveal"><b>Bắt đầu miễn phí</b><span>Tham gia cộng đồng kế toán – thuế, không mất phí.</span></div>
       <div class="reason glow reveal"><b>Người làm nghề trả lời</b><span>Chị Kim Thanh, Trưởng ban Kế toán Thuế, giải đáp tình huống thực tế.</span></div>
       <div class="reason glow reveal"><b>Đồng hành cả năm</b><span>Gói Hỏi đáp kế toán thuế 1.999.000đ/năm, hỏi khi bạn cần.</span></div>
-      <div class="reason glow reveal"><b>Bảng giá rõ ràng</b><span>Biết trước chi phí từng dịch vụ trước khi bắt đầu.</span></div>
+      <div class="reason glow reveal" hidden><b>Bảng giá rõ ràng</b><span>Biết trước chi phí từng dịch vụ trước khi bắt đầu.</span></div>
     </div>
   </div>
 </section>
@@ -1084,7 +1081,7 @@ footer .fcontact a{ color: var(--on-blue-gold); }
     <div class="sec-head reveal">
       <span class="eyebrow">Đội ngũ</span>
       <h2>Người đồng hành cùng bạn</h2>
-      <p>Đội ngũ kế toán trưởng và chuyên viên từ 18 đến gần 27 năm kinh nghiệm kế toán – thuế, cùng hỗ trợ pháp lý doanh nghiệp.</p>
+      <p>Đội ngũ kế toán trưởng và chuyên viên từ 18 đến gần 27 năm kinh nghiệm kế toán – thuế.</p>
     </div>
     <div class="team">
       <article class="mem ha glow reveal">
@@ -1117,14 +1114,6 @@ footer .fcontact a{ color: var(--on-blue-gold); }
           <div class="role">Kế toán – Thuế</div>
           <h3>Chị Lê Thị Minh Trang</h3>
           <ul class="ticks"><li>18 năm kinh nghiệm Kế toán – Thuế</li><li>Chuyên viên phụ trách Kế toán thuế, Ban QLDA Đầu tư Xây dựng công trình giao thông tỉnh Quảng Trị</li></ul>
-        </div>
-      </article>
-      <article class="mem huong glow reveal">
-        <div class="photo"><img src="assets/chi-giang-huong.jpg" alt="Chị Giang Chi Hương" loading="lazy" width="720" height="900"></div>
-        <div class="body">
-          <div class="role">Pháp lý doanh nghiệp</div>
-          <h3>Chị Giang Chi Hương</h3>
-          <ul class="ticks"><li>Cán bộ phòng Hỗ trợ pháp lý doanh nghiệp, Trung tâm Công nghệ chống hàng giả ACT</li><li>Đơn vị trực thuộc Hiệp hội Chống hàng giả và Bảo vệ thương hiệu Việt Nam (VATAP)</li></ul>
         </div>
       </article>
     </div>
@@ -1182,11 +1171,11 @@ footer .fcontact a{ color: var(--on-blue-gold); }
         <summary>Gói Hỏi đáp kế toán thuế gồm những gì?</summary>
         <div class="ans"><p>Gói đồng hành 12 tháng, giá 1.999.000đ/năm. Khi doanh nghiệp gặp câu hỏi về kế toán, thuế, bạn hỏi trong nhóm đồng hành và được chị Kim Thanh giải đáp, chị Hà điều phối.</p></div>
       </details>
-      <details class="glow reveal">
+      <details class="glow reveal" hidden>
         <summary>Phí kế toán thuế được tính thế nào?</summary>
         <div class="ans"><p>Phí tính theo quý, dựa trên tổng số hoá đơn vào và ra trong quý, và theo loại hình thương mại hay dịch vụ. Bạn xem chi tiết ở tab “Kế toán thuế” trong bảng giá.</p></div>
       </details>
-      <details class="glow reveal">
+      <details class="glow reveal" hidden>
         <summary>Bảng giá đã gồm thuế và chi phí đi lại chưa?</summary>
         <div class="ans"><p>Chưa. Bảng giá dịch vụ chưa bao gồm thuế, chi phí đi lại và lưu trú. Các khoản này được trao đổi rõ trước khi thực hiện.</p></div>
       </details>
@@ -1231,7 +1220,7 @@ footer .fcontact a{ color: var(--on-blue-gold); }
   <div class="wrap">
     <img class="logo" src="https://wifinance.com.vn/images/logo-ngang-dark-v2.webp" alt="WI.FINANCE" loading="lazy" width="900" height="267">
     <p class="fcontact">Liên hệ: Chị Huyền · <a href="tel:0948387418">0948 387 418</a> · <a href="https://zalo.me/0948387418" target="_blank" rel="noopener">Zalo</a> · <a href="https://www.facebook.com/groups/hieuthuedung" target="_blank" rel="noopener">Cộng đồng Facebook</a></p>
-    <p class="disc">Nội dung chia sẻ mang tính tham khảo, không thay thế tư vấn thuế, pháp lý cho trường hợp cụ thể của từng người. Bảng giá dịch vụ chưa bao gồm thuế, chi phí đi lại và lưu trú.</p>
+    <p class="disc">Nội dung chia sẻ mang tính tham khảo, không thay thế tư vấn thuế, pháp lý cho trường hợp cụ thể của từng người.</p>
     <div class="copy">© 2026 WI.FINANCE — Tài Chính Tâm Thức</div>
   </div>
 </footer>
